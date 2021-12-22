@@ -1,0 +1,11 @@
+.color{
+  font-size: large;
+  color:black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;  
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+}
