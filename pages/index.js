@@ -55,7 +55,7 @@ export default function Home({catagories,products}) {
  
 
  
-<div>
+<div key={product.id}>
  <Product key={product.id} id={product.id}  img={product.image} description={product.description} price={cheapest(product.stocks)} name={product.name} />
 </div>
 ))}
