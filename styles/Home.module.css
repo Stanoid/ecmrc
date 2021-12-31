@@ -14,4 +14,15 @@ color: black;
 
 .ptfont{
   font-family: 'PT Sans', sans-serif;
+
+}
+
+
+.test{
+ background-image: url("../public/ji.jpg");
+
+}
+.nextimg{
+ object-fit: cover;
+ border-radius: 5px;
 }

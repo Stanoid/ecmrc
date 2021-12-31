@@ -27,7 +27,7 @@ export default function Loign (){
 <div style={{padding:15,height:'100%',display:'flex',justifyContent:'center',alignItems:'center',textAlign:'center'}}>
 
 
-<div style={{marginTop:30}}>
+<div style={{marginTop:100}}>
 
 <h1 className={Styles.maintype}>Login or Sign up</h1>
 <div className={Styles.subtype}>

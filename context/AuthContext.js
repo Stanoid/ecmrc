@@ -12,7 +12,7 @@ export const AuthProvider = (props)=>{
     const [loading,setLoading]= useState(false);
     const router = useRouter();
 
-
+   const hello ="hello from provider";
     /**
      * adds user to email
      * @param {string} email 

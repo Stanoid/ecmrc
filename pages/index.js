@@ -1,13 +1,28 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Nav from '../comps/nav'
 import { API_URL } from '../utils/url'
 import Product from '../comps/product/product'
 import DefaultLayout from '../layouts/Default'
 import Crumb from '../comps/crumb/crumb'
+import Hero from '../comps/hero'
+import { useRouter } from 'next/router'
 // import ProductList from '../comps/productlist/ProductList'
 export default function Home({catagories,products}) {
+ const router = useRouter();
+
+
+ const cheapest = (ob)=>{
+  let arrs=[];
+  ob.map(stock =>(
+   arrs.push(stock.stock_price)
+  ))
+
+  return Math.min(...arrs);
+
+ }
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -25,27 +40,34 @@ export default function Home({catagories,products}) {
 ))}
  </div>
 
-<div style={{padding:15,display:'flex',flexWrap:'wrap',justifyContent:"space-between"}}>
+ <div style={{marginBottom:100}} >
+ <Hero/>
+ </div>
+
+
+<div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column'}}>
+<h1 className="text-4xl font font-extrabold tracking-tight text-black sm:text-6xl p-10" style={{fontSize:40}}>
+               Latest Products:
+              </h1>
+<div className='grid grid-cols-2 gap-y-5   sm:grid-cols-2 gap-x-5 lg:grid-cols-6 xl:grid-cols-6 xl:gap-x-6 xl:gap-y-6 lg:gap-x-5 lg:gap-y-5'>
 
 {products.map(product=>(
- <Product description={product.description} price={product.price} name={product.name} />
+ 
+
+ 
+<div>
+ <Product key={product.id} id={product.id}  img={product.image} description={product.description} price={cheapest(product.stocks)} name={product.name} />
+</div>
 ))}
 
- {/* <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} />
- <Product name={"test"} /> */}
+<div style={{height:"100vh"}}></div>
+
+
 
 </div>
+
+</div>
+
 
 
   </DefaultLayout>
@@ -67,7 +89,8 @@ export async function getStaticProps(){
   return{
     props:{
       catagories,products
-    }
+    },
+    revalidate:60,
   }
 
 

@@ -66,7 +66,7 @@ export default function Account(){
             </Head>
             <div style={{padding:10}}>
 
-            <h1>
+            <h1 style={{marginTop:100}}>
              Account profile
             </h1>
 
@@ -98,7 +98,7 @@ export default function Account(){
                  {loading && <p>Loading your orders....</p>}
                 { orders&& orders.map(order=>(
                  
-                 <div style={{display:"flex",justifyContent:'space-between',alignItems:"center"}}>
+                 <div key={order.id} style={{display:"flex",justifyContent:'space-between',alignItems:"center"}}>
                 <div>
                     {order.id}
                 </div>

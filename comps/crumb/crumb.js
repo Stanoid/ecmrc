@@ -14,7 +14,7 @@ export default function Crumb(props) {
     return (
       
             
-<div style={{padding:"0px 7px 0px 7px",margin:2,border:`2px solid ${color}`,color:color,borderRadius:50,
+<div style={{padding:"0px 7px 0px 7px",margin:2,marginTop:90,border:`2px solid ${color}`,color:color,borderRadius:50,
 display:'inline-block'}}>
 {props.name}
 </div>
