@@ -351,7 +351,7 @@ return null
                   <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                   <div className="flex items-center space-x-3">
                     {productel.colors? productel.colors.map((color) => (
-                      <div  style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+                      <div key={color.color_name}  style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
                       <RadioGroup.Option
                         key={color.color_name}
                         
@@ -546,7 +546,7 @@ return {
         params:{id: String(product.id)}
     })),
    
-    fallback:true
+    fallback:false
 }
 
 }
