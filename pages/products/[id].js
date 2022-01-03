@@ -1,10 +1,12 @@
 import React ,{useState,useEffect,useContext} from 'react'
 import { useRouter } from 'next/router'
+import Link from 'next/link';
 import { API_URL,ROOT_URL,CURRENCY } from '../../utils/url';
 import DefaultLayout from '../../layouts/Default';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import Counter from '../../comps/counter';
 import { StarIcon } from '@heroicons/react/solid'
+import { MdClose } from 'react-icons/md';
 import { RadioGroup } from '@headlessui/react'
 import CartContext from '../../context/NotiContext';
 const product = {
@@ -72,49 +74,10 @@ export default function Product({productel}) {
   const [selectedSize, setSelectedSize] = useState(0)
   const [qty,setQty] = useState(1);
   const  ls = require('local-storage');
-  
+  const router = useRouter();
   const [qlimit,setQlimit] = useState(0)
   const [price,setPrice]=useState();
   const [hasof,setHasOf] = useState(0);
-  const notify = (type,msg)=>{
-
-    const options={
-      hideProgressBar:true,
-      draggable:true,
-      closeButton:false,
-      
-    }
-    switch(type){
-      case 'success':
-        toast.success(msg,options)
-        break;
-
-        case 'error':
-          toast.error(msg,options)
-          break;
-
-          case 'warn':
-            toast.warn(msg,options)
-            break;
-
-          
-
-    }
-   
-  }
-  const sizeHandler = (op)=>{
-    
-   setSelectedSize({id:op.id,name:op.option_name});
-   setPrice(op.stock_price)
-   setQlimit(op.stock)
-   setQty(0);
-   handleHasOf(op.id);
-  
-  }
-
-  const colorHandler = (value)=>{
-    setSelectedColor(value)
-  }
 
 
   useEffect(() => {
@@ -178,6 +141,70 @@ export default function Product({productel}) {
   
   },[]);
 
+
+
+  if(!productel){
+   return<DefaultLayout> <div style={{width:'100vw',height:'100vh',display:'flex'}}> 
+   <div style={{margin:'auto',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+     <MdClose style={{fontSize:150,padding:20,backgroundColor:'#F7819F',color:'white',borderRadius:'100%'}}/>
+     <div className='text-2xl font-sans mt-5'>
+     Nothing to see here
+     </div>
+
+     <div className='text-lg font-sans mt-5 ' style={{color:'blue',textDecoration:'underline'}}>
+       <Link href={"/"}>
+       Browse Products
+       </Link>
+   
+     </div>
+    
+   </div>
+    </div></DefaultLayout>
+  }
+
+
+  const notify = (type,msg)=>{
+
+    const options={
+      hideProgressBar:true,
+      draggable:true,
+      closeButton:false,
+      
+    }
+    switch(type){
+      case 'success':
+        toast.success(msg,options)
+        break;
+
+        case 'error':
+          toast.error(msg,options)
+          break;
+
+          case 'warn':
+            toast.warn(msg,options)
+            break;
+
+          
+
+    }
+   
+  }
+  const sizeHandler = (op)=>{
+    
+   setSelectedSize({id:op.id,name:op.option_name});
+   setPrice(op.stock_price)
+   setQlimit(op.stock)
+   setQty(0);
+   handleHasOf(op.id);
+  
+  }
+
+  const colorHandler = (value)=>{
+    setSelectedColor(value)
+  }
+
+
+ 
 
   const handleHasOf=(id)=>{
     const  cart = ls.get("cart");
@@ -285,7 +312,10 @@ return null
 
   }
 
- 
+
+  if(router.isFallback){
+    return <div>fallbacking...</div>
+  }
 
   return (
       <DefaultLayout>
@@ -512,7 +542,7 @@ return null
 }
 
 
-export async function getStaticProps({params:{id}}){
+export async function getServerSideProps({params:{id}}){
     const product_res = await fetch(`${API_URL}/products/?id=${id}`);
     const found = await product_res.json();
     const newfind = JSON.stringify(found[0])
@@ -522,31 +552,29 @@ export async function getStaticProps({params:{id}}){
       return {
         props:{
             productel: null
-        },
-        revalidate:10,
+        }
     }
     }else{
       return {
         props:{
             productel:found[0]
-        },
-        revalidate:10,
+        }
     }
     }
 
    
 }
 
-export async function getStaticPaths(){
-const product_res = await fetch(`${API_URL}/products`);
-const product = await product_res.json();
+// export async function getStaticPaths(){
+// const product_res = await fetch(`${API_URL}/products`);
+// const product = await product_res.json();
 
-return {
-    paths: product.map(product=>({
-        params:{id: String(product.id)}
-    })),
+// return {
+//     paths: product.map(product=>({
+//         params:{id: String(product.id)}
+//     })),
    
-    fallback:false
-}
+//     fallback:true
+// }
 
-}
+// }
