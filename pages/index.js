@@ -19,7 +19,7 @@ ls.set("promo",pros);
 
  const cheapest = (ob)=>{
   let arrs=[];
-  ob.map(stock =>(
+  ob.data.map(stock =>(
    arrs.push(stock.stock_price)
   ))
 
@@ -53,7 +53,7 @@ ls.set("promo",pros);
  
   <DefaultLayout>
  <div style={{margin:15,marginTop:0,overflow:'auto',whiteSpace:'nowrap',padding:'5px 0px 5px 0px'}}>
-{catagories.map(catagory=>(
+{catagories.data.map(catagory=>(
   <Crumb key={catagory.id} id={catagory.id} name={catagory.Name} />
 ))}
  </div>
@@ -71,12 +71,12 @@ ls.set("promo",pros);
 
 <div className='grid grid-cols-2 gap-y-5 sm:grid-cols-2 gap-x-5 lg:grid-cols-6 xl:grid-cols-6 xl:gap-x-6 xl:gap-y-6 lg:gap-x-5 lg:gap-y-5'>
 
-{products.map(product=>(
+{products.data.map(product=>(
  
 
  
 <div key={product.id}>
- <Product key={product.id} id={product.id}  img={product.image} description={product.description} price={cheapest(product.stocks)} name={product.name} />
+ <Product key={product.id} id={product.id}  img={product.attributes.image} description={product.attributes.description} price={cheapest(product.attributes.stocks)} name={product.attributes.name} />
 </div>
 ))}
 
@@ -97,18 +97,18 @@ ls.set("promo",pros);
               
 <div style={{margin:15,marginTop:0,overflow:'auto',whiteSpace:'nowrap',padding:'5px 0px 5px 0px'}}>
 
-{products.map(product=>(
+{products.data.map(product=>(
 
 <div key={product.id} className='shadow-inner' style={{height:200,width:200,marginRight:20,borderRadius:10,display:'inline-block'}}>
 <img
       style={{objectFit:'cover',width:'100%',height:'100%'}}
       
           className={styles.nextimg} 
-          src={ROOT_URL+product.image.hash+product.image.ext} 
+          src={ROOT_URL+product.attributes.image.data.attributes.hash+product.attributes.image.data.attributes.ext} 
           />
           <div  style={{display:'flex',justifyContent:'space-between',alignItems:"center", marginTop:10}}>
-            <div>{product.name.length>=9?product.name.slice(0,9)+"...":product.name}</div>
-            <div> <span style={{padding:4,backgroundColor:MAIN_STYLE.primary,color:'white',borderRadius:3}} className={styles.ptfont}>{`${cheapest(product.stocks)} ${CURRENCY}`}</span>
+            <div>{product.attributes.name.length>=9?product.attributes.name.slice(0,9)+"...":product.attributes.name}</div>
+            <div> <span style={{padding:4,backgroundColor:MAIN_STYLE.primary,color:'white',borderRadius:3}} className={styles.ptfont}>{`${cheapest(product.attributes.stocks)} ${CURRENCY}`}</span>
      </div>
 
             </div>
@@ -134,13 +134,14 @@ ls.set("promo",pros);
 export async function getServerSideProps(){
   const  ls = require('local-storage');
   const response = await fetch(`${API_URL}/catagories`);
-  const responseprod = await fetch(`${API_URL}/products`);
-  const promores = await fetch(`${API_URL}/promo`);
+  const responseprod = await fetch(`${API_URL}/products?populate=image,stocks`);
+  const promores = await fetch(`${API_URL}/promo?populate=image,resume`);
   const pros = await promores.json();
   ls.set("promo",pros);
   console.log("qqqqqqqqqqqqqqqqqqqqqqq",pros)
   const catagories = await response.json();
    ls.set("catagories",catagories);
+   console.log("ssssssssssssssssssssssssssssssssss",catagories)
   const products = await responseprod.json();
 // console.log(catagories);
 // console.log(products);

@@ -4,7 +4,7 @@ module.exports = {
 
   reactStrictMode: true,
   images: {
-    domains: ["192.168.43.110"],
+    domains: ["strsql.herokuapp.com"],
   },
 }
 

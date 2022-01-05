@@ -74,26 +74,26 @@ const Promo = (props) => {
       style={{objectFit:'cover',width:'50%',height:'50%',borderRadius:"100%",border:`3px solid ${MAIN_STYLE.primary}`,padding:3}}
       
           className={styles.nextimg} 
-          src={ROOT_URL+promos.image.hash+promos.image.ext} 
+          // src={ROOT_URL+promos.data.attributes.image.data.attributes.hash+promos.data.attributes.image.data.attributes.ext} 
           />
                    </div>
 
-                <div style={{fontWeight:'bold',textAlign:'center',fontSize:27,marginBottom:0,color:MAIN_STYLE.primary}}>{promos.name}</div> 
-                <div style={{textAlign:'center',fontSize:15,marginBottom:15}}>{promos.job}</div> 
-              <div>Email: <a style={{color:'blue',textDecoration:'underline'}} href={`mailto:${promos.email}`} >{promos.email}  </a></div> 
+                <div style={{fontWeight:'bold',textAlign:'center',fontSize:27,marginBottom:0,color:MAIN_STYLE.primary}}>{promos.data.attributes.name}</div> 
+                <div style={{textAlign:'center',fontSize:15,marginBottom:15}}>{promos.data.attributes.job}</div> 
+              <div>Email: <a style={{color:'blue',textDecoration:'underline'}} href={`mailto:${promos.data.attributes.email}`} >{promos.data.attributes.email}  </a></div> 
              
-              <div>Phone: {promos.phone}</div>  
-              <div> Twitter: {promos.twitter_link}</div>   
-              <div>Github: {promos.github_link}</div>   
-              <a href={`${API_URL}${promos.resume.url}`} >
+              <div>Phone: {promos.data.attributes.phone}</div>  
+              <div> Twitter: {promos.data.attributes.twitter_link}</div>   
+              <div>Github: {promos.data.attributes.github_link}</div>   
+              {/* <a href={`${API_URL}${promos.resume.url}`} > */}
               <div style={{display:"flex",cursor:'pointer',justifyContent:'center',margin:20,alignItems:'center',
               padding:10,borderRadius:10,backgroundColor:MAIN_STYLE.primary,color:'white'} } className='shadow-md hover:bg-white'>
                     Download full CV <MdDownload style={{marginLeft:5,fontSize:20}}/>
                     </div> 
-                    </a>
+                    {/* </a> */}
              <div className="text-lg font-medium text-gray-900 " style={{marginTop:10}}>Project:</div>
              <p style={{padding:5}}>
-                 {promos.project_desc}
+                 {promos.data.attributes.project_desc}
                    </p>
                 </div>
 
