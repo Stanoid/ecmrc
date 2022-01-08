@@ -62,17 +62,7 @@ const notify = (type,msg)=>{
                 }
             });
 
-        // const {data} = await axios.post(`${API_URL}/auth/local`, JSON.stringify({
-        //             "identifier":emial,
-        //            "password":pass
-        //         }),{headers:{"Content-Type": "application/json"}})
-        //         .catch((error)=>{
-        //         if(error.response){
-        //             console.log(error.response.data);
-        //         }
-        //         })
-
-        //         console.log(data)
+       
 
 
     }  
