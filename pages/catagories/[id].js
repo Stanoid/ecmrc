@@ -26,7 +26,7 @@ export default function Catagories({catagory}) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{catagory.Name} </title>
+        <title>{catagory.attributes.name} </title>
         <meta name="description" content="Bendari shop, experience the best shopping in sudan" />
         <meta name="theme-color"/>
         <link rel="icon" href="/favicon.ico" />
@@ -46,10 +46,10 @@ export default function Catagories({catagory}) {
               </h1>
 <div className='grid grid-cols-2 gap-y-5   sm:grid-cols-2 gap-x-5 lg:grid-cols-6 xl:grid-cols-6 xl:gap-x-6 xl:gap-y-6 lg:gap-x-5 lg:gap-y-5'>
 
-{catagory.products.map(product=>(
+{catagory.attributes.products.data.map(product=>(
 
 <div key={product.id}>
- <Product key={product.id} id={product.id}  img={product.image} description={product.description} price={cheapest(product.stocks)} name={product.name} />
+ <Product key={product.id} id={product.id}  img={product.attributes.image.data} description={product.attributes.description} price={cheapest(product.attributes.stocks.data)} name={product.attributes.name} />
 </div>
 ))}
 
@@ -70,12 +70,12 @@ export default function Catagories({catagory}) {
 
 
 export async function getServerSideProps({params:{id}}){
-  const product_res = await fetch(`${API_URL}/catagories/?id=${id}`);
+  const product_res = await fetch(`${API_URL}/catagories/${id}?populate=products,products.stocks,products.image`);
   const found = await product_res.json();
   
-  
+  console.log("sssssssssssssssssssss",found)
 
-  if(found[0]==undefined||found[0]==null||found[0]=={}||found[0]==[]){
+  if(found==undefined||found==null||found=={}||found==[]){
     return {
       props:{
           catagory: null
@@ -85,7 +85,7 @@ export async function getServerSideProps({params:{id}}){
   }else{
     return {
       props:{
-        catagory:found[0]
+        catagory:found.data
       }
     
   }

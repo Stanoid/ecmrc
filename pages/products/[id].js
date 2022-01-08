@@ -70,7 +70,7 @@ function classNames(...classes) {
 }
 
 export default function Product({productel}) {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0])
+  const [selectedColor, setSelectedColor] = useState(productel.attributes.colors[0].color_name)
   const [selectedSize, setSelectedSize] = useState(0)
   const [qty,setQty] = useState(1);
   const  ls = require('local-storage');
@@ -90,9 +90,9 @@ export default function Product({productel}) {
        }
    
    try {
-    if(productel.colors[0]){
+    if(productel.attributes.colors.data[0]){
      
-      setSelectedColor(productel.colors[0].color_name);
+      setSelectedColor(productel.attributes.colors.data[0]);
      
     }
    } catch (error) {
@@ -105,21 +105,23 @@ export default function Product({productel}) {
 
    try {
 
-    let least= productel.stocks[0].stock_price;
-    let sele = productel.stocks[0].id;
+    let least= productel.attributes.stocks.data[0].attributes.stock_price;
     let seleq = 0;
     let seleid = 0;
     let selname = "";
  
-    
-     for (let i = 0; i < productel.stocks.length; i++) {
-     
+    console.log("aaaaaa",least)    
+     for (let i = 0; i < productel.attributes.stocks.data.length; i++) {
+  
        try{
-         if(productel.stocks[i].stock_price < least && productel.stocks[i].stock>0){
-          least = productel.stocks[i].stock_price;
-          seleid = productel.stocks[i].id
-          seleq = productel.stocks[i].stock
-          selname = productel.stocks[i].option_name
+         
+         if(productel.attributes.stocks.data[i].attributes.stock_price <= least && productel.attributes.stocks.data[i].attributes.stock>0){
+      
+          least = productel.attributes.stocks.data[i].attributes.stock_price;
+          seleid = productel.attributes.stocks.data[i].id
+          seleq = productel.attributes.stocks.data[i].attributes.stock
+          console.log("aaaaaaaaaaaaaaa",productel.attributes.stocks.data[i].attributes.stock)
+          selname = productel.attributes.stocks.data[i].attributes.option_name
          } 
        }catch(err){
        
@@ -131,6 +133,7 @@ export default function Product({productel}) {
      // alert(least);
      
     setPrice(least)
+    // console.log("noooooooooooonon",seleq)
     setQlimit(seleq);
     setSelectedSize({id:seleid,name:selname})
      
@@ -143,24 +146,24 @@ export default function Product({productel}) {
 
 
 
-  if(!productel){
-   return<DefaultLayout> <div style={{width:'100vw',height:'100vh',display:'flex'}}> 
-   <div style={{margin:'auto',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
-     <MdClose style={{fontSize:150,padding:20,backgroundColor:'#F7819F',color:'white',borderRadius:'100%'}}/>
-     <div className='text-2xl font-sans mt-5'>
-     Nothing to see here
-     </div>
+  // if(!productel){
+  //  return<DefaultLayout> <div style={{width:'100vw',height:'100vh',display:'flex'}}> 
+  //  <div style={{margin:'auto',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
+  //    <MdClose style={{fontSize:150,padding:20,backgroundColor:'#F7819F',color:'white',borderRadius:'100%'}}/>
+  //    <div className='text-2xl font-sans mt-5'>
+  //    Nothing to see here
+  //    </div>
 
-     <div className='text-lg font-sans mt-5 ' style={{color:'blue',textDecoration:'underline'}}>
-       <Link href={"/"}>
-       Browse Products
-       </Link>
+  //    <div className='text-lg font-sans mt-5 ' style={{color:'blue',textDecoration:'underline'}}>
+  //      <Link href={"/"}>
+  //      Browse Products
+  //      </Link>
    
-     </div>
+  //    </div>
     
-   </div>
-    </div></DefaultLayout>
-  }
+  //  </div>
+  //   </div></DefaultLayout>
+  // }
 
 
   const notify = (type,msg)=>{
@@ -190,10 +193,10 @@ export default function Product({productel}) {
    
   }
   const sizeHandler = (op)=>{
-    
-   setSelectedSize({id:op.id,name:op.option_name});
-   setPrice(op.stock_price)
-   setQlimit(op.stock)
+    console.log(op.attributes.stock)
+   setSelectedSize({id:op.id,name:op.attributes.option_name});
+   setPrice(op.attributes.stock_price)
+   setQlimit(op.attributes.stock)
    setQty(0);
    handleHasOf(op.id);
   
@@ -201,6 +204,7 @@ export default function Product({productel}) {
 
   const colorHandler = (value)=>{
     setSelectedColor(value)
+    console.log(value)
   }
 
 
@@ -216,12 +220,12 @@ export default function Product({productel}) {
       
     }
     setHasOf(hass);
-    console.log("hasof triggered")
+    console.log("hasof triggered",hass)
   }
 
   const imgval = ()=>{
     try{
-    return  ROOT_URL+productel.image.hash+productel.image.ext
+    return  ROOT_URL+productel.attributes.image.data[0].hash+productel.attributes.image.data[0].ext
     }catch(err){
 return null
     }
@@ -230,7 +234,7 @@ return null
 
   const nameval=()=>{
     try {
-      return productel.name
+      return productel.attributes.name
     } catch (err) {
       return null
     }
@@ -238,7 +242,7 @@ return null
 
   const hasStocks=()=>{
     try {
-      if(productel.stocks){
+      if(productel.attributes.stocks){
         return true
       }else{
         return false
@@ -250,7 +254,7 @@ return null
 
   const descval=()=>{
     try {
-  return  productel.description
+  return  productel.attributes.description
     } catch (err) {
       return null
     }
@@ -267,9 +271,10 @@ return null
    'opt':selectedSize, 
  }
 
-
  const tempCart = ls.get("cart");
 
+//  console.log(order);
+//  return
  if(tempCart.length==0){
       console.log(order.id," not exists")
       tempCart.push(order);
@@ -328,7 +333,7 @@ return null
         <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
           <div className="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
             <img
-               src={imgval()} 
+               src={product.images[0].src}
               alt={product.images[0].alt}
               className="w-full h-full object-center object-cover"
             />
@@ -336,7 +341,7 @@ return null
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <div className="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
               <img
-                src={product.images[1].src}
+              src={product.images[1].src}
                 alt={product.images[1].alt}
                 className="w-full h-full object-center object-cover"
               />
@@ -351,7 +356,7 @@ return null
           </div>
           <div className="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
             <img
-               src={imgval()} 
+                src={product.images[3 ].src}
               alt={product.images[3].alt}
               className="w-full h-full object-center object-cover"
             />
@@ -380,7 +385,7 @@ return null
                 <RadioGroup value={selectedColor} onChange={colorHandler} className="mt-4">
                   <RadioGroup.Label className="sr-only">Choose a color</RadioGroup.Label>
                   <div className="flex items-center space-x-3">
-                    {productel.colors? productel.colors.map((color) => (
+                    {productel.attributes.colors? productel.attributes.colors.map((color) => (
                       <div key={color.color_name}  style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
                       <RadioGroup.Option
                         key={color.color_name}
@@ -397,7 +402,7 @@ return null
                         }
                       >
                         <RadioGroup.Label as="p" className="sr-only">
-                          {color.name}
+                          {color.color_name}
                         </RadioGroup.Label>
                         <span
                           aria-hidden="true"
@@ -424,15 +429,15 @@ return null
                 <RadioGroup value={selectedSize} onChange={sizeHandler} className="mt-4">
                   <RadioGroup.Label className="sr-only">Choose an option</RadioGroup.Label>
                   <div className="grid  gap-4 md:grid-cols-3 sm:grid-cols-8 lg:grid-cols-3">
-                    {hasStocks()? productel.stocks.map((stock) => (
+                    {hasStocks()? productel.attributes.stocks.data.map((stock) => (
                       <RadioGroup.Option
                         key={stock.id}
                         value={stock}
 
-                        disabled={!stock.stock>0}
+                        disabled={!stock.attributes.stock>0}
                         className={({ active }) =>
                           classNames(
-                            stock.stock>0
+                            stock.attributes.stock>0
                               ? 'bg-white shadow-md text-gray-900 cursor-pointer'
                               : 'bg-gray-50 text-gray cursor-not-allowed',
                             active ? 'ring-2 ring-indigo-500' : '',
@@ -443,11 +448,11 @@ return null
                         {({ active, checked }) => (
                           <>
                             <RadioGroup.Label as="p"><div >
-                              <div>{stock.option_name}</div>
-                              <div>{`${stock.stock_price} ${CURRENCY}`}</div>
-                              <div style={{color:'red',marginTop:4}}>{`${stock.stock} Left`}</div>
+                              <div>{stock.attributes.option_name}</div>
+                              <div>{`${stock.attributes.stock_price} ${CURRENCY}`}</div>
+                              <div style={{color:'red',marginTop:4}}>{`${stock.attributes.stock} Left`}</div>
                               </div></RadioGroup.Label>
-                            {stock.stock>0 ? (
+                            {stock.attributes.stock>0 ? (
                               <div
                                 className={classNames(
                                   active ? 'border' : 'border-2',
@@ -487,9 +492,9 @@ return null
               <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
              <Counter limit={qlimit-hasof}  qty={qty} setQ={setQty} />
               </div>
-              <div onClick={()=>{handleHasOf()}}>Has of</div>
-              <div onClick={()=>{console.log(hasof)}}>Has of vlaue</div>
-             
+              {/* <div onClick={()=>{console.log(selectedColor)}}>Has of</div>
+              <div onClick={()=>{console.log(ls.clear("cart"))}}>clear cart</div> */}
+              
             </form>
             <button
               onClick={ qty==0?()=>{notify("warn","Select Quantity")}:()=>{handleCart()}}
@@ -543,12 +548,12 @@ return null
 
 
 export async function getServerSideProps({params:{id}}){
-    const product_res = await fetch(`${API_URL}/products/?id=${id}`);
+    const product_res = await fetch(`${API_URL}/products/${id}?populate=*`);
     const found = await product_res.json();
-    const newfind = JSON.stringify(found[0])
-    
+   
+    console.log("aaaaaaaaaaaaaaaaaaa",found)
 
-    if(found[0]==undefined||found[0]==null||found[0]=={}||found[0]==[]){
+    if(found==undefined||found==null||found=={}||found==[]){
       return {
         props:{
             productel: null
@@ -557,7 +562,7 @@ export async function getServerSideProps({params:{id}}){
     }else{
       return {
         props:{
-            productel:found[0]
+            productel:found.data
         }
     }
     }

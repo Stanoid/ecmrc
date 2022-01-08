@@ -22,12 +22,15 @@ export default function Product(props) {
      <div style={{width:15,height:15,borderRadius:100,backgroundColor:MAIN_STYLE.primary,margin:2}}></div>
      <div style={{width:15,height:15,borderRadius:100,backgroundColor:MAIN_STYLE.primary,margin:2}}></div>
       </div>
-    <Image
+    <img
       quality={"50"}
        width={"175px"}
         height={"250px"} 
+        style={{objectFit:'cover',width:'100%',height:'100%'}}
+      
+      
           className={Styles.nextimg} 
-          src={ROOT_URL+props.img.hash+props.img.ext} 
+          src={props.img} 
           />
       </div>
       <div className={Styles.ptfont} style={{fontSize:'1rem',marginTop:3,marginBottom:3}} >

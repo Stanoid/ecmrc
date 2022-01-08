@@ -20,7 +20,7 @@ ls.set("promo",pros);
  const cheapest = (ob)=>{
   let arrs=[];
   ob.data.map(stock =>(
-   arrs.push(stock.stock_price)
+   arrs.push(stock.attributes.stock_price)
   ))
 
   return Math.min(...arrs);
@@ -54,7 +54,7 @@ ls.set("promo",pros);
   <DefaultLayout>
  <div style={{margin:15,marginTop:0,overflow:'auto',whiteSpace:'nowrap',padding:'5px 0px 5px 0px'}}>
 {catagories.data.map(catagory=>(
-  <Crumb key={catagory.id} id={catagory.id} name={catagory.Name} />
+  <Crumb key={catagory.id} id={catagory.id} name={catagory.attributes.Name} />
 ))}
  </div>
 
@@ -104,7 +104,7 @@ ls.set("promo",pros);
       style={{objectFit:'cover',width:'100%',height:'100%'}}
       
           className={styles.nextimg} 
-          src={ROOT_URL+product.attributes.image.data.attributes.hash+product.attributes.image.data.attributes.ext} 
+          src={product.attributes.image} 
           />
           <div  style={{display:'flex',justifyContent:'space-between',alignItems:"center", marginTop:10}}>
             <div>{product.attributes.name.length>=9?product.attributes.name.slice(0,9)+"...":product.attributes.name}</div>
@@ -134,14 +134,14 @@ ls.set("promo",pros);
 export async function getServerSideProps(){
   const  ls = require('local-storage');
   const response = await fetch(`${API_URL}/catagories`);
-  const responseprod = await fetch(`${API_URL}/products?populate=image,stocks`);
+  const responseprod = await fetch(`${API_URL}/products?populate=stocks`);
   const promores = await fetch(`${API_URL}/promo?populate=image,resume`);
   const pros = await promores.json();
   ls.set("promo",pros);
-  console.log("qqqqqqqqqqqqqqqqqqqqqqq",pros)
+  // console.log("qqqqqqqqqqqqqqqqqqqqqqq",pros)
   const catagories = await response.json();
    ls.set("catagories",catagories);
-   console.log("ssssssssssssssssssssssssssssssssss",catagories)
+  //  console.log("ssssssssssssssssssssssssssssssssss",catagories)
   const products = await responseprod.json();
 // console.log(catagories);
 // console.log(products);
