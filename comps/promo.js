@@ -25,16 +25,9 @@ const Promo = (props) => {
  },[])
 
 
- 
- async function getData(){
-    const response = await fetch(`${API_URL}/promo`);
-  
-    const promo = await response.json();
-    setPromoData(promo);
-    console.log(promo)
-  
-  }
+if(promos){
 
+  
   return (
     <Transition.Root  show={props.open} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 overflow-hidden z-20" onClose={()=>{props.openHandler(false)}}>
@@ -78,13 +71,13 @@ const Promo = (props) => {
           />
                    </div>
 
-                <div style={{fontWeight:'bold',textAlign:'center',fontSize:27,marginBottom:0,color:MAIN_STYLE.primary}}>{promos.data.attributes.name}</div> 
+                <div style={{fontWeight:'bold',textAlign:'center',fontSize:27,marginBottom:0,color:MAIN_STYLE.primary}}>{promos.data&&promos.data.attributes.name}</div> 
                 <div style={{textAlign:'center',fontSize:15,marginBottom:15}}>{promos.data.attributes.job}</div> 
-              <div>Email: <a style={{color:'blue',textDecoration:'underline'}} href={`mailto:${promos.data.attributes.email}`} >{promos.data.attributes.email}  </a></div> 
+              <div>Email: <a style={{color:'blue',textDecoration:'underline'}} href={`mailto:${promos.data&&promos.data.attributes.email}`} >{promos.data&&promos.data.attributes.email}  </a></div> 
              
-              <div>Phone: {promos.data.attributes.phone}</div>  
-              <div> Twitter: {promos.data.attributes.twitter_link}</div>   
-              <div>Github: {promos.data.attributes.github_link}</div>   
+              <div>Phone: {promos.data&&promos.data.attributes.phone}</div>  
+              <div> Twitter: {promos.data&&promos.data.attributes.twitter_link}</div>   
+              <div>Github: {promos.data&&promos.data.attributes.github_link}</div>   
               {/* <a href={`${API_URL}${promos.resume.url}`} > */}
               <div style={{display:"flex",cursor:'pointer',justifyContent:'center',margin:20,alignItems:'center',
               padding:10,borderRadius:10,backgroundColor:MAIN_STYLE.primary,color:'white'} } className='shadow-md hover:bg-white'>
@@ -93,7 +86,7 @@ const Promo = (props) => {
                     {/* </a> */}
              <div className="text-lg font-medium text-gray-900 " style={{marginTop:10}}>Project:</div>
              <p style={{padding:5}}>
-                 {promos.data.attributes.project_desc}
+                 {promos.data&&promos.data.attributes.project_desc}
                    </p>
                 </div>
 
@@ -106,6 +99,15 @@ const Promo = (props) => {
       </Dialog>
     </Transition.Root>
   )
+} else{
+
+  return(
+    <div>Missing data </div>
+  )
+
+}
+
+
 }
 
 export default Promo;
