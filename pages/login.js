@@ -73,24 +73,24 @@ const notify = (type,msg)=>{
         <div>
             <DefaultLayout>
             <ToastContainer  limit={3}/>
-            <div class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full">
+            <div className="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full">
  
-    <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
-      <div class="space-y-4">
-        <h1 class="text-center text-2xl font-semibold text-gray-600">Login</h1>
+    <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+      <div className="space-y-4">
+        <h1 className="text-center text-2xl font-semibold text-gray-600">Login</h1>
        
         <div>
-          <label for="email" class="block mb-1 text-gray-600 font-semibold">Email</label>
-          <input value={emial}  type="text" onChange={(event)=>{setEmial(event.target.value)}} class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">Email</label>
+          <input value={emial}  type="text" onChange={(event)=>{setEmial(event.target.value)}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
         <div>
-          <label for="email" class="block mb-1 text-gray-600 font-semibold">Password</label>
-          <input type="password" value={pass} onChange={(event)=>{setpass(event.target.value)}} class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">Password</label>
+          <input type="password" value={pass} onChange={(event)=>{setpass(event.target.value)}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
       </div>
       
-      <button onClick={upload} class="mt-4 w-full bg-primary text-white py-2 rounded-md text-lg tracking-wide">Login</button>
-      <button onClick={()=>{router.replace("/register")}} class="mt-4 w-full  text-primary py-2 rounded-md text-lg underline tracking-wide">Create an account</button>
+      <button onClick={upload} className="mt-4 w-full bg-primary text-white py-2 rounded-md text-lg tracking-wide">Login</button>
+      <button onClick={()=>{router.replace("/register")}} className="mt-4 w-full  text-primary py-2 rounded-md text-lg underline tracking-wide">Create an account</button>
  
     </div>
  
