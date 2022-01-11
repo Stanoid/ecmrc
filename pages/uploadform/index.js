@@ -2,17 +2,18 @@ import React from 'react'
 import DefaultLayout from '../../layouts/Default'
 import { useState,useEffect } from 'react'
 import axios from 'axios';
+import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import { MAIN_STYLE } from '../../utils/style';
 import { API_URL } from '../../utils/url';
 export default function Index({cats}) {
     const [name, setname] = useState("");
-    const [cat, setcat] = useState(cats[0].id);
+    const [cat, setcat] = useState(cats&&cats[0].id);
     const [sercats, setsercats] = useState();
     const [desc, setdesc] = useState("");
     const [stock, setstock] = useState([]);
     const [colors, setcolors] = useState([]);
     const ls = require("local-storage")   
-    const [image, setImage ] = useState(null);
+    const [image, setImage ] = useState([]);
     const [ url, setUrl ] = useState("");
     const [top, settop] = useState("")
     const [tstock, settstock] = useState("")
@@ -52,6 +53,42 @@ export default function Index({cats}) {
   setcolors(joind);
 
  
+    }
+
+    const addimg =(ob)=>{
+        const old = image;
+  
+ const joind = old.concat(ob);
+  setImage(joind);
+  console.log(joind)
+
+ 
+    }
+
+
+    
+
+    const deleteimg = (index)=>{
+console.log("index",index)
+        const old = image;
+  
+    const newar = [];
+        for (let i = 0; i < old.length; i++) {
+           console.log("aaaa",i)
+           if(i==index){
+
+           }else{
+               newar.push(old[i])
+           }
+            
+        }
+         
+    
+        setImage(newar);
+         console.log(image)
+       
+
+
     }
 
     const upload  =  (ob)=>{
@@ -117,7 +154,7 @@ let doo = new Promise(function(suc) {
             fetch(`${API_URL}/products`, requestOptions)
                 .then(response => response.json())
                 .then(data =>{
-                   
+                    notify("success",`Product ${data.data.attributes.name} has been added.`)
                    console.log("finalconsole",data)
                    
                    
@@ -143,6 +180,7 @@ let doo = new Promise(function(suc) {
 
     const uploadImage = () => {
     
+        
         const upob = {
             "data":{
                 name:name,
@@ -157,12 +195,15 @@ let doo = new Promise(function(suc) {
 
         console.dir(upob)
 
-
-
-        
+     let imar = [];     
+let doo = new Promise(function(suc) {
+    // "Producing Code" (May take some time)
+    
+    for (let i = 0; i < image.length; i++) {
+       
         console.log("began")
         const data = new FormData()
-        data.append("file", image)
+        data.append("file", image[i])
         data.append("upload_preset", "products")
         data.append("cloud_name","strapimedia")
         fetch("  https://api.cloudinary.com/v1_1/strapimedia/image/upload",{
@@ -171,15 +212,73 @@ let doo = new Promise(function(suc) {
         })
         .then(resp => resp.json())
         .then(data => {
-       upob.data.image = data.url;
-       upload(upob)
+          
+            if(i==image.length-1){
+              
+                 imar.push({"url":data.url})
+                upob.data.image = imar;
+                console.log("very very novel",upob)
+                upload(upob)
+            }else{
+                imar.push({"url":data.url})
+                console.log("very novel",upob)
+            }
+    //    upob.data.image = data.url;
+    //    upload(upob)
         })
         .catch(err => console.log(err))
+        
+    }
+       
+
+   
+     
+    });
+    doo.then( 
+          function(ob){
+          
+
         }
+    ); 
+
+
+
+       
+    
+    }
+
+    
+const notify = (type,msg)=>{
+
+    const options={
+      hideProgressBar:true,
+      draggable:true,
+      closeButton:false,
+      
+    }
+    switch(type){
+      case 'success':
+        toast.success(msg,options)
+        break;
+
+        case 'error':
+          toast.error(msg,options)
+          break;
+
+          case 'warn':
+            toast.warn(msg,options)
+            break;
+
+          
+
+    }
+   
+  }
 
     
     return (
        <DefaultLayout>
+             <ToastContainer  limit={3}/>
            <div style={{minHeight:"100vh"}}>
                <div style={{height:100}}> </div>
                <div style={{padding:20,display:"flex",justifyContent:'center',alignItems:'center',flexDirection:"column"}} > 
@@ -257,10 +356,7 @@ let doo = new Promise(function(suc) {
                     <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                       <input  id="file-upload" onChange= {(e)=>{
-                    //       const ims = {data};
-                    //      const nim = ims.data.push({"id":111});
-                    //    console.log(nim)
-                           setImage(e.target.files[0]);
+                           addimg(e.target.files[0]);
                       }}  name="file-upload" type="file" className="sr-only"/>
                     </label>
                    
@@ -272,8 +368,15 @@ let doo = new Promise(function(suc) {
                 </div>
               </div>
               <div style={{padding:10}}>
-                       <div style={{display:image?"block":"none"}}>
-                           <img width={100} height={100} src={image?URL.createObjectURL(image):""} />
+                       <div style={{display:image?"flex":"none",flexWrap:'wrap'}} className='grid grid-cols-6 gap-2'>
+                          {image&&image.map((img,index)=>{
+                                      
+                              return <div key={index} className='col-span-6 sm:col-span-3 lg:col-span-2'>
+                                  <div style={{fontSize:13,color:"red",textDecoration:"underline",cursor:"pointer"}}  onClick={()=>{deleteimg(index)}}>Delete</div>
+                               <img width={100} height={100} src={URL.createObjectURL(img)} />
+                               
+                               </div>
+                          })}
 
                        </div>
                         {/* <div onClick={()=>{console.log(URL.createObjectURL(image))}}>console image</div> */}
@@ -330,7 +433,9 @@ let doo = new Promise(function(suc) {
               <div className='col-span-12'>
               <div style={{float:'right'}} className="col-span-4 sm:col-span-3 lg:col-span-2">
                 
-                <span  onClick={()=>{addstock()}} style={{backgroundColor:MAIN_STYLE.primary,color:"white",padding:"10px 15px",borderRadius:5,cursor:'pointer'}}>Add option</span>
+                
+
+                <span   onClick={()=>{addstock()}} style={{backgroundColor:MAIN_STYLE.primary,color:"white",padding:"10px 15px",borderRadius:5,cursor:'pointer'}}>Add option</span>
                </div>
               
               </div>
@@ -402,7 +507,7 @@ let doo = new Promise(function(suc) {
 
               <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label htmlFor="region" className="block text-sm font-medium text-gray-700">Color</label>
-                <input value={colovalue}  onChange={(event)=>{setcolovalue(event.target.value)}} type="color" name="region" id="region" autoComplete="address-level1" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
+                <input value={colovalue}  onChange={(event)=>{setcolovalue(event.target.value)}} type="color" name="region" id="region" style={{width:100,height:50}} autoComplete="address-level1" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
               </div>
 
             
@@ -571,7 +676,7 @@ let doo = new Promise(function(suc) {
 
 </div>
                <div style={{display:"flex",marginTop:20}}> 
-               <span   onClick={uploadImage} style={{backgroundColor:MAIN_STYLE.primary,color:"white",padding:"10px 15px",borderRadius:5,cursor:'pointer',margin:"auto"}}>Upload image</span>
+               <span   onClick={uploadImage} style={{backgroundColor:MAIN_STYLE.primary,color:"white",padding:"10px 15px",borderRadius:5,cursor:'pointer',margin:"auto"}}>Upload</span>
                </div>
                </div>
            </div>

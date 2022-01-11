@@ -52,7 +52,7 @@ const notify = (type,msg)=>{
         fetch(`${API_URL}/auth/local`, requestOptions)
             .then(response => response.json())
             .then(data =>{
-                // console.log(data);
+                console.log(data);
                 
                 if(data.jwt){
                     ls.set("atkn",data.jwt);
@@ -73,7 +73,26 @@ const notify = (type,msg)=>{
         <div>
             <DefaultLayout>
             <ToastContainer  limit={3}/>
-                <div style={{minHeight:'100vh'}}>
+            <div class="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full">
+ 
+    <div class="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+      <div class="space-y-4">
+        <h1 class="text-center text-2xl font-semibold text-gray-600">Login</h1>
+       
+        <div>
+          <label for="email" class="block mb-1 text-gray-600 font-semibold">Email</label>
+          <input value={emial}  type="text" onChange={(event)=>{setEmial(event.target.value)}} class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+        </div>
+        <div>
+          <label for="email" class="block mb-1 text-gray-600 font-semibold">Password</label>
+          <input type="password" value={pass} onChange={(event)=>{setpass(event.target.value)}} class="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+        </div>
+      </div>
+      <button onClick={upload} class="mt-4 w-full bg-primary text-white py-2 rounded-md text-lg tracking-wide">Login</button>
+    </div>
+ 
+</div>
+                {/* <div style={{minHeight:'100vh'}}>
                     <div style={{height:100}}></div>
               <div style={{display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column'}}>
        <input value={emial} placeholder='email' type={"email"} onChange={(event)=>{setEmial(event.target.value)}} />
@@ -83,7 +102,7 @@ const notify = (type,msg)=>{
                </div>
                
   </div>
-                </div>
+                </div> */}
             </DefaultLayout>
         </div>
     )

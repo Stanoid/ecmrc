@@ -76,7 +76,7 @@ ls.set("promo",pros);
 
  
 <div key={product.id}>
- <Product key={product.id} id={product.id}  img={product.attributes.image} description={product.attributes.description} price={cheapest(product.attributes.stocks)} name={product.attributes.name} />
+ <Product key={product.id} id={product.id}  img={product.attributes.image[0].url} description={product.attributes.description} price={cheapest(product.attributes.stocks)} name={product.attributes.name} />
 </div>
 ))}
 
@@ -104,7 +104,7 @@ ls.set("promo",pros);
       style={{objectFit:'cover',width:'100%',height:'100%'}}
       
           className={styles.nextimg} 
-          src={product.attributes.image} 
+          src={product.attributes.image[0].url} 
           />
           <div  style={{display:'flex',justifyContent:'space-between',alignItems:"center", marginTop:10}}>
             <div>{product.attributes.name.length>=9?product.attributes.name.slice(0,9)+"...":product.attributes.name}</div>

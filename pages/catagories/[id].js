@@ -16,7 +16,7 @@ export default function Catagories({catagory}) {
  const cheapest = (ob)=>{
   let arrs=[];
   ob.map(stock =>(
-   arrs.push(stock.stock_price)
+   arrs.push(stock.attributes.stock_price)
   ))
 
   return Math.min(...arrs);
@@ -26,7 +26,7 @@ export default function Catagories({catagory}) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{catagory.attributes.name} </title>
+        <title>{catagory.attributes.Name} </title>
         <meta name="description" content="Bendari shop, experience the best shopping in sudan" />
         <meta name="theme-color"/>
         <link rel="icon" href="/favicon.ico" />
@@ -49,7 +49,8 @@ export default function Catagories({catagory}) {
 {catagory.attributes.products.data.map(product=>(
 
 <div key={product.id}>
- <Product key={product.id} id={product.id}  img={product.attributes.image.data} description={product.attributes.description} price={cheapest(product.attributes.stocks.data)} name={product.attributes.name} />
+ <Product key={product.id} id={product.id}  img={product.attributes.image} description={product.attributes.description} price={cheapest(product.attributes.stocks.data)} name={product.attributes.name} />
+
 </div>
 ))}
 
@@ -70,7 +71,7 @@ export default function Catagories({catagory}) {
 
 
 export async function getServerSideProps({params:{id}}){
-  const product_res = await fetch(`${API_URL}/catagories/${id}?populate=products,products.stocks,products.image`);
+  const product_res = await fetch(`${API_URL}/catagories/${id}?populate=products,products.stocks`);
   const found = await product_res.json();
   
   console.log("sssssssssssssssssssss",found)

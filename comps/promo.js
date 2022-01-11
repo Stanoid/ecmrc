@@ -72,7 +72,7 @@ if(promos){
                    </div>
 
                 <div style={{fontWeight:'bold',textAlign:'center',fontSize:27,marginBottom:0,color:MAIN_STYLE.primary}}>{promos.data&&promos.data.attributes.name}</div> 
-                <div style={{textAlign:'center',fontSize:15,marginBottom:15}}>{promos.data.attributes.job}</div> 
+                <div style={{textAlign:'center',fontSize:15,marginBottom:15}}>{promos.data&&promos.data.attributes.job}</div> 
               <div>Email: <a style={{color:'blue',textDecoration:'underline'}} href={`mailto:${promos.data&&promos.data.attributes.email}`} >{promos.data&&promos.data.attributes.email}  </a></div> 
              
               <div>Phone: {promos.data&&promos.data.attributes.phone}</div>  
