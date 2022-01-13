@@ -53,7 +53,7 @@ ls.set("promo",pros);
  
   <DefaultLayout>
  <div style={{margin:15,marginTop:0,overflow:'auto',whiteSpace:'nowrap',padding:'5px 0px 5px 0px'}}>
-{catagories.data.map(catagory=>(
+{catagories.data&&catagories.data.map(catagory=>(
   <Crumb key={catagory.id} id={catagory.id} name={catagory.attributes.Name} />
 ))}
  </div>
@@ -71,7 +71,7 @@ ls.set("promo",pros);
 
 <div className='grid grid-cols-2 gap-y-5 sm:grid-cols-2 gap-x-5 lg:grid-cols-6 xl:grid-cols-6 xl:gap-x-6 xl:gap-y-6 lg:gap-x-5 lg:gap-y-5'>
 
-{products.data.map(product=>(
+{products.data&&products.data.map(product=>(
  
 
  
@@ -97,7 +97,7 @@ ls.set("promo",pros);
               
 <div style={{margin:15,marginTop:0,overflow:'auto',whiteSpace:'nowrap',padding:'5px 0px 5px 0px'}}>
 
-{products.data.map(product=>(
+{products.data&&products.data.map(product=>(
 
 <div key={product.id} className='shadow-inner' style={{height:200,width:200,marginRight:20,borderRadius:10,display:'inline-block'}}>
 <img
