@@ -8,6 +8,8 @@ import Counter from '../../comps/counter';
 import { StarIcon } from '@heroicons/react/solid'
 import { MdClose } from 'react-icons/md';
 import { RadioGroup } from '@headlessui/react'
+import SimpleImageSlider from "react-simple-image-slider";
+
 import CartContext from '../../context/NotiContext';
 const product = {
   name: 'Basic Tee 6-Pack',
@@ -267,7 +269,7 @@ return null
    'price':price,
    'qty':qty,
    'color': selectedColor,
-   'img':imgval(),
+   'img':productel.attributes.image[0].url,
    'opt':selectedSize, 
  }
 
@@ -327,10 +329,12 @@ return null
         <ToastContainer  limit={3}/>
     <div className="bg-white pt-10">
       <div className="pt-6">
+
+        
       
 
         {/* Image gallery */}
-        <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8">
+        <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8 hidden">
           <div style={{display:productel&&productel.attributes.image[0]?"flex":"none"}} className="hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block">
             <img
                src={productel.attributes.image[0]&&productel.attributes.image[0].url}
@@ -361,7 +365,24 @@ return null
               className="w-full h-full object-center object-cover"
             />
           </div>
+
         </div>
+
+   
+        <div className='lg:hidden xl:hidden '  style={{height:440}}>
+          <div   className='lg:hidden xl:hidden ' >
+ <SimpleImageSlider
+        width={"100%"}
+        height={"50%"}
+        images={productel.attributes.image}
+        showBullets={true}
+        showNavs={true}
+      />
+      </div>
+ </div>
+ 
+
+       
 
         {/* Product info */}
         <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
@@ -374,7 +395,7 @@ return null
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl text-gray-900">{`${price} ${CURRENCY}`}</p>
 
-           
+          
           
 
             <form className="mt-10">

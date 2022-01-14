@@ -1,78 +1,28 @@
 import React from 'react'
 import DefaultLayout from '../layouts/Default'
 import { API_URL } from '../utils/url';
-import {useState} from "react";
+import {useState,useContext} from "react";
 import axios from "axios";
+
 import { useRouter } from 'next/router'
+import AuthContext from '../context/AuthContext';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 export default function Login() {
 const [emial, setEmial] = useState("");
 const [pass, setpass] = useState("");
-const ls = require("local-storage")
+const{loginUser} = useContext(AuthContext)
 const router = useRouter();
 
-const notify = (type,msg)=>{
 
-    const options={
-      hideProgressBar:true,
-      draggable:true,
-      closeButton:false,
-      
-    }
-    switch(type){
-      case 'success':
-        toast.success(msg,options)
-        break;
 
-        case 'error':
-          toast.error(msg,options)
-          break;
 
-          case 'warn':
-            toast.warn(msg,options)
-            break;
-
-          
-
-    }
    
-  }
-
-
-    const upload  = async ()=>{
-
-        const requestOptions = {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                "identifier":emial,
-               "password":pass
-            })
-        };
-        fetch(`${API_URL}/auth/local`, requestOptions)
-            .then(response => response.json())
-            .then(data =>{
-                console.log(data);
-                
-                if(data.jwt){
-                    ls.set("utkn",data.jwt);
-                 router.replace("/")
-                    notify("success",`Welcom back ${data.user.username}, you will be redirected.`)
-                }else{
-                    notify("error","Invalid email or password")
-                }
-            });
-
-       
-
-
-    }  
 
 
     return (
         <div>
             <DefaultLayout>
-            <ToastContainer  limit={3}/>
+
             <div className="h-screen bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full">
  
     <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
@@ -89,7 +39,7 @@ const notify = (type,msg)=>{
         </div>
       </div>
       
-      <button onClick={upload} className="mt-4 w-full bg-primary text-white py-2 rounded-md text-lg tracking-wide">Login</button>
+      <button onClick={()=>{loginUser(emial,pass)}} className="mt-4 w-full bg-primary text-white py-2 rounded-md text-lg tracking-wide">Login</button>
       <button onClick={()=>{router.replace("/register")}} className="mt-4 w-full  text-primary py-2 rounded-md text-lg underline tracking-wide">Create an account</button>
  
     </div>

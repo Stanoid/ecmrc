@@ -7,7 +7,7 @@ import { MAIN_STYLE } from '../../utils/style';
 import { API_URL } from '../../utils/url';
 export default function Index({cats}) {
     const [name, setname] = useState("");
-    const [cat, setcat] = useState(cats&&cats[0].id);
+    const [cat, setcat] = useState(cats&&cats.length!==0?cats[0].id:null);
     const [sercats, setsercats] = useState();
     const [desc, setdesc] = useState("");
     const [stock, setstock] = useState([]);
