@@ -7,7 +7,7 @@ import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import { MAIN_STYLE } from '../../utils/style';
 import { MdChevronLeft } from 'react-icons/md';
 import { API_URL } from '../../utils/url';
- function UploadForm(props) {
+ function EditForm(props) {
     const [name, setname] = useState("");
     // const [cat, setcat] = useState(cats&&cats.length!==0?cats[0].id:null);
     const [sercats, setsercats] = useState();
@@ -24,20 +24,43 @@ import { API_URL } from '../../utils/url';
     const [colorname, setcolorname] = useState("")
     const [colovalue, setcolovalue] = useState("")
 
-    // useEffect(() => {
-    //     axios.get(`${API_URL}/catagories`)
-    //     .then(function (response) {
-    //       // handle success
-    //      setsercats( response.data);
-    //     })
-    // }, [])
+
+    useEffect(() => {
+     getProductData();
+    }, [])
+
+
+    async function getProductData(){
+        const product_res = await fetch(`${API_URL}/products/${props.Pid}?populate=*`);
+        const found = await product_res.json();
+      
+      
+        console.log(found)
+        setname(found.data.attributes.name)
+        setdesc(found.data.attributes.description);
+        let old = [];
+        let colors =[]
+        for (let i = 0; i < found.data.attributes.stocks.data.length; i++) {
+        //  console.log(found.data.attributes.stocks.data[i].attributes.option_name)
+        const ob = {"ob":found.data.attributes.stocks.data[i].attributes.option_name,"stock":found.data.attributes.stocks.data[i].attributes.stock,"price":found.data.attributes.stocks.data[i].attributes.stock_price};
+      old.push(ob);
+        }
+
+        setstock(old);
+        console.log("alstock",old)
+      
+        setcolors(found.data.attributes.colors);
+        
+      
+
+
+       // console.log(found)
+    }
 
 
     const addstock =()=>{
         const old = stock;
   const ob = {"ob":top,"stock":tstock,"price":tprice};
-  
-  
   
 
  const joind = old.concat(ob);
@@ -46,6 +69,51 @@ import { API_URL } from '../../utils/url';
 
  
     }
+
+    
+    const deletStock =(index)=>{
+   
+    const sstock = stock;
+    // console.log("indev stock",sstock.slice([0,1]))
+
+    const newar = [];
+    for (let i = 0; i < sstock.length; i++) {
+       console.log("aaaa",i)
+       if(i==index){
+
+       }else{
+           newar.push(sstock[i])
+       }
+        
+    }
+
+    console.log(newar);
+    setstock(newar);
+
+
+  }
+
+  const deletColor =(index)=>{
+   
+    const ccolor = colors;
+    // console.log("indev stock",sstock.slice([0,1]))
+
+    const newar = [];
+    for (let i = 0; i < ccolor.length; i++) {
+       console.log("aaaa",i)
+       if(i==index){
+
+       }else{
+           newar.push(ccolor[i])
+       }
+        
+    }
+
+    console.log(newar);
+    setcolors(newar);
+
+
+  }
 
 
     const addcolor =()=>{
@@ -472,11 +540,12 @@ const notify = (type,msg)=>{
                 <label htmlFor="postal-code" className="block text-sm font-medium text-gray">Price</label>
               
               </div>
-               {stock.map(stock=>{
+               {stock.map((stock,index)=>{
                    return (
                      <>
                      <div className='col-span-12' style={{borderBottom:'1px solid grey'}}></div>
                      <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                   
                 <label htmlFor="city" className="block text-sm font-medium text-black">{stock.ob}</label>
               
               </div>
@@ -488,6 +557,12 @@ const notify = (type,msg)=>{
 
               <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label htmlFor="postal-code" className="block text-sm font-medium text-black">{stock.price}</label>
+                </div>
+
+                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label htmlFor="postal-code" style={{color:'red'}} className="block text-sm font-medium text-black">
+                 <div onClick={()=>{deletStock(index)}}>Remove</div> 
+                  </label>
                 </div>
                      </>  
                      
@@ -548,7 +623,7 @@ const notify = (type,msg)=>{
               </div>
 
             
-               {colors.map(color=>{
+               {colors.map((color,index)=>{
                    return (
                      <>
                      <div className='col-span-12' style={{borderBottom:'1px solid grey'}}></div>
@@ -560,6 +635,15 @@ const notify = (type,msg)=>{
               <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                 <div style={{width:30,height:30,borderRadius:100,backgroundColor:color.color_value}}></div>
               </div>
+
+              <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                <label htmlFor="city" style={{color:'red'}} className="block text-sm font-medium text-black">
+                 <div onClick={()=>{deletColor(index)}}>Remove</div> 
+                  </label>
+              
+              </div>
+
+              
 
              
                      </>  
@@ -708,7 +792,7 @@ const notify = (type,msg)=>{
 }
 
 
-export default UploadForm;
+export default EditForm;
 
 
 

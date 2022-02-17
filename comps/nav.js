@@ -38,7 +38,8 @@ setOpen(open)
           }
 
     return (
-    <div  style={{display:"flex",width:'100%',position:"fixed",backgroundColor:'white',
+      <div>
+    <div className='shadow-sm'  style={{display:"flex",width:'100%',position:"fixed",backgroundColor:'white',
     alignContent:'center',justifyContent:"space-between",padding:15,paddingBottom:7,zIndex:10}}>
     <Menu openHandler={handleOpen}  open={open} />
     <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
@@ -80,6 +81,14 @@ setOpen(open)
     </div>
       )}
      
+        </div>
+
+        <div style={{display:"flex",width:'100%',backgroundColor:'white',
+    alignContent:'center',justifyContent:"space-between",padding:15,paddingBottom:7,zIndex:10}}>
+        <div>
+      <div style={{height:50}}></div>
+      </div>
+    </div>
         </div>
     )
 }

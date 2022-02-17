@@ -48,8 +48,8 @@ export default function Catagories({catagory}) {
 
 {catagory.attributes.products.data.map(product=>(
 
-<div key={product.id}>
- <Product key={product.id} id={product.id}  img={product.attributes.image} description={product.attributes.description} price={cheapest(product.attributes.stocks.data)} name={product.attributes.name} />
+<div key={product.id}> 
+ <Product key={product.id} id={product.id}  img={product.attributes.image[0].url} description={product.attributes.description} price={cheapest(product.attributes.stocks.data)} name={product.attributes.name} />
 
 </div>
 ))}

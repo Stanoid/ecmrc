@@ -135,13 +135,13 @@ export async function getServerSideProps(){
   const  ls = require('local-storage');
   const response = await fetch(`${API_URL}/catagories`);
   const responseprod = await fetch(`${API_URL}/products?populate=stocks`);
-  const promores = await fetch(`${API_URL}/promo?populate=image,resume`);
+  const promores = await fetch(`${API_URL}/promo`);
   const pros = await promores.json();
   ls.set("promo",pros);
-  // console.log("qqqqqqqqqqqqqqqqqqqqqqq",pros)
+  console.log("promo",pros)
   const catagories = await response.json();
    ls.set("catagories",catagories);
-  //  console.log("ssssssssssssssssssssssssssssssssss",catagories)
+  console.log("ssssssssssssssssssssssssssssssssss",catagories)
   const products = await responseprod.json();
 // console.log(catagories);
 // console.log(products);

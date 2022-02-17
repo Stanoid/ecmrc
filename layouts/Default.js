@@ -22,7 +22,7 @@ export default function DefaultLayout({ children }) {
      
       <main>{children}</main>
      
-     <footer className='bg-primary' style={{cursor:'pointer',textAlign:'center',color:'white',paddingTop:20,paddingBottom:20}}>
+     <footer  className='bg-primary' style={{cursor:'pointer',textAlign:'center',color:'white',paddingTop:20,paddingBottom:20}}>
      Designed and developed by <span onClick={()=>{setOpenPromo(true)}} style={{color:'white',textDecoration:'underline'}}> Mujahid mohammad </span> 
      <Promo open={openPromo} openHandler={setOpenPromo} />
      </footer>

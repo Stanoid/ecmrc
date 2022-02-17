@@ -14,7 +14,7 @@ const Promo = (props) => {
     const [promoData,setPromoData] =useState();
     
   useEffect( async () => {
-
+// console.log(promos.data.attributes.image)
 
 
     // setPromoData(ls.get("promo"));
@@ -64,10 +64,10 @@ if(promos){
                 <div style={{padding:20}}>
                    <div style={{display:'flex',justifyContent:'center',alignItems:'center',marginBottom:20}}>
                    <img
-      style={{objectFit:'cover',width:'50%',height:'50%',borderRadius:"100%",border:`3px solid ${MAIN_STYLE.primary}`,padding:3}}
-      
+      style={{objectFit:'cover',width:250,height:250,borderRadius:"100%",border:`3px solid ${MAIN_STYLE.primary}`,padding:3}}
+      src={promos&&promos.data.attributes.image}
           className={styles.nextimg} 
-          // src={ROOT_URL+promos.data.attributes.image.data.attributes.hash+promos.data.attributes.image.data.attributes.ext} 
+         
           />
                    </div>
 
