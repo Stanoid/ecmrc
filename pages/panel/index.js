@@ -147,7 +147,7 @@ const notify = (type,msg)=>{
   <Horizel current={page} id={0} pager={pageHandle} icon={BsBarChartSteps} text={"Stats"} />
 <Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"Products"} />
 <Horizel current={page} id={3} pager={pageHandle} icon={BsTruck} text={"Orders"} />
-<Horizel current={page} id={2} pager={pageHandle} icon={BsDiagram3} text={"Accounting"} />
+<Horizel current={page} id={2} pager={pageHandle} icon={BsDiagram3} text={"Groups"} />
 
 
   </div>

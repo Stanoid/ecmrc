@@ -5,6 +5,7 @@ import { MAIN_STYLE } from '../../utils/style';
 import ProductsList from './productslist';
 import { MdAdd } from 'react-icons/md';
 import EditForm from './editform';
+import GroupCreate from './groupCreate';
 function productsTap(props) {
 
   const [page, setPage] = useState(1);
@@ -33,6 +34,10 @@ case 1:
 
   case 4:
     return <div><EditForm userData={props.userData} Pid={pid}  pagdler={handlePage} /></div>
+  break;
+
+  case 5:
+    return <div><GroupCreate userData={props.userData} Pid={pid}  pagdler={handlePage} /></div>
   break;
 
   default:

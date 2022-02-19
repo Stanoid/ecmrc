@@ -5,7 +5,7 @@ import { CURRENCY } from '../../utils/url';
 import { MdAdd } from 'react-icons/md';
 import ProductPanel from './productpanel';
 import { useEffect,useState } from 'react';
-
+import {BsDiagram3,BsPencil} from 'react-icons/bs'
 
 
 function ProductsList(props) {
@@ -142,8 +142,16 @@ function ProductsList(props) {
                     </td>
                   
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <div onClick={()=>{props.pagdler(4,product.id)}} style={{cursor:"pointer"}} className="text-indigo-600 hover:text-indigo-900">
+                    <div onClick={()=>{props.pagdler(5,product.id)}} style={{display:'flex',justifyContent:'center',alignItems:'center',cursor:"pointer",color:'black',backgroundColor:"lightgray",padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900">
+                      <BsPencil style={{fontWeight:'bold',marginRight:5}}/>
                         Edit
+                      </div>
+                    </td>
+
+                    <td className=" whitespace-nowrap  text-sm font-medium">
+                      <div onClick={()=>{props.pagdler(5,product.id)}} style={{display:'flex',justifyContent:'center',alignItems:'center',cursor:"pointer",color:'white',backgroundColor:MAIN_STYLE.primary,padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900">
+                      <BsDiagram3 style={{fontWeight:'bold',marginRight:5}}/>
+                        Create a Group
                       </div>
                     </td>
                   </tr>

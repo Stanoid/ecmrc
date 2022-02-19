@@ -5,7 +5,7 @@ import axios from 'axios';
 import LoadingButton from '../../comps/buttons/loadingButton';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import { MAIN_STYLE } from '../../utils/style';
-import { MdChevronLeft } from 'react-icons/md';
+import { MdChevronLeft,MdDeleteForever } from 'react-icons/md';
 import { API_URL } from '../../utils/url';
  function EditForm(props) {
     const [name, setname] = useState("");
@@ -16,6 +16,8 @@ import { API_URL } from '../../utils/url';
     const [colors, setcolors] = useState([]);
     const ls = require("local-storage")   
     const [image, setImage ] = useState([]);
+    const [cleanUp, setCleanUp ] = useState(null);
+    
     const [ url, setUrl ] = useState("");
     const [top, settop] = useState("")
     const [tstock, settstock] = useState("")
@@ -38,6 +40,7 @@ import { API_URL } from '../../utils/url';
         console.log(found)
         setname(found.data.attributes.name)
         setdesc(found.data.attributes.description);
+        setCleanUp(found.data.attributes.stocks.data);
         let old = [];
         let colors =[]
         for (let i = 0; i < found.data.attributes.stocks.data.length; i++) {
@@ -215,19 +218,20 @@ let doo = new Promise(function(suc) {
             console.log("time 2", tess)
             console.log("submitted object",ob);
             const requestOptions = {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": 'Bearer ' + ls.get("atkn")
                 },
                 body: JSON.stringify(ob)
             };
-            fetch(`${API_URL}/products`, requestOptions)
+            fetch(`${API_URL}/products/${props.Pid}`, requestOptions)
                 .then(response => response.json())
                 .then(data =>{
-                    notify("success",`Product ${data.data.attributes.name} has been added.`)
-                    setlod(false)
+
+                 
                    console.log("finalconsole",data)
+                   cleanFunc(data.data.attributes.name);
                    
                    
                 }).catch(error =>{ 
@@ -248,11 +252,59 @@ let doo = new Promise(function(suc) {
 
 
 
-    const finalupload = (ob)=>{
-       
-
-
+    const cleanFunc = (name)=>{
+    for (let i = 0; i < cleanUp.length; i++) {
+      const requestOptions = {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": 'Bearer ' + ls.get("atkn")
+        },  
+    };
+    fetch(`${API_URL}/stocks/${cleanUp[i].id}`, requestOptions)
+        .then(response => response.json())
+        .then(data =>{
+        
+         
+           if(i==cleanUp.length-1){
+          console.log("clean")
+          notify("success",`Product ${name} has been Edited.`)
+          setlod(false);
+          props.pagdler(1)
+           ////done
+           }
+           
+           
+        });  
     }
+    }
+
+
+    const deleteProduct = ()=>{
+     
+        const requestOptions = {
+          method: 'DELETE',
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": 'Bearer ' + ls.get("atkn")
+          },  
+      };
+      fetch(`${API_URL}/products/${props.Pid}`, requestOptions)
+          .then(response => response.json())
+          .then(data =>{
+          
+           
+         
+            notify("success",`Product  has been Deleted.`)
+           
+            props.pagdler(1)
+             ////done
+            
+             
+             
+          });  
+      }
+      
 
     const uploadImage = () => {
     
@@ -357,11 +409,16 @@ const notify = (type,msg)=>{
       <div>
              <ToastContainer  limit={3}/>
            <div style={{minHeight:"100vh"}}>
-              <div style={{display:"inline-block"}}>
+              <div style={{display:"flex",justifyContent:'space-between',alignItems:'center'}}>
 
               <div onClick={()=>{props.pagdler(1)}} style={{display:'flex',justifyContent:'flex-start',alignItems:'center',cursor:'pointer'}}>
                 <MdChevronLeft style={{color:'white', backgroundColor:MAIN_STYLE.primary,fontSize:25,marginRight:5,borderRadius:100,padding:0}}/> 
                 <span >Back</span>
+              </div>
+
+              <div onClick={()=>{deleteProduct()}} style={{display:'flex',backgroundColor:'red',padding:5,borderRadius:5,justifyContent:'flex-start',alignItems:'center',cursor:'pointer'}}>
+                <MdDeleteForever style={{color:'white',fontSize:25,marginRight:5,borderRadius:100,padding:0}}/> 
+                <span style={{color:"white"}}>Delete product</span>
               </div>
               </div>
                <div style={{padding:20,display:"flex",justifyContent:'center',alignItems:'center',flexDirection:"column"}} > 
@@ -778,10 +835,12 @@ const notify = (type,msg)=>{
 
                <LoadingButton
       act={uploadImage}
-      text={"Upload"}
+      text={"Update"}
       lod= {lod}
-      msg={"Uploading ..."}
+      msg={"Updating ..."}
       />
+
+      
                {/* <span   onClick={uploadImage} style={{backgroundColor:MAIN_STYLE.primary,color:"white",padding:"10px 15px",borderRadius:5,cursor:'pointer',margin:"auto"}}>Upload</span>
                */}
                </div>
