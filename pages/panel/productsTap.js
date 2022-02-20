@@ -5,17 +5,24 @@ import { MAIN_STYLE } from '../../utils/style';
 import ProductsList from './productslist';
 import { MdAdd } from 'react-icons/md';
 import EditForm from './editform';
+import GroupEdit from './groupEdit';
 import GroupCreate from './groupCreate';
 function productsTap(props) {
 
   const [page, setPage] = useState(1);
   const [pid, setPid] = useState(null);
+  const [gid, setGid] = useState(null);
 
-const handlePage = (pageid,productid)=>{
+
+const handlePage = (pageid,productid,groupId)=>{
 setPage(pageid);
 console.log(productid)
 if(productid){
   setPid(productid);
+}
+
+if(groupId){
+  setGid(groupId);
 }
 
 }
@@ -38,6 +45,10 @@ case 1:
 
   case 5:
     return <div><GroupCreate userData={props.userData} Pid={pid}  pagdler={handlePage} /></div>
+  break;
+
+  case 6:
+    return <div><GroupEdit userData={props.userData} Pid={pid} Gid={gid}  pagdler={handlePage} /></div>
   break;
 
   default:

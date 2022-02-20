@@ -8,7 +8,7 @@ import { useEffect,useState } from 'react';
 import {BsDiagram3,BsPencil} from 'react-icons/bs'
 
 
-function ProductsList(props) {
+function GroupList(props) {
     const [products, setProducts] = useState(null);
     
     useEffect(()=>{
@@ -31,12 +31,14 @@ function ProductsList(props) {
        }    
 
     async function getData(){
-        const product_res = await fetch(`${API_URL}/products?populate=*`);
+        const product_res = await fetch(`${API_URL}/groups?populate=*`);
         const found = await product_res.json();
       
+      //console.log("asasssa",JSON.parse(found.data[0].attributes.product.data.attributes.image)[0].url)        
+
         let prd = [];
         for (let i = 0; i < found.data.length; i++) {
-          if(found.data[i].attributes.vendor.data.id==props.userData.id){
+          if(found.data[i].attributes.creator.data.id==props.userData.id){
               prd.push(found.data[i])
           }
             
@@ -48,17 +50,17 @@ function ProductsList(props) {
         setProducts(newprd);
 
 
-       // console.log(found)
+       console.log(found)
     }
 
   return <div>
 
 <div style={{display:'flex',justifyContent:'flex-end'}}>
 
-<div onClick={()=>{props.pagdler(2)}} style={{display:'flex',justifyContent:'flex-end',alignItems:'center', backgroundColor:MAIN_STYLE.primary,cursor:'pointer',padding:'5px 7px 5px 7px',borderRadius:5}}>
+{/* <div onClick={()=>{props.pagdler(1)}} style={{display:'flex',justifyContent:'flex-end',alignItems:'center', backgroundColor:MAIN_STYLE.primary,cursor:'pointer',padding:'5px 7px 5px 7px',borderRadius:5}}>
   <MdAdd style={{color:'white',fontSize:25,marginRight:0,padding:0}}/> 
-  <span style={{color:'white'}} >Add new product</span>
-</div>
+  <span style={{color:'white'}} >Create a group</span>
+</div> */}
 </div>
    
 <div className='grid grid-cols-2 gap-y-5 sm:grid-cols-2 gap-x-5 lg:grid-cols-6 xl:grid-cols-6 xl:gap-x-6 xl:gap-y-6 lg:gap-x-5 lg:gap-y-5'>
@@ -89,27 +91,30 @@ function ProductsList(props) {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Description
+                    Members
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Date
+                    Discounted price
                   </th>
 
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Price 
+                    Ending date 
                   </th>
 
-                  
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Status 
+                  </th> 
                 
-                  <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">Edit</span>
-                  </th>
+                 
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -118,37 +123,34 @@ function ProductsList(props) {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
-                          <img className="h-10 w-10 rounded-full" src={product.attributes.image[0].url} alt="" />
+                          <img className="h-10 w-10 rounded-full" src={JSON.parse(product.attributes.product.data.attributes.image)[0].url} alt="" />
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{product.attributes.name}</div>
-                          <div className="text-sm text-gray-500">{product.attributes.description}</div>
+                          <div className="text-sm font-medium text-gray-900">{product.attributes.product.data.attributes.name}</div>
+                          <div className="text-sm text-gray-500">{product.attributes.product.data.attributes.description}</div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{product.attributes.description}</div>
+                      <div className="text-sm text-gray-900">{` ${product.attributes.customers.data.length} / ${product.attributes.members}`}</div>
                      
                     </td>
 
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900"> Updated on: {product.attributes.updatedAt.slice(0,product.attributes.updatedAt.indexOf("T"))}</div>
-                      <div className="text-sm text-gray-500"> Added on: {product.attributes.publishedAt.slice(0,product.attributes.publishedAt.indexOf("T"))}</div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        {cheapest(product.attributes.stocks) +" "+ CURRENCY}
-                      </span>
-                    </td>
+                      <div className="text-sm text-gray-900">{`${product.attributes.price} ${CURRENCY}`}</div>
+                      </td>
+
+                      <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900"> {product.attributes.endDate}</div>
+                      </td>
                   
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <div onClick={()=>{props.pagdler(5,product.id)}} style={{display:'flex',justifyContent:'center',alignItems:'center',cursor:"pointer",color:'black',backgroundColor:"lightgray",padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900">
-                      <BsPencil style={{fontWeight:'bold',marginRight:5}}/>
-                        Edit
-                      </div>
+                  
+                    <td style={{color:product.attributes.customers.data.length<product.attributes.members?"orange":"green"}} className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
+                   
+                   {product.attributes.customers.data.length<product.attributes.members?"Ongoing":"Completed"}
                     </td>
 
-                    <td className=" whitespace-nowrap  text-sm font-medium">
+                    {/* <td className=" whitespace-nowrap  text-sm font-medium">
                       <div  onClick={()=>{props.pagdler(5,product.id)}} style={{display:product.attributes.group.data==null?"flex":"none",justifyContent:'center',alignItems:'center',cursor:"pointer",color:'white',backgroundColor:MAIN_STYLE.primary,padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900">
                       <BsDiagram3 style={{fontWeight:'bold',marginRight:5}}/>
                         Create a Group
@@ -158,7 +160,7 @@ function ProductsList(props) {
                       <BsPencil style={{fontWeight:'bold',marginRight:5}}/>
                         Edit Group
                       </div>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>
@@ -171,4 +173,4 @@ function ProductsList(props) {
   </div>;
 }
 
-export default ProductsList;
+export default GroupList;

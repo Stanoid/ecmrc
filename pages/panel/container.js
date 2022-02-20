@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductsTap from './productsTap';
+import GroupList from './groupList';
 function Container(props) {
   switch(props.page){
       case 0:
@@ -12,7 +13,7 @@ function Container(props) {
             break;
 
             case 2:
-                return <div>nextnext</div>
+                return <GroupList  userData={props.userData} />
                 break;
 
                 default:

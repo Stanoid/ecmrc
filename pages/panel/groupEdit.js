@@ -7,7 +7,7 @@ import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import { MAIN_STYLE } from '../../utils/style';
 import { MdChevronLeft,MdDeleteForever } from 'react-icons/md';
 import { API_URL } from '../../utils/url';
- function GroupCreate(props) {
+ function GroupEdit(props) {
     const [name, setname] = useState("");
     const [newPrice, setNewPrice] = useState(0);
     const [part, setPart] = useState(0);
@@ -25,6 +25,8 @@ import { API_URL } from '../../utils/url';
 
 
     async function getProductData(){
+
+      //console.log("aaaaaaaaaa",props.Gid)
       const product_res = await fetch(`${API_URL}/products/${props.Pid}?populate=*`);
       const found = await product_res.json();
     
@@ -35,11 +37,21 @@ import { API_URL } from '../../utils/url';
      setOldPrice(found.data.attributes.stocks.data[0].attributes.stock + " SDG")
     console.log("old price", found.data.attributes.stocks.data[0].attributes.stock)
 
-
+     getGroupData();
       console.log("Group item info",found)
   }
 
    
+  async function getGroupData(){
+    const product_res = await fetch(`${API_URL}/groups/${props.Gid}?populate=*`);
+    const found = await product_res.json();
+    console.log(found)
+    setname(found.data.attributes.name)
+   setNewPrice(found.data.attributes.price)
+   setEdate(found.data.attributes.endDate);
+   setPart(found.data.attributes.members)
+    console.log("Group item info",found)
+}
 
 
 const createGroup = ()=>{
@@ -47,7 +59,7 @@ const createGroup = ()=>{
 
 
   const requestOptions = {
-    method: 'POST',
+    method: 'PUT',
     headers: {
         "Content-Type": "application/json",
         "Authorization": 'Bearer ' + ls.get("atkn")
@@ -67,18 +79,42 @@ const createGroup = ()=>{
 
 console.log(requestOptions.body);
 
-fetch(`${API_URL}/groups`, requestOptions)
+fetch(`${API_URL}/groups/${props.Gid}`, requestOptions)
     .then(response => response.json())
     .then(data =>{
       console.log("done",data);
-      notify("success",`Group  has been Created.`)
-     
-      props.pagdler(1)
+      
        
        
     });
 
 }
+
+const deleteGroup = ()=>{
+     
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + ls.get("atkn")
+    },  
+};
+fetch(`${API_URL}/Groups/${props.Gid}`, requestOptions)
+    .then(response => response.json())
+    .then(data =>{
+    
+     
+   
+      notify("success",`Group  has been Deleted.`)
+     
+      props.pagdler(1)
+       ////done
+      
+       
+       
+    });  
+}
+
 
     
 const notify = (type,msg)=>{
@@ -118,6 +154,11 @@ const notify = (type,msg)=>{
               <div onClick={()=>{props.pagdler(1)}} style={{display:'flex',justifyContent:'flex-start',alignItems:'center',cursor:'pointer'}}>
                 <MdChevronLeft style={{color:'white', backgroundColor:MAIN_STYLE.primary,fontSize:25,marginRight:5,borderRadius:100,padding:0}}/> 
                 <span >Back</span>
+              </div>
+
+              <div onClick={()=>{deleteGroup()}} style={{display:'flex',backgroundColor:'red',padding:5,borderRadius:5,justifyContent:'flex-start',alignItems:'center',cursor:'pointer'}}>
+                <MdDeleteForever style={{color:'white',fontSize:25,marginRight:5,borderRadius:100,padding:0}}/> 
+                <span style={{color:"white"}}>Delete Group</span>
               </div>
 
              
@@ -204,7 +245,7 @@ const notify = (type,msg)=>{
 
 <LoadingButton
 act={createGroup}
-text={"Create"}
+text={"Update"}
 lod= {0}
 msg={"Creating ..."}
 />
@@ -236,7 +277,7 @@ msg={"Creating ..."}
 }
 
 
-export default GroupCreate;
+export default GroupEdit;
 
 
 
