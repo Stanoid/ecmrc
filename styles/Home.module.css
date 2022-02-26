@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700&display=swap');
 .maintype {
   font-family: 'PT Sans', sans-serif;
   font-weight: bold;
@@ -17,6 +17,10 @@ color: black;
 
 }
 
+.MAIN_FONT{
+  font-family: 'Cairo', sans-serif;
+}
+
 
 .test{
  background-image: url("../public/ji.jpg");
@@ -24,7 +28,7 @@ color: black;
 }
 .nextimg{
  object-fit: cover;
- border-radius: 5px;
+ 
  width: 100px;
  height: 100pxs;
 }

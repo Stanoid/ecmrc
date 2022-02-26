@@ -121,13 +121,13 @@ function ProductsList(props) {
                           <img className="h-10 w-10 rounded-full" src={product.attributes.image[0].url} alt="" />
                         </div>
                         <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">{product.attributes.name}</div>
-                          <div className="text-sm text-gray-500">{product.attributes.description}</div>
+                          <div className="text-sm font-medium text-gray-900">{product.attributes.name.length>=19?product.attributes.name.slice(0,30)+"...":product.attributes.name}</div>
+                          <div className="text-sm text-gray-500">{product.attributes.description.length>=19?product.attributes.description.slice(0,19)+"...":product.attributes.description}</div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{product.attributes.description}</div>
+                      <div className="text-sm text-gray-900">{product.attributes.description.length>=40?product.attributes.description.slice(0,40)+"...":product.attributes.description}</div>
                      
                     </td>
 

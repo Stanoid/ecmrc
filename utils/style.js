@@ -1,4 +1,6 @@
 export const MAIN_STYLE = {
-    primary:'#042A2B',
-    secondary:'black',
+    primary:'#01EF78',
+    secondary:'#285943',
+    light:"#339989",
+    grey:"#2B2C28",
 }

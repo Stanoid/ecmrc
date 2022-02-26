@@ -6,6 +6,7 @@ import DefaultLayout from '../../layouts/Default';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import Counter from '../../comps/counter';
 import { StarIcon } from '@heroicons/react/solid'
+import Head from 'next/head'
 import { MdClose } from 'react-icons/md';
 import { RadioGroup } from '@headlessui/react'
 import SimpleImageSlider from "react-simple-image-slider";
@@ -326,6 +327,12 @@ return null
 
   return (
       <DefaultLayout>
+        <Head>
+        <title>{"Bendari shop | "+productel.attributes.name} </title>
+        <meta name="description" content={productel.attributes.description} />
+        <meta name="theme-color"/>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
         <ToastContainer  limit={3}/>
     <div className="bg-white pt-10">
       <div className="pt-6">
