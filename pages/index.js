@@ -19,8 +19,8 @@ ls.set("promo",pros);
 
  const cheapest = (ob)=>{
   let arrs=[];
-  ob.data.map(stock =>(
-   arrs.push(stock.attributes.stock_price)
+  ob.map(stock =>(
+   arrs.push(stock.stock_price)
   ))
 
   return Math.min(...arrs);
@@ -62,7 +62,7 @@ ls.set("promo",pros);
  <Hero/>
  </div>
 
-<div style={{marginTop:10}} className='p-2 '>
+<div style={{marginTop:10}} className='p-2 lg:p-6 xl:p-6 md:p-6 '>
 
  <h1 className={styles.MAIN_FONT} style={{color:MAIN_STYLE.grey,fontWeight:'bold',fontSize:20}}>
                Latest Products:
@@ -74,13 +74,13 @@ ls.set("promo",pros);
 
 
 
-{products.data&&products.data.map(product=>(
+{products&&products.map(product=>(
  
 
  
 <div  key={product.id}>
   
- <Product key={product.id} id={product.id} hasGroup={product.attributes.group}  img={product.attributes.image[0].url} description={product.attributes.description} price={cheapest(product.attributes.stocks)} name={product.attributes.name} />
+ <Product key={product.id} ver={product.vendor.confirmed} vendor={product.vendor.username} id={product.id} hasGroup={product.group}  img={product.image[0].url} description={product.description} price={product.stock} name={product.name} />
 
 </div>
 ))}
@@ -157,15 +157,17 @@ ls.set("promo",pros);
 export async function getServerSideProps(){
   const  ls = require('local-storage');
   const response = await fetch(`${API_URL}/catagories`);
-  const responseprod = await fetch(`${API_URL}/products?populate=stocks,group`);
+  const responseprod = await fetch(`${API_URL}/products?func=getAllProducts`);
   const promores = await fetch(`${API_URL}/promo`);
   const pros = await promores.json();
   ls.set("promo",pros);
   console.log("promo",pros)
   const catagories = await response.json();
    ls.set("catagories",catagories);
-  console.log("ssssssssssssssssssssssssssssssssss",catagories)
+  console.log("ssssssssssssssssssssssssssssssssss",responseprod)
+
   const products = await responseprod.json();
+  console.log("ssssssssssssssssssssssssssssssssss",products)
 // console.log(catagories);
 // console.log(products);
 

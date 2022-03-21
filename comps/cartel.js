@@ -58,14 +58,13 @@ export default function Cartel(props) {
                                     </h3>
                                     <p className="ml-4">{`${props.price}  ${CURRENCY}` }</p>
                                   </div>
-                                  <p className="mt-1 text-sm text-gray-500">{props.color}</p>
-                                  <p className="mt-1 text-sm text-gray-500">{props.size.name}</p>
+                                  {/* <p className="mt-1 text-sm text-gray-500">{props.color}</p> */}
+                                  <p className="ml-4">{` commission: ${props.comm}  ${CURRENCY}` }</p>
                                 </div>
                                 <div className="flex-1 flex items-end justify-between text-sm">
-                                  <p className="text-gray-500">Quantity: {props.qty}</p>
-
-                                  <div className="flex">
-                                    <button onClick={()=>{props.removeItem(props.size.id)}} type="button" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                 
+                                  <div className="flex" >
+                                    <button onClick={()=>{props.removeItem(props.size.id)}} type="button" style={{color:'red'}} className="font-medium text-indigo-600 hover:text-indigo-500">
                                       Remove
                                     </button>
                                   </div>

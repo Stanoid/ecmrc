@@ -3,10 +3,12 @@ import { useState } from 'react'
 import axios from 'axios';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import { API_URL,ROOT_URL } from '../utils/url';
+import { BsMegaphone,BsShop } from 'react-icons/bs'
 import { useRouter } from 'next/router';
 export default function Register() {
 
   const [name, setname] = useState("");
+  const [type, setType] = useState(0);
   const [email, setemail] = useState("");
   const [pass, setpass] = useState("");
   const [cpass, setcpass] = useState("");
@@ -38,6 +40,11 @@ const notify = (type,msg)=>{
 
   }
  
+}
+
+
+const handleType=(type)=>{
+setType(type);
 }
 
   const regis =()=>{
@@ -80,6 +87,7 @@ const notify = (type,msg)=>{
     body: JSON.stringify(
       {
           "username": name,
+          "type":type,
           "email": email,
           "password": pass,
         }
@@ -90,7 +98,7 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
     .then(data =>{
       if(data.jwt){
         notify("success",`Welcome on board ${data.user.username}`);
-    ls.set("utkn",data.jwt)
+    ls.set("atkn",data.jwt)
     router.replace("/")
 
       }else{
@@ -109,9 +117,9 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
         <div>
            <ToastContainer  limit={3}/>
 
-            <div className="h-screen bg-gradient-to-br from-primary to-black flex justify-center items-center w-full">
+            <div className="h-screen bg-gradient-to-br from-primary to-secondary flex justify-center items-center w-full">
   
-    <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+    <div style={{display:type==0?"none":"block"}} className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
       <div className="space-y-4">
         <h1 className="text-center text-2xl font-semibold text-gray-600">Register</h1>
         <div>
@@ -131,9 +139,49 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
           <input value={cpass} onChange={(event)=>{setcpass(event.target.value)}} type="password" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
       </div>
-      <button onClick={()=>{regis()}} className="mt-4 w-full bg-primary  text-white py-2 rounded-md text-lg tracking-wide">Register</button>
-      <button onClick={()=>{router.replace("/login")}} className="mt-4 w-full  text-primary py-2 rounded-md text-lg underline tracking-wide">Login instead</button>
+      <button onClick={()=>{regis()}} className="mt-4 w-full bg-primary font-semibold  text-secondary py-2 rounded-md text-lg tracking-wide">Register</button>
+      <button onClick={()=>{router.replace("/login")}} className="mt-4 w-full   text-primary py-2 rounded-md text-lg underline tracking-wide">Login instead</button>
  
+    </div>
+
+    <div style={{display:type==0?"block":"none"}} className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-xl">
+      <div className="space-y-4">
+        <h1 className=" text-1xl font-semibold text-gray-600">Join Bendari As:</h1>
+
+        <div className='grid grid-cols-6 gap-x-4 gap-y-4' style={{marginTop:40}}>
+        <div className='col-span-6 lg:col-span-3' > 
+        <div onClick={()=>{handleType(1)}}  className='p-2 shadow-md hover:shadow-xl transition ease-in-out rounded-md' style={{cursor:'pointer',display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+        <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:'column'}}>
+       <BsMegaphone  className='text-primary'  style={{fontSize:60,marginBottom:10}}/>
+        <h1 className=" text-2xl font-semibold text-gray-600">Markerter</h1>
+        <h1 className="p-4 text-1xl text-center font-semibold text-gray-600">I want to promote products with commission</h1>
+          </div>
+          
+        
+       
+        </div>
+        </div>
+
+        <div className='col-span-6 lg:col-span-3' > 
+        <div onClick={()=>{handleType(2)}} className='p-2 shadow-md hover:shadow-xl transition ease-in-out rounded-md' style={{ cursor:"pointer", display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+        <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:'column'}}>
+        <BsShop className='text-primary' style={{fontSize:60,marginBottom:10}}/>
+        <h1 className=" text-2xl font-semibold text-gray-600">Seller</h1>
+        <h1 className="p-4 text-1xl text-center font-semibold text-gray-600">I have products and looking for markerters</h1>
+          </div>
+          
+        
+       
+        </div>
+        </div>
+        </div>
+        
+    
+      
+      
+      
+      </div>
+     
     </div>
   
 </div>

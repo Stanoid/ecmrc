@@ -4,7 +4,7 @@ import SimpleImageSlider from "react-simple-image-slider";
 export default function Hero(props) {
  
     return (
-       <div className='p-6'>
+       <div className='p-1 lg:p-6 xl:p-6 md:p-6 '>
          <div className='grid grid-cols-6 gap-x-1.5 gap-y-1.5' >
 
       <div className='col-span-6 ' style={{height:'15vh',backgroundColor:'#285943'}}>c</div>

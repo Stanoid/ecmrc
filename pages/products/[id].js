@@ -6,8 +6,10 @@ import DefaultLayout from '../../layouts/Default';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import Counter from '../../comps/counter';
 import { StarIcon } from '@heroicons/react/solid'
+import { MAIN_STYLE } from '../../utils/style';
 import Head from 'next/head'
 import { MdClose } from 'react-icons/md';
+import Modal from '../../comps/modal';
 import { RadioGroup } from '@headlessui/react'
 import SimpleImageSlider from "react-simple-image-slider";
 
@@ -80,11 +82,22 @@ export default function Product({productel}) {
   const router = useRouter();
   const [qlimit,setQlimit] = useState(0)
   const [price,setPrice]=useState();
+  const [comm,setComm]=useState();
   const [hasof,setHasOf] = useState(0);
+  const [groupob,setGroupOb] = useState(null);
+  const [modalOpen,setModalOpen] = useState(false);
+  
+
 
 
   useEffect(() => {
+  console.table(productel)
 
+  // if(productel.attributes.group.data==null){
+
+  // }else{
+  // //  getGroup(productel.attributes.group.data.id);
+  // }
     if(!ls.get("cart")){
       ls.set("cart",[])
       console.log("cart set")
@@ -101,53 +114,97 @@ export default function Product({productel}) {
    } catch (error) {
      
    }
+
+
+   try {
+    if(productel.attributes.stock.data){
+     
+      setPrice(productel.attributes.stock.data.attributes.price);
+      setComm(productel.attributes.stock.data.attributes.comm);
+      setQlimit(productel.attributes.stock.data.attributes.stock);
+    }
+   } catch (error) {
+     
+   }
   
    
 
 
 
-   try {
+  //  try {
 
-    let least= productel.attributes.stocks.data[0].attributes.stock_price;
-    let seleq = 0;
-    let seleid = 0;
-    let selname = "";
+  //   let least= productel.attributes.stocks.data[0].attributes.stock_price;
+  //   let seleq = 0;
+  //   let seleid = 0;
+  //   let selname = "";
  
-    console.log("aaaaaa",least)    
-     for (let i = 0; i < productel.attributes.stocks.data.length; i++) {
+  //   console.log("aaaaaa",least)    
+  //    for (let i = 0; i < productel.attributes.stocks.data.length; i++) {
   
-       try{
+  //      try{
          
-         if(productel.attributes.stocks.data[i].attributes.stock_price <= least && productel.attributes.stocks.data[i].attributes.stock>0){
+  //        if(productel.attributes.stocks.data[i].attributes.stock_price <= least && productel.attributes.stocks.data[i].attributes.stock>0){
       
-          least = productel.attributes.stocks.data[i].attributes.stock_price;
-          seleid = productel.attributes.stocks.data[i].id
-          seleq = productel.attributes.stocks.data[i].attributes.stock
-          console.log("aaaaaaaaaaaaaaa",productel.attributes.stocks.data[i].attributes.stock)
-          selname = productel.attributes.stocks.data[i].attributes.option_name
-         } 
-       }catch(err){
+  //         least = productel.attributes.stocks.data[i].attributes.stock_price;
+  //         seleid = productel.attributes.stocks.data[i].id
+  //         seleq = productel.attributes.stocks.data[i].attributes.stock
+  //         console.log("aaaaaaaaaaaaaaa",productel.attributes.stocks.data[i].attributes.stock)
+  //         selname = productel.attributes.stocks.data[i].attributes.option_name
+  //        } 
+  //      }catch(err){
        
-       }
+  //      }
       
        
-     }
+  //    }
   
-     // alert(least);
+  //    // alert(least);
      
-    setPrice(least)
-    // console.log("noooooooooooonon",seleq)
-    setQlimit(seleq);
-    setSelectedSize({id:seleid,name:selname})
+  //   setPrice(least)
+  //   // console.log("noooooooooooonon",seleq)
+  //   setQlimit(seleq);
+  //   setSelectedSize({id:seleid,name:selname})
      
-   } catch (error) {
-    setPrice("Unknown price")
-   } 
+  //  } catch (error) {
+  //   setPrice("Unknown price")
+  //  } 
 
   
   },[]);
 
 
+  async function getGroup(id){
+    const product_res = await fetch(`${API_URL}/groups/${id}?populate=*`);
+    const found = await product_res.json();
+    console.log("sssss",found)
+   setGroupOb(found)
+}
+
+async function joinGroup(){
+
+   const requestOptions = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + ls.get("atkn")
+            },
+            body: JSON.stringify({
+              "data":{
+                 
+              }
+           }),
+           
+        };
+        fetch(`${API_URL}/groups/${productel.attributes.group.data.id}?func=joinGroup`, requestOptions)
+            .then(response => response.json())
+            .then(data =>{
+              
+            console.log(data)
+               
+               
+            });
+  
+}
 
   // if(!productel){
   //  return<DefaultLayout> <div style={{width:'100vw',height:'100vh',display:'flex'}}> 
@@ -217,7 +274,7 @@ export default function Product({productel}) {
     const  cart = ls.get("cart");
     let hass = 0;
     for (let i = 0; i < cart.length; i++) {
-     if(cart[i].opt.id==id){
+     if(cart[i].id==id){
       hass = hass+cart[i].qty;
      }
       
@@ -269,6 +326,7 @@ return null
    'name': nameval(),
    'price':price,
    'qty':qty,
+   'comm':comm,
    'color': selectedColor,
    'img':productel.attributes.image[0].url,
    'opt':selectedSize, 
@@ -282,7 +340,7 @@ return null
       console.log(order.id," not exists")
       tempCart.push(order);
        ls.set("cart",tempCart);
-       setQty(0);
+      // setQty(0);
        handleHasOf(order.id);
        notify("success","Added to cart")
       return;
@@ -293,11 +351,12 @@ return null
     for (let i = 0; i < tempCart.length; i++) {
     //  console.log(tempCart[i].opt.id,selectedSize.id)
 
-    if(tempCart[i].opt.id===selectedSize.id&&tempCart[i].color===selectedColor){
+    if(tempCart[i].id===productel.id){
       existso =1;
      
       console.log("exists")
-      tempCart[i].qty = tempCart[i].qty+ qty;
+     
+     // tempCart[i].qty = tempCart[i].qty+ qty;
     }else{
      
     }
@@ -306,14 +365,18 @@ return null
 
     if(existso==0){
       tempCart.push(order);
+      notify("success","Added to cart")
+      ls.set("cart",tempCart)
+    }else{
+      notify("warn","Item already in cart")
     }
 
-    ls.set("total",total);
+    // ls.set("total",total);
 
-    ls.set("cart",tempCart)
-    setQty(0);
-    handleHasOf(order.id);
-    notify("success","Added to cart")
+   
+    // //setQty(0);
+    // handleHasOf(order.id);
+    // //notify("success","Added to cart")
 
 
 
@@ -333,9 +396,9 @@ return null
         <meta name="theme-color"/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-        <ToastContainer  limit={3}/>
-    <div className="bg-white pt-10">
-      <div className="pt-6">
+        {/* <ToastContainer  limit={3}/> */}
+    <div className="bg-white pt-0 lg:p-10 xl:p-10 md:p-10 ">
+      <div className="pt-0 lg:pt-6 xl:pt-6 md:pt-6">
 
         
       
@@ -401,6 +464,7 @@ return null
           <div className="mt-4 lg:mt-0 lg:row-span-3">
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl text-gray-900">{`${price} ${CURRENCY}`}</p>
+            <p className="text-2xl text-gray-900">{` commission: ${comm} ${CURRENCY}`}</p>
 
           
           
@@ -448,7 +512,7 @@ return null
               </div>
 
               {/* Sizes */}
-              <div className="mt-10">
+              {/* <div className="mt-10">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm text-gray-900 font-medium">Options</h3>
                
@@ -510,16 +574,16 @@ return null
                     )):null}
                   </div>
                 </RadioGroup>
-              </div>
+              </div> */}
 
-              <div className="flex items-center justify-between mt-9">
+              {/* <div className="flex items-center justify-between mt-9">
                   <h3 className="text-sm text-gray-900 font-medium">Quantity</h3>
                
-                </div>
+                </div> */}
 
-              <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+              {/* <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
              <Counter limit={qlimit-hasof}  qty={qty} setQ={setQty} />
-              </div>
+              </div> */}
               {/* <div onClick={()=>{console.log(selectedColor)}}>Has of</div>
               <div onClick={()=>{console.log(ls.clear("cart"))}}>clear cart</div> */}
               
@@ -533,6 +597,27 @@ return null
               >
                 Add to Cart
               </button>
+              {/* <div style={{marginTop:30}}>
+                <div style={{color:MAIN_STYLE.grey,fontWeight:'bold',fontSize:20}}>
+                  {"Get it at"}
+                </div>
+                <div>
+                <p className="text-3xl text-gray-900 font-bold" >{`${groupob&&groupob.data.attributes.price} ${CURRENCY}`}</p>
+                </div>
+                <div>
+                <p className="text-xl text-gray-900">{`(${groupob&&groupob.data.attributes.customers.data.length} / ${groupob&&groupob.data.attributes.members}) joined ` }</p>
+                </div>
+
+              <button
+              onClick={ qty==0?()=>{notify("warn","Select Quantity")}:()=>{setModalOpen(true)}}
+                className="mt-5 w-full border border-transparent rounded-md py-3 
+                px-8 flex  items-center justify-center text-base font-bold hover:bg-indigo-700 
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md"
+                style={{backgroundColor:qty==0?'grey': MAIN_STYLE.primary,color: MAIN_STYLE.gray,display:productel.attributes.group.data==null?'none':'block'}}
+              >
+                {`Join Group ` }
+              </button>
+              </div> */}
           </div>
 
           <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
@@ -552,13 +637,15 @@ return null
         </div>
       </div>
     </div>
+    <Modal act={joinGroup} setopen={setModalOpen} open={modalOpen} />
     </DefaultLayout>
   )
 }
 
 
 export async function getServerSideProps({params:{id}}){
-    const product_res = await fetch(`${API_URL}/products/${id}?populate=*`);
+  
+    const product_res = await fetch(`${API_URL}/products/${id}?func=getFullProduct`);
     const found = await product_res.json();
    
     console.log("aaaaaaaaaaaaaaaaaaa",found)

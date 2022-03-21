@@ -3,28 +3,24 @@ import { Fragment, useState,useEffect,useContext } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Cartel from './cartel'
 import { XIconreact,XIcon } from '@heroicons/react/outline'
-
 import { MdRemoveShoppingCart } from 'react-icons/md'
 import { MAIN_STYLE } from '../utils/style'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import { CURRENCY } from '../utils/url'
+import { useRouter } from 'next/router'
 import { useRecoilState } from "recoil";
+import { API_URL } from '../utils/url';
+
 import { forwardRef, useRef,useImperativeHandle  } from "react"
 const Cart = forwardRef((props, ref) => {
   const [open, setOpen] = useState(true)
   const [scrol,setScrol]=useState(0);
   const [total,setTotal]=useState(0);
+  const router = useRouter();
   const [carts,setCarts] = useState([]);
 const  ls = require('local-storage');
   const [subtotal,setSubtotal]=useState(0);
-  const notify = ()=>{
-    toast.success("fuckyou",{
-     hideProgressBar:true,
-     draggable:true,
-     transition:Flip,
-     
-    })
-  }
+ 
 
   useEffect(()=>{
 
@@ -81,10 +77,122 @@ handleTotal();
    
 }
    
+async function checkUser(){
+  
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + ls.get("atkn")
+    },
+   
+};
+fetch(`${API_URL}/users/me`, requestOptions)
+    .then(response => response.json())
+    .then(data =>{
+      
+       console.log("userdata",data)
+       if(data.type===1){
+     finishSale();
+       }else{
+       
+       }
+     
+       
+       
+    }).catch(error =>{ 
+    
+      console.log(error)
+      router.replace("/login")
+    
+    });
 
+
+
+}
+
+const finishSale=()=>{
+ // console.log(carts);
+
+  let idarr=[];
+
+
+  for (let i = 0; i < carts.length; i++) {
+    idarr.push(
+      {
+        "id":carts[i].id,
+        "price":carts[i].price,
+        "commission":carts[i].comm,
+        "product":carts[i].id,
+        "status":"initiated"
+      }
+    )
+    
+  }
+
+  console.table(idarr);
+  
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + ls.get("atkn")
+    },
+    body: JSON.stringify({
+       "data":idarr
+    })
+
+};
+
+console.log(requestOptions.body);
+
+fetch(`${API_URL}/orders?func=orderInit`, requestOptions)
+    .then(response => response.json())
+    .then(data =>{
+      console.log("done",data);
+      notify("success",`Products added succussfully.`)
+     
+    
+       
+       
+    });
+
+
+
+
+
+}
+
+const notify = (type,msg)=>{
+
+    const options={
+      hideProgressBar:true,
+      draggable:true,
+      closeButton:false,
+      
+    }
+    switch(type){
+      case 'success':
+        toast.success(msg,options)
+        break;
+
+        case 'error':
+          toast.error(msg,options)
+          break;
+
+          case 'warn':
+            toast.warn(msg,options)
+            break;
+
+          
+
+    }
+   
+  }
   
   return (
     <Transition.Root updatcart={()=>{setCarts(ls.get("cart"))}} show={props.open} as={Fragment}>
+      
       <Dialog as="div" className="fixed inset-0 overflow-hidden z-20" onClose={()=>{props.openHandler(false)}}>
         <div className="absolute inset-0 overflow-hidden">
           <Transition.Child
@@ -109,6 +217,7 @@ handleTotal();
               leaveTo="translate-y-full lg:-translate-y-full"
             >
               <div className="relative w-screen ">
+              <ToastContainer  limit={3}/>
                 
                 <div className="h-screen-1/2 flex flex-col py-6 rounded-t-lg rounded-r-lg lg:rounded-r-none lg:rounded-t-none  bg-white shadow-lg overflow-y-hidden">
                 <div className='lg:hidden flex' style={{justifyContent:'center',alignItems:'center'}}>
@@ -127,7 +236,7 @@ handleTotal();
                  
                {carts.length!=0?carts.map(cart=>(
                 
-                <Cartel removeItem={removeItem} id={cart.id} name={cart.name} price={cart.price} size={cart.opt} color={cart.color} img={cart.img} qty={cart.qty} />
+                <Cartel removeItem={removeItem} id={cart.id} name={cart.name} price={cart.price} size={cart.opt} comm={cart.comm}  color={cart.color} img={cart.img} qty={cart.qty} />
            
                )):
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
@@ -175,9 +284,9 @@ handleTotal();
                      </div>
    
                     <div style={{padding:20,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-                        <div style={{fontSize:15,fontWeight:'bold'}}>Subtotal: { `${total} ${CURRENCY}`} </div>
+                        <div style={{fontSize:15,fontWeight:'bold'}}></div>
                         <div>
-                            <button style={{padding:"10px 15px 10px 15px",backgroundColor:MAIN_STYLE.primary,color:'white',borderRadius:5}}>Checkout</button>
+                            <button onClick={()=>{checkUser()}} className='shadow-md font-semibold' style={{padding:"10px 15px 10px 15px",backgroundColor:MAIN_STYLE.primary,color:MAIN_STYLE.secondary,borderRadius:5}}>Finish</button>
                         </div>
                         </div>                  
                     {/* /End replace */}

@@ -17,10 +17,10 @@ export default function Nav(props) {
   const childCompRef = useRef()
 
   const router = useRouter();
-  const isaccount = router.pathname==="/account"
+  const isaccount = router.pathname==="/panel"|| router.pathname==="/mpanel";
  const [open,setOpen] = useState(false);
  const [openCart,setOpenCart] = useState(false);
-    const {user,logOutUser} = useContext(AuthContext);
+    const {user,logOutUser,stype} = useContext(AuthContext);
 
     
 
@@ -74,7 +74,7 @@ setOpen(open)
             <MdOutlineShoppingCart onClick={()=>{setOpenCart(true); childCompRef.current.showAlert();}} style={{fontSize:29,cursor:"pointer"}} />
          </div>
          <div >
-         <Link  href={"/account"}>
+         <Link  href={stype===1?"/mpanel":"/panel"}>
             {/* <a> {user.email}</a> */}
              
             {isaccount?<MdOutlineLogout onClick={logOutUser} style={{fontSize:30,color:MAIN_STYLE.grey,cursor:'pointer'}} /> :<MdOutlineAccountCircle style={{fontSize:30,cursor:'pointer'}} /> }

@@ -74,7 +74,7 @@ export default function Catagories({catagory,cats}) {
  
 <div  key={product.id}>
   
- <Product key={product.id} id={product.id} hasGroup={product.attributes.group}  img={product.attributes.image[0].url} description={product.attributes.description} price={cheapest(product.attributes.stocks)} name={product.attributes.name} />
+ <Product key={product.id} id={product.id} hasGroup={product.attributes.group}  img={product.attributes.image[0].url} description={product.attributes.description} price={product.attributes.stock} name={product.attributes.name} />
 
 </div>
 ))}

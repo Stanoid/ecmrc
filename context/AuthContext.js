@@ -11,6 +11,7 @@ let magic
 export const AuthProvider = (props)=>{
 
     const[user,setUser] = useState(null);
+    const[stype,setStype] = useState(null);
     const [loading,setLoading]= useState(false);
     const router = useRouter();
     const ls = require("local-storage")
@@ -40,11 +41,29 @@ export const AuthProvider = (props)=>{
                     console.log(data);
                     
                     if(data.jwt){
-                        ls.set("utkn",data.jwt);
+                        ls.set("atkn",data.jwt);
             
                      setUser(data.user.username)
+                     setStype(data.user.type)
+                     switch(data.user.type){
+                       case 1:
                         notify("success",`Welcom back ${data.user.username}, you will be redirected.`)
                         router.replace("/")
+                         break;
+
+                         case 2:
+                          notify("success",`Welcom back ${data.user.username}, you will be redirected.`)
+                          router.replace("/panel")
+
+                           break;
+
+                           default:
+                            notify("success",`Welcom back ${data.user.username}, you will be redirected.`)
+                            router.replace("/")
+  
+                             break;
+                     }
+                       
                     }else{
                         notify("error","Invalid email or password")
                     }
@@ -115,7 +134,7 @@ export const AuthProvider = (props)=>{
 
              const checkLogged = async()=>{
 
-                if(ls.get("utkn")){
+                if(ls.get("atkn")){
                     
                 }else{
                     return
@@ -124,7 +143,7 @@ export const AuthProvider = (props)=>{
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": 'Bearer ' + ls.get("utkn")
+                        "Authorization": 'Bearer ' + ls.get("atkn")
                     },
                   
                 };
@@ -154,7 +173,7 @@ export const AuthProvider = (props)=>{
 
 
 return(
-    <AuthContext.Provider value={{user,loginUser,logOutUser,notify}}>
+    <AuthContext.Provider value={{user,loginUser,logOutUser,notify,stype}}>
           <ToastContainer  limit={3}/>
         {props.children}
     </AuthContext.Provider>
