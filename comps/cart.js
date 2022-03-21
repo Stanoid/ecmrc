@@ -163,6 +163,18 @@ fetch(`${API_URL}/orders?func=orderInit`, requestOptions)
 
 }
 
+const dummy_load = (load)=>{
+  console.log(`console.log the load ${load}`)
+}
+
+const dumm_func=()=>{
+  let arr = [];
+  for (let i = 0; i < arr.length; i++) {
+   console.log(`this is a dummy load, it supposed to run 255 times and return a null value n succussful execution ${arr}`)
+    
+  }
+}
+
 const notify = (type,msg)=>{
 
     const options={
