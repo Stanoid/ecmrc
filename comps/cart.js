@@ -150,7 +150,9 @@ fetch(`${API_URL}/orders?func=orderInit`, requestOptions)
     .then(response => response.json())
     .then(data =>{
       console.log("done",data);
+      ls.set("cart",[]);
       notify("success",`Products added succussfully.`)
+      props.openHandler(false);
      
     
        
@@ -161,18 +163,6 @@ fetch(`${API_URL}/orders?func=orderInit`, requestOptions)
 
 
 
-}
-
-const dummy_load = (load)=>{
-  console.log(`console.log the load ${load}`)
-}
-
-const dumm_func=()=>{
-  let arr = [];
-  for (let i = 0; i < arr.length; i++) {
-   console.log(`this is a dummy load, it supposed to run 255 times and return a null value n succussful execution ${arr}`)
-    
-  }
 }
 
 const notify = (type,msg)=>{
@@ -216,7 +206,7 @@ const notify = (type,msg)=>{
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="absolute inset-0 bg-black lg:bg-black  bg-opacity-25 lg:bg-opacity-50 transition-opacity" />
+            <Dialog.Overlay style={{backdropFilter:"blur(7px)"}} className="absolute inset-0 bg-black lg:bg-black  bg-opacity-10 lg:bg-opacity-50 transition-opacity" />
           </Transition.Child>
           <div className="fixed bottom-0 right-0 lg:top-0 max-h-1/2   max-w-md flex ">
             <Transition.Child
@@ -298,7 +288,8 @@ const notify = (type,msg)=>{
                     <div style={{padding:20,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
                         <div style={{fontSize:15,fontWeight:'bold'}}></div>
                         <div>
-                            <button onClick={()=>{checkUser()}} className='shadow-md font-semibold' style={{padding:"10px 15px 10px 15px",backgroundColor:MAIN_STYLE.primary,color:MAIN_STYLE.secondary,borderRadius:5}}>Finish</button>
+                          
+                            <button onClick={carts.length==0?()=>{notify("warn","Empty cart")}:()=>{checkUser()}} className='shadow-md font-semibold' style={{padding:"10px 15px 10px 15px",backgroundColor:MAIN_STYLE.primary,color:MAIN_STYLE.secondary,borderRadius:5}}>Finish</button>
                         </div>
                         </div>                  
                     {/* /End replace */}

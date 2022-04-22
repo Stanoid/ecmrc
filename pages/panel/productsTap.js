@@ -6,8 +6,9 @@ import ProductsList from './productslist';
 import { MdAdd } from 'react-icons/md';
 import EditForm from './editform';
 import GroupEdit from './groupEdit';
+
 import GroupCreate from './groupCreate';
-function productsTap(props) {
+function ProductsTap(props) {
 
   const [page, setPage] = useState(1);
   const [pid, setPid] = useState(null);
@@ -39,6 +40,12 @@ case 1:
     return <div><UploadForm userData={props.userData}  pagdler={handlePage} /></div>
   break;
 
+  case 2:
+    return <div><UploadForm userData={props.userData}  pagdler={handlePage} /></div>
+  break;
+
+ 
+
   case 4:
     return <div><EditForm userData={props.userData} Pid={pid}  pagdler={handlePage} /></div>
   break;
@@ -57,4 +64,4 @@ case 1:
  }
 }
 
-export default productsTap;
+export default ProductsTap;

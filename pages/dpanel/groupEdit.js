@@ -7,15 +7,11 @@ import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import { MAIN_STYLE } from '../../utils/style';
 import { MdChevronLeft,MdDeleteForever } from 'react-icons/md';
 import { API_URL } from '../../utils/url';
- function GroupCreate(props) {
+ function GroupEdit(props) {
     const [name, setname] = useState("");
     const [newPrice, setNewPrice] = useState(0);
     const [part, setPart] = useState(0);
     const [edate, setEdate] = useState("");
-    const [bname, setBname] = useState("");
-    const [bphone, setBphone] = useState("");
-    const [badd, setBadd] = useState("");
-
     
     // const [cat, setcat] = useState(cats&&cats.length!==0?cats[0].id:null);
     const [oldPrice, setOldPrice] = useState(0);
@@ -29,41 +25,37 @@ import { API_URL } from '../../utils/url';
 
 
     async function getProductData(){
-      const product_res = await fetch(`${API_URL}/products/${props.Pid}?func=getBasicPrice`);
+
+      //console.log("aaaaaaaaaa",props.Gid)
+      const product_res = await fetch(`${API_URL}/products/${props.Pid}?populate=*`);
       const found = await product_res.json();
     
     
-  //     console.log(found)
-      setname(found.name)
+      console.log(found)
+      setname(found.data.attributes.name)
       // setdesc(found.data.attributes.description);
-     setOldPrice(found.stock.price)
-  //  // console.log("old price", found.data.attributes.stocks.data[0].attributes.stock)
+     setOldPrice(found.data.attributes.stocks.data[0].attributes.stock + " SDG")
+    console.log("old price", found.data.attributes.stocks.data[0].attributes.stock)
 
-
+     getGroupData();
       console.log("Group item info",found)
   }
 
    
+  async function getGroupData(){
+    const product_res = await fetch(`${API_URL}/groups/${props.Gid}?populate=*`);
+    const found = await product_res.json();
+    console.log(found)
+    setname(found.data.attributes.name)
+   setNewPrice(found.data.attributes.price)
+   setEdate(found.data.attributes.endDate);
+   setPart(found.data.attributes.members)
+    console.log("Group item info",found)
+}
 
 
 const createGroup = ()=>{
  
-
-  if(newPrice<oldPrice){
-    notify("warn","Sale price cannot be less than listed price.")
-    return
-  }
-
-  if(part<1){
-    notify("warn","Quantity cannot be less that 1.")
-    return
-  }
-
-  if(bname==""||bname==" "||badd==""||badd==" "||bphone==""||bphone==" "){
-    notify("warn","Buyer's information cannot be empty.")
-    return
-  }
-
 
 
   const requestOptions = {
@@ -74,11 +66,11 @@ const createGroup = ()=>{
     },
     body: JSON.stringify({
        "data":{
-           "bName":bname,
-           "bAdd":badd,
-           "bPhone": bphone,
-           "qty": part,
-           "salePrice": newPrice,
+           "price":newPrice,
+           "members":part,
+           "endDate": edate,
+           "product": props.Pid,
+           "creator": props.userData.id,
 
        }
     })
@@ -87,18 +79,42 @@ const createGroup = ()=>{
 
 console.log(requestOptions.body);
 
-fetch(`${API_URL}/orders/${props.Oid}?func=makeSale&&order=${props.Oid}`, requestOptions)
+fetch(`${API_URL}/groups/${props.Gid}`, requestOptions)
     .then(response => response.json())
     .then(data =>{
       console.log("done",data);
-      notify("success",`Group  has been Created.`)
-     
-      props.pagdler(1)
+      
        
        
     });
 
 }
+
+const deleteGroup = ()=>{
+     
+  const requestOptions = {
+    method: 'DELETE',
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + ls.get("atkn")
+    },  
+};
+fetch(`${API_URL}/Groups/${props.Gid}`, requestOptions)
+    .then(response => response.json())
+    .then(data =>{
+    
+     
+   
+      notify("success",`Group  has been Deleted.`)
+     
+      props.pagdler(1)
+       ////done
+      
+       
+       
+    });  
+}
+
 
     
 const notify = (type,msg)=>{
@@ -140,6 +156,11 @@ const notify = (type,msg)=>{
                 <span >Back</span>
               </div>
 
+              <div onClick={()=>{deleteGroup()}} style={{display:'flex',backgroundColor:'red',padding:5,borderRadius:5,justifyContent:'flex-start',alignItems:'center',cursor:'pointer'}}>
+                <MdDeleteForever style={{color:'white',fontSize:25,marginRight:5,borderRadius:100,padding:0}}/> 
+                <span style={{color:"white"}}>Delete Group</span>
+              </div>
+
              
               </div>
                <div style={{padding:20,display:"flex",justifyContent:'center',alignItems:'center',flexDirection:"column"}} > 
@@ -152,10 +173,9 @@ const notify = (type,msg)=>{
   <div className="md:grid md:grid-cols-3 md:gap-6">
     <div className="md:col-span-1">
       <div className="px-4 sm:px-0">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">Make a sell</h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-900">Group informations</h3>
         <p className="mt-1 text-sm text-gray-600">
-        Please provide the buyers information.
-        Buyer will be contacted to confirm sale.
+         Make it as informative as you can to convert sales 
         </p>
       </div>
     </div>
@@ -180,18 +200,17 @@ const notify = (type,msg)=>{
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                 
-                  <input disabled={true} value={oldPrice+" SDG"} style={{backgroundColor:'lightgray'}} onChange={(event)=>{setname(event.target.value)}} type="text" name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300" placeholder="Product name"/>
+                  <input disabled={true} value={oldPrice} style={{backgroundColor:'lightgray'}} onChange={(event)=>{setname(event.target.value)}} type="text" name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300" placeholder="Product name"/>
                 </div>
               </div>
             
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                  Sale price
+                  Discounted price
                 </label>
-                <div style={{display:"flex",flexDirection:'column'}} className="mt-1 flex rounded-md shadow-sm">
+                <div className="mt-1 flex rounded-md shadow-sm">
                 
-                  <input  value={newPrice}   onChange={(event)=>{setNewPrice(event.target.value)}} type="number" name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300"/>
-                <span style={{color:'grey',fontSize:15,fontStyle:'italic',padding:10}}> Any increse above the listed price will be added to your balance </span>
+                  <input  value={newPrice}  onChange={(event)=>{setNewPrice(event.target.value)}} type="number" name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300" placeholder="New price"/>
                 </div>
               </div>
 
@@ -200,45 +219,15 @@ const notify = (type,msg)=>{
 
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                 Quantity
+                  Participants limit
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                 
-                  <input  value={part} type={"number"} min={1}  onChange={(event)=>{setPart(event.target.value)}} name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300" />
+                  <input  value={part}  onChange={(event)=>{setPart(event.target.value)}} type="number" name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300" placeholder="New price"/>
                 </div>
               </div>
 
               <div className="col-span-3 sm:col-span-2">
-                <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                 Buyers name
-                </label>
-                <div className="mt-1 flex rounded-md shadow-sm">
-                
-                  <input  value={bname} type={"text"} min={1}  onChange={(event)=>{setBname(event.target.value)}} name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300" />
-                </div>
-              </div>
-
-              <div className="col-span-3 sm:col-span-2">
-                <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                 Buyers phone
-                </label>
-                <div className="mt-1 flex rounded-md shadow-sm">
-                
-                  <input  value={bphone} type={"text"} min={1}  onChange={(event)=>{setBphone(event.target.value)}} name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300" />
-                </div>
-              </div>
-
-              <div className="col-span-3 sm:col-span-2">
-                <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                 Buyers address
-                </label>
-                <div className="mt-1 flex rounded-md shadow-sm">
-                
-                  <input  value={badd} type={"text"} min={1}  onChange={(event)=>{setBadd(event.target.value)}} name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300" />
-                </div>
-              </div>
-
-              {/* <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
                   Ending date
                 </label>
@@ -246,7 +235,7 @@ const notify = (type,msg)=>{
                 
                   <input  value={edate}  onChange={(event)=>{setEdate(event.target.value)}} type="date" name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300" placeholder="Ending date"/>
                 </div>
-              </div> */}
+              </div>
 
 
             </div>
@@ -256,9 +245,9 @@ const notify = (type,msg)=>{
 
 <LoadingButton
 act={createGroup}
-text={"Sell"}
+text={"Update"}
 lod= {0}
-msg={"Proccessing ..."}
+msg={"Creating ..."}
 />
 
 {/* <div  onClick={()=>{createGroup()}}  className="bg-white px-10  rounded-xl w-screen  max-w-sm">
@@ -288,7 +277,7 @@ msg={"Proccessing ..."}
 }
 
 
-export default GroupCreate;
+export default GroupEdit;
 
 
 

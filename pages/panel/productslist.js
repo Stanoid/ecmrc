@@ -96,7 +96,7 @@ function ProductsList(props) {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Price 
+                    Pricing
                   </th>
 
                   
@@ -112,7 +112,7 @@ function ProductsList(props) {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-10 w-10">
-                          <img className="h-10 w-10 rounded-full" src={product.image[0].url} alt="" />
+                        <img className="h-10 w-10 rounded-full" src={product.image[0].url} alt="" />
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{product.name.length>=19?product.name.slice(0,30)+"...":product.name}</div>
@@ -127,19 +127,20 @@ function ProductsList(props) {
                       <div className="text-sm text-gray-500"> Added on: {product.publishedAt.slice(0,product.publishedAt.indexOf("T"))}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        {cheapest(product.stocks) +" "+ CURRENCY}
-                      </span>
+                    <div className="text-sm text-gray-900"> Price  {product.stock.price +" "+ CURRENCY}</div>
+                    <div className="text-sm text-gray-900"> Commission  {product.stock.comm +" "+ CURRENCY}</div>
+                        
+                     
                     </td>
                   
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <div onClick={()=>{props.pagdler(5,product.id)}} style={{display:'flex',justifyContent:'center',alignItems:'center',cursor:"pointer",color:'black',backgroundColor:"lightgray",padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900">
+                    <div onClick={()=>{props.pagdler(4,product.id)}} style={{display:'flex',justifyContent:'center',alignItems:'center',cursor:"pointer",color:'black',backgroundColor:"lightgray",padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900">
                       <BsPencil style={{fontWeight:'bold',marginRight:5}}/>
                         Edit
                       </div>
                     </td>
 
-                    <td className=" whitespace-nowrap  text-sm font-medium">
+                    {/* <td className=" whitespace-nowrap  text-sm font-medium">
                       <div  onClick={()=>{props.pagdler(5,product.id)}} style={{display:product.group==null?"flex":"none",justifyContent:'center',alignItems:'center',cursor:"pointer",color:'white',backgroundColor:MAIN_STYLE.primary,padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900">
                       <BsDiagram3 style={{fontWeight:'bold',marginRight:5}}/>
                         Create a Group
@@ -149,7 +150,7 @@ function ProductsList(props) {
                       <BsPencil style={{fontWeight:'bold',marginRight:5}}/>
                         Edit Group
                       </div>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>

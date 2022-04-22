@@ -57,6 +57,12 @@ export const AuthProvider = (props)=>{
 
                            break;
 
+                           case 3:
+                            notify("success",`Welcom back ${data.user.username}, you will be redirected.`)
+                            router.replace("/dpanel")
+  
+                             break;
+
                            default:
                             notify("success",`Welcom back ${data.user.username}, you will be redirected.`)
                             router.replace("/")

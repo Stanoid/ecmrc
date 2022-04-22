@@ -75,7 +75,7 @@ function classNames(...classes) {
 }
 
 export default function Product({productel}) {
-  const [selectedColor, setSelectedColor] = useState(productel.attributes.colors[0].color_name)
+ // const [selectedColor, setSelectedColor] = useState(productel.attributes.colors[0].color_name)
   const [selectedSize, setSelectedSize] = useState(0)
   const [qty,setQty] = useState(1);
   const  ls = require('local-storage');
@@ -327,7 +327,7 @@ return null
    'price':price,
    'qty':qty,
    'comm':comm,
-   'color': selectedColor,
+   'color': "default color",
    'img':productel.attributes.image[0].url,
    'opt':selectedSize, 
  }
@@ -471,7 +471,7 @@ return null
 
             <form className="mt-10">
               {/* Colors */}
-              <div>
+              {/* <div>
                 <h3 className="text-sm text-gray-900 font-medium">Color</h3>
 
                 <RadioGroup value={selectedColor} onChange={colorHandler} className="mt-4">
@@ -509,7 +509,7 @@ return null
                     )): <div className='font-bold text-gray'> No colors available</div>}
                   </div>
                 </RadioGroup>
-              </div>
+              </div> */}
 
               {/* Sizes */}
               {/* <div className="mt-10">

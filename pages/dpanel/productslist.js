@@ -5,7 +5,7 @@ import { CURRENCY } from '../../utils/url';
 import { MdAdd } from 'react-icons/md';
 import ProductPanel from './productpanel';
 import { useEffect,useState } from 'react';
-import {BsDiagram3,BsPencil,BsThreeDotsVertical,BsFillXCircleFill,BsCoin} from 'react-icons/bs'
+import {BsDiagram3,BsPencil,BsThreeDotsVertical,BsFillXCircleFill,BsCoin,BsTruck} from 'react-icons/bs'
 import Modal from '../../comps/modal';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 function ProductsList(props) {
@@ -35,6 +35,10 @@ function ProductsList(props) {
             case 3:
               return <div style={{backgroundColor:"green",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Aproved</div>
               break;
+
+              case 3:
+                return <div style={{backgroundColor:"blue",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Delivered</div>
+                break;
 
               case 8:
                 return <div style={{backgroundColor:"black",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Canceled</div>
@@ -93,7 +97,7 @@ const closeModal=()=>{
       
        } 
        
-       const cancelSale=(oid)=>{
+       const deliverOrder=(oid)=>{
          
 
   const requestOptions = {
@@ -113,13 +117,11 @@ const closeModal=()=>{
 
 };
 
-
-
-fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
+fetch(`${API_URL}/orders/${oid}?func=deliverOrder&&order=${oid}`, requestOptions)
     .then(response => response.json())
     .then(data =>{
       console.log("done",data);
-      notify("success",`Sale has been canceled.`)
+      notify("success",`Sale has been Delivered.`)
      
      getData();
        
@@ -171,7 +173,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
             "Authorization": 'Bearer ' + ls.get("atkn")
         },
     };
-    fetch(`${API_URL}/orders?func=getMarkerterOrders`, requestOptions)
+    fetch(`${API_URL}/orders?func=getDeliveryOrders`, requestOptions)
         .then(response => response.json())
         .then(data =>{
           
@@ -284,10 +286,10 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     </td>
                   
                   
-                        {product.status==1? <td  className=" whitespace-nowrap  text-sm font-medium">
-                      <div onClick={()=>{props.pagdler(5,product.product.id,product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:MAIN_STYLE.secondary,backgroundColor:MAIN_STYLE.primary,padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
-                      <BsCoin style={{fontWeight:'bold',marginRight:5}}/>
-                        Sell
+                        {product.status==3? <td  className=" whitespace-nowrap  text-sm font-medium">
+                      <div  onClick={()=>{deliverOrder(product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:MAIN_STYLE.secondary,backgroundColor:MAIN_STYLE.primary,padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
+                      <BsTruck style={{fontWeight:'bold',marginRight:5}}/>
+                        Deliver
                       </div>
 
                    

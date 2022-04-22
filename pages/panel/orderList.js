@@ -8,7 +8,7 @@ import { useEffect,useState } from 'react';
 import {BsDiagram3,BsPencil,BsThreeDotsVertical,BsFillXCircleFill,BsCoin} from 'react-icons/bs'
 import Modal from '../../comps/modal';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
-function ProductsList(props) {
+function OrderList(props) {
     const [products, setProducts] = useState(null);
     const [selpro, setSelpro] = useState(null);
     const [modalOpen,setModalOpen] = useState(false);
@@ -115,7 +115,7 @@ const closeModal=()=>{
 
 
 
-fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
+fetch(`${API_URL}/orders/${oid}?func=cancelSaleVendor&&order=${oid}`, requestOptions)
     .then(response => response.json())
     .then(data =>{
       console.log("done",data);
@@ -171,7 +171,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
             "Authorization": 'Bearer ' + ls.get("atkn")
         },
     };
-    fetch(`${API_URL}/orders?func=getMarkerterOrders`, requestOptions)
+    fetch(`${API_URL}/orders?func=getVendorOrders`, requestOptions)
         .then(response => response.json())
         .then(data =>{
           
@@ -228,18 +228,27 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                   </th>
 
 
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                   Buyer
-                  </th>
+                
 
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                    Status
+                  </th>
+
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                   Action
+                  </th>
+
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                   Options
                   </th>
 
                   
@@ -273,26 +282,16 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     <div className="text-sm text-gray-900">    {product.price +" "+ CURRENCY}</div>
                     </td>
 
-                    <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900"> 
-                    {product.status!=1? product.buyers_name : "-"}
-                    </div>
-                    </td>
+                  
 
                     <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">    {statushand(product.status)}</div>
                     </td>
                   
                   
-                        {product.status==1? <td  className=" whitespace-nowrap  text-sm font-medium">
-                      <div onClick={()=>{props.pagdler(5,product.product.id,product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:MAIN_STYLE.secondary,backgroundColor:MAIN_STYLE.primary,padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
-                      <BsCoin style={{fontWeight:'bold',marginRight:5}}/>
-                        Sell
-                      </div>
-
-                   
-                    </td>: <td  className=" whitespace-nowrap  text-sm font-medium">
-                      <div  onClick={()=>{cancelSale(product.id)}} style={{ display:product.status==8?'none':"flex",fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:'red',padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
+                        {product.status!=1? <td  className=" whitespace-nowrap  text-sm font-medium">
+                   </td>: <td  className=" whitespace-nowrap  text-sm font-medium">
+                      <div onClick={()=>{cancelSale(product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:'red',padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
                       <BsFillXCircleFill style={{fontWeight:'bold',marginRight:5}}/>
                         Cancel
                       </div>
@@ -322,4 +321,4 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
   </div>;
 }
 
-export default ProductsList;
+export default OrderList;

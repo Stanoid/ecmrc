@@ -45,9 +45,10 @@ useEffect(()=>{
       .then(data =>{
         
          console.log("userdata",data)
-         if(data.type===1){
+         if(data.type===3){
           setUserData(data);
          }else{
+           
           router.replace("/login")
          }
        
@@ -63,8 +64,6 @@ useEffect(()=>{
 
 
 }
-
-///content is on hold until further notice
 
 
 
@@ -144,28 +143,39 @@ const notify = (type,msg)=>{
         <div>
             <DefaultLayout footer={2} >
             <ToastContainer  limit={3}/>
+            <div className=" bg-gradient-to-br from-blue-600 to-indigo-600  w-full">
             <div className='flex lg:hidden md:flex xl:hidden shadow-xl  justify-around md:justify-center' style={{backgroundColor:'white',width:'100vw',position:"fixed", bottom:0}}>
    
-            <Horizel current={page} id={0} pager={pageHandle} icon={BsBarChartSteps} text={"Stats"} />
-<Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"Orders"} />
-<Horizel current={page} id={3} pager={pageHandle} icon={BsTruck} text={"so,thing"} />
-<Horizel current={page} id={2} pager={pageHandle} icon={BsDiagram3} text={"Groups"} />
    
-   
-   
-         </div>
-            <div className=" bg-gradient-to-br from-blue-600 to-indigo-600  w-full">
- 
-   
+<Horizel current={page} id={0} pager={pageHandle} icon={BsTruck} text={"Delivery"} />
 
+<Horizel current={page} id={1} pager={pageHandle} icon={BsBoxSeam} text={"Delivered"} />
+
+
+<Horizel current={page} id={2} pager={pageHandle} icon={BsBoxSeam} text={"Delivered"} />
+
+
+<Horizel current={page} id={3} pager={pageHandle} icon={BsBoxSeam} text={"Delivered"} />
+
+
+      </div>
+     
     
   
       <div className="grid grid-cols-12 gap-2">
   <div className='col-span-0 hidden md:hidden lg:block xl:block  md:col-span-0 lg:col-span-2 xl:col-span-2  shadow-md ' style={{padding:10}}  >
-  <Horizel current={page} id={0} pager={pageHandle} icon={BsBarChartSteps} text={"Stats"} />
-<Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"Orders"} />
-<Horizel current={page} id={3} pager={pageHandle} icon={BsTruck} text={"so,thing"} />
-<Horizel current={page} id={2} pager={pageHandle} icon={BsDiagram3} text={"Groups"} />
+  
+  
+  <Horizel current={page} id={0} pager={pageHandle} icon={BsTruck} text={"Delivery"} />
+
+<Horizel current={page} id={1} pager={pageHandle} icon={BsBoxSeam} text={"Delivered"} />
+
+
+<Horizel current={page} id={2} pager={pageHandle} icon={BsBoxSeam} text={"Delivered"} />
+
+
+<Horizel current={page} id={3} pager={pageHandle} icon={BsBoxSeam} text={"Delivered"} />
+
 
 
   </div>
