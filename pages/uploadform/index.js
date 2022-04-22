@@ -208,39 +208,39 @@ let doo = new Promise(function(suc) {
 let doo = new Promise(function(suc) {
     // "Producing Code" (May take some time)
     
-    // for (let i = 0; i < image.length; i++) {
+    for (let i = 0; i < image.length; i++) {
        
-    //     console.log("began")
-    //     const data = new FormData()
-    //     data.append("file", image[i])
-    //     data.append("upload_preset", "products")
-    //     data.append("cloud_name","strapimedia")
-    //     fetch("  https://api.cloudinary.com/v1_1/strapimedia/image/upload",{
-    //     method:"post",
-    //     body: data
-    //     })
-    //     .then(resp => resp.json())
-    //     .then(data => {
+        console.log("began")
+        const data = new FormData()
+        data.append("file", image[i])
+        data.append("upload_preset", "products")
+        data.append("cloud_name","strapimedia")
+        fetch("  https://api.cloudinary.com/v1_1/strapimedia/image/upload",{
+        method:"post",
+        body: data
+        })
+        .then(resp => resp.json())
+        .then(data => {
           
-    //         if(i==image.length-1){
+            if(i==image.length-1){
               
-    //              imar.push({"url":data.url})
-    //             upob.data.image = imar;
-    //             console.log("very very novel",upob)
-    //             upload(upob)
-    //         }else{
-    //             imar.push({"url":data.url})
-    //             console.log("very novel",upob)
-    //         }
-    // //    upob.data.image = data.url;
-    // //    upload(upob)
-    //     })
-    //     .catch(err => console.log(err))
+                 imar.push({"url":data.url})
+                upob.data.image = imar;
+                console.log("very very novel",upob)
+                upload(upob)
+            }else{
+                imar.push({"url":data.url})
+                console.log("very novel",upob)
+            }
+      //  upob.data.image = data.url;
+      //  upload(upob)
+        })
+        .catch(err => console.log(err))
         
-    // }
+    }
        
-    upob.data.image = '[{"url": "http://res.cloudinary.com/strapimedia/image/upload/v1644231459/awezxxuppkemoic0jctp.png"}]';
-    upload(upob)
+    // upob.data.image = '[{"url": "http://res.cloudinary.com/strapimedia/image/upload/v1644231459/awezxxuppkemoic0jctp.png"}]';
+    // upload(upob)
      
     });
     doo.then( 
