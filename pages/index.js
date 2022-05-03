@@ -80,7 +80,7 @@ ls.set("promo",pros);
  
 <div  key={product.id}>
   
- <Product key={product.id} ver={1} vendor={product.vendor.username} id={product.id} hasGroup={product.group}  img={product.image[0].url} description={product.description} price={product.stock} name={product.name} />
+ <Product key={product.id} ver={product.vendor.confirmed} vendor={product.vendor.username} id={product.id} hasGroup={product.group}  img={product.image[0].url} description={product.description} price={product.stock} name={product.name} />
 
 </div>
 ))}
