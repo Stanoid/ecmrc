@@ -44,7 +44,7 @@ ls.set("promo",pros);
   return (
     <div className={styles.container}>
       <Head>
-        <title>Bendari shop </title>
+        <title>Bendari | Get online marketers on Bendari </title>
         <meta name="description" content="Bendari shop, experience the best shopping in sudan" />
         <meta name="theme-color"/>
         <link rel="icon" href="/favicon.ico" />

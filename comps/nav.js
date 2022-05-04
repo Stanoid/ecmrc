@@ -50,7 +50,7 @@ setOpen(open)
     
     <Link href="/" class="navbar-brand" >
       <div>
-      <Image src={'/../public/newlo.svg'} width={110} height={40} />
+      <Image src={'/newlo.svg'} width={110} height={40} />
       </div>
         </Link>
 
