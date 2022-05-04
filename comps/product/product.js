@@ -45,7 +45,7 @@ export default function Product(props) {
           />
       </div>
 
-      <div className={Styles.ptfont} style={{color:"#585858",fontSize:'0.9rem',marginTop:10,marginBottom:5,lineHeight:1.2,textTransform:'capitalize',wordSpacing:0.6}} >
+      <div className={Styles.ptfont} style={{color:"#585858",fontSize:'13.5px',marginTop:10,marginBottom:5,lineHeight:1.2,textTransform:'capitalize',wordSpacing:0.6}} >
          
           {props.name}
           <div style={{color:"grey",fontSize:12,display:'flex',alignItems:'center'}}>{props.vendor} <BsCheckCircleFill style={{color:MAIN_STYLE.primary,marginLeft:3,display:props.ver?"block":"none"}} /> </div>
@@ -57,8 +57,8 @@ export default function Product(props) {
       
       <div className='grid grid-cols-5 gap-x-2'>
 <div className='col-span-3' > 
-<span style={{color:"grey"}} 
-      className={Styles.MAIN_FONT}> {`${CURRENCY} `} <span style={{fontWeight:"bold",color:"#1c1c1c"}} >{parseFloat(props.price.price)} </span></span>
+<span style={{color:"grey",fontSize:8}} 
+      className={Styles.MAIN_FONT}> {`${CURRENCY} `} <span style={{fontWeight:"bold",color:"#1c1c1c",fontSize:14}} >{parseFloat(props.price.price)} </span></span>
 
 
 </div>
@@ -71,8 +71,8 @@ export default function Product(props) {
 </div>
 
 <div className='col-span-5' >
-<span style={{color:"grey",fontSize:13}} 
-      className={Styles.MAIN_FONT}> {`${CURRENCY} `} <span style={{fontWeight:"bold",color:"#1c1c1c"}} >{parseFloat(props.price.comm)} Commision </span></span>
+<span style={{color:"grey",fontSize:8}} 
+      className={Styles.MAIN_FONT}> {`${CURRENCY} `} <span style={{fontWeight:"bold",color:"#1c1c1c",fontSize:13}} >{parseFloat(props.price.comm)} Comm. </span></span>
    </div>
 
 
