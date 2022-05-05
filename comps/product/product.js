@@ -16,10 +16,26 @@ import { useRouter } from 'next/router'
 export default function Product(props) {
   const router = useRouter();
   const [loading,setLoading]= useState(false);
+ const [cimg,setCimg] = useState("");
 
 
   useEffect(() => {
   // console.log("group",props.hasGroup)
+//https://res.cloudinary.com/strapimedia/image/upload/v1645445395/tyler-nix-BQrxXytYaHI-unsplash_zeggsu.jpg
+//https://res.cloudinary.com/strapimedia/image/upload/w_1000,ar_1:1,c_fill/v1645445395/tyler-nix-BQrxXytYaHI-unsplash_zeggsu.jpg
+  let imm = props.img;
+  let ino = imm.split("/", 6).join("/").length
+  let res = "";
+ 
+let head = imm.slice(0,ino+1);
+let foot = imm.slice(ino+1,imm.length);
+console.log("head",head);
+console.log("foot",foot);
+let nx = head.concat("w_1000,ar_1:1,c_fill/")
+nx = nx.concat(foot);
+console.log("nx",nx)
+console.log("result",head.concat(foot))
+setCimg(nx);
    }, [])
     return (
 
@@ -41,7 +57,7 @@ export default function Product(props) {
       
       
           className={Styles.nextimg} 
-          src={props.img} 
+          src={cimg} 
           />
       </div>
 
