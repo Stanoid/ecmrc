@@ -8,6 +8,7 @@ import Counter from '../../comps/counter';
 import { StarIcon } from '@heroicons/react/solid'
 import { MAIN_STYLE } from '../../utils/style';
 import Head from 'next/head'
+import Slider from '../../comps/slider';
 import { MdClose } from 'react-icons/md';
 import Modal from '../../comps/modal';
 import { RadioGroup } from '@headlessui/react'
@@ -82,6 +83,7 @@ export default function Product({productel}) {
   const router = useRouter();
   const [qlimit,setQlimit] = useState(0)
   const [price,setPrice]=useState();
+
   const [comm,setComm]=useState();
   const [hasof,setHasOf] = useState(0);
   const [groupob,setGroupOb] = useState(null);
@@ -439,15 +441,17 @@ return null
         </div>
 
    
-        <div className='lg:hidden xl:hidden '  style={{height:440}}>
+        <div className='lg:hidden xl:hidden ' >
           <div   className='lg:hidden xl:hidden ' >
- <SimpleImageSlider
+ {/* <SimpleImageSlider
         width={"100%"}
         height={"50%"}
         images={productel.attributes.image}
         showBullets={true}
         showNavs={true}
-      />
+      /> */}
+
+      <Slider slides={productel.attributes.image}/>
       </div>
  </div>
  
