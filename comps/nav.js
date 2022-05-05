@@ -8,7 +8,7 @@ import Head from 'next/head';
 import Cart from './cart';
 import { useRef } from 'react';
 import {BiMenuAltLeft} from 'react-icons/bi'
-import {MdOutlineAccountCircle,MdOutlineLogout,MdOutlineShoppingCart,MdSearch} from 'react-icons/md'
+import {MdOutlineAccountCircle,MdOutlineLogout,MdOutlineShoppingCart,MdSearch,MdMenu} from 'react-icons/md'
 import AuthContext from '../context/AuthContext';
 import { MAIN_STYLE } from '../utils/style';
 
@@ -46,13 +46,22 @@ setOpen(open)
     <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
    
 
-
-    
-    <Link href="/" class="navbar-brand" >
+<div style={{display:"flex",justifyContent:"center",alignItems:"space-between"}}>
+  <div onClick={()=>{setOpen(true)}} style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+  <MdMenu style={{color:MAIN_STYLE.grey,fontSize:20}} />
+  </div>
+  <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+<Link href="/" class="navbar-brand" >
       <div>
       <Image src={'/newlo.svg'} width={110} height={40} />
       </div>
         </Link>
+        </div>
+
+</div>
+  
+    
+   
 
         <div className='hidden lg:block xl:block md:block '>
         <div className=" bg-white w-96 grid grid-cols-9 p-2">

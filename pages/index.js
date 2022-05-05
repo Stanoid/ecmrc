@@ -145,7 +145,7 @@ ls.set("promo",pros);
  </div> */}
 
 
-<div style={{height:'100vh'}}></div>
+
   </DefaultLayout>
       
     </div>
