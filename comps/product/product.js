@@ -53,10 +53,11 @@ setCimg(nx);
       quality={"50"}
        width={"100%"}
         height={"100%"} 
-        style={{objectFit:'cover',width:'100%',height:'100%'}}
+        
+        style={{objectFit:'cover',width:'100%',height:'100%',borderRadius:8}}
       
       
-          className={Styles.nextimg} 
+          className={[Styles.nextimg]} 
           src={cimg} 
           />
       </div>

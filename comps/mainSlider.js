@@ -60,7 +60,7 @@ export default (props) => {
 
 {props.slides&&props.slides.map((img) => (
     <div  className="keen-slider__slide">
-<Image src={img}layout="fill" width={"100%"} height={100} objectFit="cover" />
+<Image className="rounded-lg" src={img}layout="fill" width={"100%"} height={100} objectFit="cover" />
     </div>
      ))}
         </div>

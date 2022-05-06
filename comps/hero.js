@@ -12,7 +12,7 @@ export default function Hero(props) {
 
    
 
-           <div style={{width:'100%',position:"relative",backgroundColor:MAIN_STYLE.primary,height:"40vh"}} className='lg:col-span-4 xl:col-span-4 md:col-span-3 col-span-6'>
+           <div style={{width:'100%',position:"relative",height:"40vh"}} className='lg:col-span-4 xl:col-span-4 md:col-span-3 col-span-6'>
          
            <Slider slides={['/ltd2.jpg','/per.jpg','/wat.jpg']} />
  {/* <SimpleImageSlider
@@ -31,8 +31,8 @@ export default function Hero(props) {
       /> */}
     
            </div>
-           <div style={{backgroundColor:"#2B2C28",height:"40vh",position:"relative"}} className='lg:col-span-2 xl:col-span-2 md:col-span-3 col-span-6'>
-           <Image src={'/blk2.jpg'}layout="fill" objectFit="cover" />
+           <div style={{height:"40vh",position:"relative"}} className='lg:col-span-2 xl:col-span-2 md:col-span-3 col-span-6'>
+           <Image  className="rounded-lg" src={'/blk2.jpg'}layout="fill" objectFit="cover" />
            </div>
            
          </div>

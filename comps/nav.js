@@ -47,9 +47,9 @@ setOpen(open)
    
 
 <div style={{display:"flex",justifyContent:"center",alignItems:"space-between"}}>
-  <div onClick={()=>{setOpen(true)}} style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+  {/* <div onClick={()=>{setOpen(true)}} style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
   <MdMenu style={{color:MAIN_STYLE.grey,fontSize:20}} />
-  </div>
+  </div> */}
   <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
 <Link href="/" class="navbar-brand" >
       <div>
