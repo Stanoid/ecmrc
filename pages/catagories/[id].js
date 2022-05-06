@@ -27,7 +27,7 @@ export default function Catagories({catagory,cats}) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{"Bendari shop | "+catagory.attributes.Name} </title>
+        <title>{"Bendari shop | "+catagory.Name} </title>
         <meta name="description" content="Bendari shop, experience the best shopping in sudan" />
         <meta name="theme-color"/>
         <link rel="icon" href="/favicon.ico" />
@@ -45,7 +45,7 @@ export default function Catagories({catagory,cats}) {
    
 <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column'}}>
 <h1 className="text-4xl font font-extrabold tracking-tight  sm:text-6xl p-10" style={{fontSize:40,color:MAIN_STYLE.grey}}>
-              {catagory.attributes.Name}
+              {catagory.Name}
               </h1>
 {/* <div className='grid grid-cols-2 gap-y-5   sm:grid-cols-2 gap-x-5 lg:grid-cols-6 xl:grid-cols-6 xl:gap-x-6 xl:gap-y-6 lg:gap-x-5 lg:gap-y-5'>
 
@@ -63,26 +63,30 @@ export default function Catagories({catagory,cats}) {
 
 </div> */}
 
-<div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-3  ' style={{width:'100%',minHeight:'100vh'}}>
+
+<div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column',marginTop:10,width:'100%'}}>
+
+<div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-2  ' style={{width:'100%'}}>
 
 
 
-
-{catagory.attributes&&catagory.attributes.products.data.map(product=>(
+{catagory&&catagory.products.map(product=>(
  
 
  
 <div  key={product.id}>
   
- <Product key={product.id} id={product.id} hasGroup={product.attributes.group}  img={product.attributes.image[0].url} description={product.attributes.description} price={product.attributes.stock} name={product.attributes.name} />
+<div  key={product.id}>
+ <Product key={product.id} cat={product.catagories&&product.catagories} ver={product.vendor&&product.vendor.confirmed} vendor={product.vendor&&product.vendor.username} id={product.id} hasGroup={product.group}  img={product.image[0].url} description={product.description} price={product.stock&&product.stock} name={product.name} />
 
+</div>
 </div>
 ))}
 
 
 
 
-
+</div>
 </div>
 
 </div>
@@ -96,7 +100,7 @@ export default function Catagories({catagory,cats}) {
 
 
 export async function getServerSideProps({params:{id}}){
-  const product_res = await fetch(`${API_URL}/catagories/${id}?populate=products.stocks,products.group`);
+  const product_res = await fetch(`${API_URL}/catagories/${id}?func=getCatProducts`);
   const response = await fetch(`${API_URL}/catagories`);
   const catagories = await response.json();
   
@@ -116,7 +120,7 @@ export async function getServerSideProps({params:{id}}){
   }else{
     return {
       props:{
-        catagory:found.data,
+        catagory:found,
         cats:catagories
       }
     

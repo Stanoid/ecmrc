@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import SimpleImageSlider from "react-simple-image-slider";
 import Slider from './mainSlider';
+import { MAIN_STYLE } from '../utils/style';
 export default function Hero(props) {
  
     return (
@@ -11,7 +12,7 @@ export default function Hero(props) {
 
    
 
-           <div style={{width:'100%',position:"relative",backgroundColor:"red",height:"40vh"}} className='lg:col-span-4 xl:col-span-4 md:col-span-3 col-span-6'>
+           <div style={{width:'100%',position:"relative",backgroundColor:MAIN_STYLE.primary,height:"40vh"}} className='lg:col-span-4 xl:col-span-4 md:col-span-3 col-span-6'>
          
            <Slider slides={['/ltd2.jpg','/per.jpg','/wat.jpg']} />
  {/* <SimpleImageSlider
