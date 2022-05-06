@@ -15,10 +15,10 @@ export default (props) => {
   const [sliderRef] = useKeenSlider({
     breakpoints: {
       "(min-width: 400px)": {
-        slides: { perView: 2, spacing: 1 },
+        slides: { perView: 2, spacing: 5 },
       },
       "(min-width: 1000px)": {
-        slides: { perView: 5, spacing: 10 },
+        slides: { perView: 5, spacing: 5 },
       },
     },
     slides: { perView: 1 },
