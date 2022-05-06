@@ -8,6 +8,7 @@ import DefaultLayout from '../layouts/Default'
 import Crumb from '../comps/crumb/crumb'
 import { MAIN_STYLE } from '../utils/style'
 import Hero from '../comps/hero'
+import Slidev from '../comps/slidev'
 import { useRouter } from 'next/router'
 import { CURRENCY } from '../utils/url'
 // import ProductList from '../comps/productlist/ProductList'
@@ -82,55 +83,14 @@ ls.set("promo",pros);
 </div>
 </div>
 
-{/* 
-<div style={{marginTop:10}} className='p-2 '>
 
- <h1 className={styles.MAIN_FONT} style={{color:MAIN_STYLE.grey,fontWeight:'bold',fontSize:20}}>
-               Our selections:
+
+<div style={{marginTop:10}} className='p-2 lg:p-6 xl:p-6 md:p-6 '>
+<h1 className={styles.MAIN_FONT} style={{color:MAIN_STYLE.grey,fontWeight:'bold',fontSize:20}}>
+               Bendari best selling:
               </h1>
-<div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column',marginTop:10,width:'100%'}}>
-
-<div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-5 md:grid-cols-3 grid-cols-2  ' style={{overflowX:'scroll',whiteSpace:'nowrap',maxWidth:"100%"}}>
-{products.data&&products.data.map(product=>(
-<div style={{display:'inline-block'}} key={product.id}>
-  
- <Product key={product.id} id={product.id} hasGroup={product.attributes.group}  img={product.attributes.image[0].url} description={product.attributes.description} price={cheapest(product.attributes.stocks)} name={product.attributes.name} />
-
+<Slidev prd={products} />
 </div>
-))}
-
-</div>
-</div>
-</div> */}
-
-
-{/* <div style={{marginTop:20}}> 
-<h1 className="text-3xl font font-extrabold tracking-tight text-black lg:text-3xl p-3 ">
-            Best sellers:
-              </h1>
-
-              
-<div style={{margin:15,marginTop:0,overflow:'auto',whiteSpace:'nowrap',padding:'5px 0px 5px 0px'}}>
-{products.data&&products.data.map(product=>(
-<div key={product.id} className='shadow-inner' style={{height:200,width:200,marginRight:20,borderRadius:10,display:'inline-block'}}>
-<img
-      style={{objectFit:'cover',width:'100%',height:'100%'}}
-      
-          className={styles.nextimg} 
-          src={product.attributes.image[0].url} 
-          />
-          <div  style={{display:'flex',justifyContent:'space-between',alignItems:"center", marginTop:10}}>
-            <div>{product.attributes.name.length>=9?product.attributes.name.slice(0,9)+"...":product.attributes.name}</div>
-            <div> <span style={{padding:4,backgroundColor:MAIN_STYLE.primary,color:'white',borderRadius:3}} className={styles.ptfont}>{`${cheapest(product.attributes.stocks)} ${CURRENCY}`}</span>
-     </div>
-
-            </div>
-</div>
-))}
-
- </div>
- </div> */}
-
 
 
   </DefaultLayout>
