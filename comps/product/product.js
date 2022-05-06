@@ -40,7 +40,7 @@ setCimg(nx);
     return (
 
       
-        <div   style={{marginBom:20,display:'inline-block',width:"175px",textAlign:'left',width:"100%"}}>
+        <div   style={{marginBom:20,display:'inline-block',textAlign:'left',width:props.half?"60%":"100%"}}>
 
 
       <div onClick={()=>{router.push(`/products/${props.id}`);setLoading(true);}} style={{width:"100%",height:"100%",borderRadius:5,display:'flex',alignItems:'center',justifyContent:"center"}}>
