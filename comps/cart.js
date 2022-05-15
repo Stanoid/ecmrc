@@ -206,7 +206,7 @@ const notify = (type,msg)=>{
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay style={{backdropFilter:"blur(7px)"}} className="absolute inset-0 bg-black lg:bg-black  bg-opacity-10 lg:bg-opacity-50 transition-opacity" />
+            <Dialog.Overlay  className="absolute inset-0 bg-black lg:bg-black  bg-opacity-10 lg:bg-opacity-50 transition-opacity" />
           </Transition.Child>
           <div className="fixed bottom-0 right-0 lg:top-0 max-h-1/2   max-w-md flex ">
             <Transition.Child
