@@ -97,7 +97,7 @@ export default function Modal(props) {
             </div>
         
            <div style={{textAlign:"left"}} className='grid grid-cols-6 gap-6 mt-3'>
-           <div className='col-span-3'>
+           <div className='col-span-6 xl:col-span-3 md:col-span-3 lg:col-span-3 '>
              <div style={{fontSize:20,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Details</div>
 
              <div style={{marginTop:0,textAlign:"left"}} className='grid grid-cols-6'>
@@ -162,7 +162,7 @@ export default function Modal(props) {
                      
            </div>
           
-           <div style={{display:props.order&&props.order.buyers_name==null?"none":"block",textAlign:'left'}} className='col-span-3'>
+           <div style={{display:props.order&&props.order.buyers_name==null?"none":"block",textAlign:'left'}} className='col-span-6 xl:col-span-3 md:col-span-3 lg:col-span-3'>
            <div style={{  fontSize:20,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Buyer's information</div>
           
            <div style={{marginTop:0}} className='grid grid-cols-6'>
@@ -189,6 +189,15 @@ export default function Modal(props) {
                  </div>
                  <div className='col-span-3 '>
                  {`${props.order&&props.order.buyers_phone}`}
+                 </div>
+               </div>
+
+               <div style={{marginTop:0}} className='grid grid-cols-6'>
+               <div className='col-span-3 '>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Backup phone:</div>
+                 </div>
+                 <div className='col-span-3 '>
+                 {`${props.order&&props.order.buyer_backup_number}`}
                  </div>
                </div>
            

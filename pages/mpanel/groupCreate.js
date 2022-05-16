@@ -11,9 +11,11 @@ import { API_URL } from '../../utils/url';
     const [name, setname] = useState("");
     const [newPrice, setNewPrice] = useState(0);
     const [part, setPart] = useState(0);
+    const [loading,setLoading] = useState(0);
     const [edate, setEdate] = useState("");
     const [bname, setBname] = useState("");
     const [bphone, setBphone] = useState("");
+    const [bbphone, setBbphone] = useState("");
     const [badd, setBadd] = useState("");
 
     
@@ -65,6 +67,8 @@ const createGroup = ()=>{
   }
 
 
+  setLoading(1);
+
 
   const requestOptions = {
     method: 'PUT',
@@ -77,6 +81,7 @@ const createGroup = ()=>{
            "bName":bname,
            "bAdd":badd,
            "bPhone": bphone,
+           "bbPhone": bbphone,
            "qty": part,
            "salePrice": newPrice,
 
@@ -91,8 +96,8 @@ fetch(`${API_URL}/orders/${props.Oid}?func=makeSale&&order=${props.Oid}`, reques
     .then(response => response.json())
     .then(data =>{
       console.log("done",data);
-      notify("success",`Group  has been Created.`)
-     
+      notify("success",`Sale has been Created, waiting customer confirmation.`)
+       setLoading(0);
       props.pagdler(1)
        
        
@@ -230,6 +235,16 @@ const notify = (type,msg)=>{
 
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
+                 Buyers backup phone
+                </label>
+                <div className="mt-1 flex rounded-md shadow-sm">
+                
+                  <input  value={bbphone} type={"text"} min={1}  onChange={(event)=>{setBbphone(event.target.value)}} name="company-website" id="company-website" className="focus:ring-indigo-500 rounded-md focus:border-indigo-500 flex-1 block w-full   sm:text-sm border-gray-300" />
+                </div>
+              </div>
+
+              <div className="col-span-3 sm:col-span-2">
+                <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
                  Buyers address
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
@@ -257,7 +272,7 @@ const notify = (type,msg)=>{
 <LoadingButton
 act={createGroup}
 text={"Sell"}
-lod= {0}
+lod= {loading}
 msg={"Proccessing ..."}
 />
 

@@ -290,7 +290,7 @@ fetch(`${API_URL}/orders/${oid}?func=deliverOrder&&order=${oid}`, requestOptions
                     </td>
                   
                   
-                        {product.status==4? <td  className=" whitespace-nowrap  text-sm font-medium">
+                        {/* {product.status==4? <td  className=" whitespace-nowrap  text-sm font-medium">
                       <div  onClick={()=>{deliverOrder(product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:MAIN_STYLE.secondary,backgroundColor:MAIN_STYLE.primary,padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
                       <BsTruck style={{fontWeight:'bold',marginRight:5}}/>
                         Return
@@ -304,7 +304,7 @@ fetch(`${API_URL}/orders/${oid}?func=deliverOrder&&order=${oid}`, requestOptions
                       </div>
 
                    
-                    </td>}
+                    </td>} */}
                    
 
                    
