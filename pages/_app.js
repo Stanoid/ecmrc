@@ -8,9 +8,9 @@ function MyApp({ Component, pageProps }) {
   return(
     <AuthProvider>
 
-<Script strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=${G_KEY}`} />
+<Script   id="googleanal" strategy="lazyOnload" src={`https://www.googletagmanager.com/gtag/js?id=${G_KEY}`} />
 
-<Script strategy="lazyOnload">
+<Script   id="ganal" strategy="lazyOnload">
     {`
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
