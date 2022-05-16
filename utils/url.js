@@ -16,7 +16,7 @@ export const IMG_CONFIG_URL = process.env.NEXT_PUBLIC_IMG_CONFIG_URL || "http://
 
 
 
-export const G_KEY = process.envNEXT_PUBLIC_GOOGLE_ANALYTICS || 'G-S02J90JMSB'
+export const G_KEY = process.envNEXT_PUBLIC_GOOGLE_ANALYTICS || 'G-64NVNT1656'
 
 
 export const MAGIC_PUBLIC_KEY = process.env.NEXT_PUBLIC_MAGIC_PUBLIC_KEY || 'pk_live_AD3A83EA7CEA4BEF';
