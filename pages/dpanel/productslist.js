@@ -320,7 +320,7 @@ fetch(`${API_URL}/orders/${oid}?func=deliverOrder&&order=${oid}`, requestOptions
         </div>
       </div>
     </div>
-    <Modal act={removeOrder} order={selpro} setopen={()=>{closeModal()}} open={modalOpen} />
+    <Modal type={3} act={removeOrder} order={selpro} setopen={()=>{closeModal()}} open={modalOpen} />
   </div>;
 }
 

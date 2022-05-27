@@ -218,7 +218,7 @@ export default function Modal(props) {
                 <button
                   type="button"
                   
-                  style={{backgroundColor:"red",color:"white"}}
+                  style={{backgroundColor:"red",color:"white",display:props.type==1?"blobk":"none" }}
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => props.act(props.order&&props.order.id)}
                 >
@@ -235,7 +235,7 @@ export default function Modal(props) {
 
                 
               </div>
-              <div className='bg-gray-50 px-4 py-3 sm:px-6'>
+              <div style={{display:props.type==1||props.type==3?"blobk":"none"}} className='bg-gray-50 px-4 py-3 sm:px-6'>
                 <div style={{fontSize:13}} >Order + Delivery: <span style={{color:MAIN_STYLE.grey,fontWeight:"bold"}}  >{`${props.order&&props.order.sale_price * props.order.qty + 1000} ${CURRENCY}`} </span></div>
                 <div style={{fontSize:13}}>Commission: <span style={{color:MAIN_STYLE.grey,fontWeight:"bold"}}>{`${props.order&&props.order.commission * props.order.qty} ${CURRENCY}`} </span></div>
                 <div style={{fontSize:17,fontWeight:"bold"}}>Total: <span style={{color:MAIN_STYLE.primary,fontWeight:"bold"}}>{`${(props.order&&props.order.sale_price * props.order.qty + 1000) + (props.order&&props.order.commission * props.order.qty)  } ${CURRENCY}`} </span></div>

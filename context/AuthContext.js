@@ -127,11 +127,9 @@ export const AuthProvider = (props)=>{
      */
     const logOutUser = async ()=>{
     
-        try{
-
-          
+        try{  
             setUser(null);
-            router.push("/");
+            router.push("/login");
         }catch(err){
 
         }
@@ -156,9 +154,35 @@ export const AuthProvider = (props)=>{
                 fetch(`${API_URL}/users/me`, requestOptions)
                     .then(response => response.json())
                     .then(data =>{
+
+                      console.log("data",data)
                      
                       if(data.id){
                     setUser(data.username);
+                    switch(data.type){
+                      case 1:
+                     
+                       router.replace("/")
+                        break;
+
+                        case 2:
+                   
+                         router.replace("/panel")
+
+                          break;
+
+                          case 3:
+                         
+                           router.replace("/dpanel")
+ 
+                            break;
+
+                          default:
+                      
+                          // router.replace("/login")
+ 
+                            break;
+                    }
                  
                       }else{
                         setUser(null);
@@ -174,12 +198,12 @@ export const AuthProvider = (props)=>{
 
             useEffect(()=>{
                
-                checkLogged();
+                //checkLogged();
             }, [])
 
 
 return(
-    <AuthContext.Provider value={{user,loginUser,logOutUser,notify,stype}}>
+    <AuthContext.Provider value={{user,loginUser,logOutUser,notify,stype,checkLogged}}>
           <ToastContainer  limit={3}/>
         {props.children}
     </AuthContext.Provider>

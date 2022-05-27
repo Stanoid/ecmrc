@@ -149,10 +149,10 @@ const notify = (type,msg)=>{
   
       <div className="grid grid-cols-12 gap-2">
   <div className='col-span-0 hidden md:hidden lg:block xl:block  md:col-span-0 lg:col-span-2 xl:col-span-2  shadow-md ' style={{padding:10}}  >
-  <Horizel current={page} id={0} pager={pageHandle} icon={BsBarChartSteps} text={"Stats seller"} />
+  {/* <Horizel current={page} id={0} pager={pageHandle} icon={BsBarChartSteps} text={"Stats seller"} /> */}
 <Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"Products"} />
 <Horizel current={page} id={3} pager={pageHandle} icon={BsTruck} text={"Orders"} />
-<Horizel current={page} id={2} pager={pageHandle} icon={BsDiagram3} text={"Groups"} />
+{/* <Horizel current={page} id={2} pager={pageHandle} icon={BsDiagram3} text={"Groups"} /> */}
 
 
   </div>

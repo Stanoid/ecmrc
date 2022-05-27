@@ -3,7 +3,7 @@ import Mpanel from './mpanel'
 export default function account() {
     return (
         <div>
-            <Mpanel/>
+            {/* <Mpanel/> */}
         </div>
     )
 }

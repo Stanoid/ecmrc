@@ -14,7 +14,7 @@ import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 export default function Mpanel() {
 const [emial, setEmial] = useState("");
 const [pass, setpass] = useState("");
-const [page, setPage] = useState(0);
+const [page, setPage] = useState(1);
 const [userData, setUserData] = useState(0);
 const ls = require("local-storage")
 const router = useRouter();
@@ -45,7 +45,7 @@ useEffect(()=>{
       .then(data =>{
         
          console.log("userdata",data)
-         if(data.type===1){
+         if(data.type==1){
           setUserData(data);
          }else{
           router.replace("/login")
@@ -56,7 +56,7 @@ useEffect(()=>{
       }).catch(error =>{ 
       
         console.log(error)
-        router.replace("/login")
+       router.replace("/login")
       
       });
 
@@ -146,10 +146,10 @@ const notify = (type,msg)=>{
             <ToastContainer  limit={3}/>
             <div className='flex lg:hidden md:flex xl:hidden shadow-xl  justify-around md:justify-center' style={{backgroundColor:'white',width:'100vw',position:"fixed", bottom:0}}>
    
-            <Horizel current={page} id={0} pager={pageHandle} icon={BsBarChartSteps} text={"Stats"} />
+            {/* <Horizel current={page} id={0} pager={pageHandle} icon={BsBarChartSteps} text={"Stats"} /> */}
 <Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"Orders"} />
-<Horizel current={page} id={3} pager={pageHandle} icon={BsTruck} text={"so,thing"} />
-<Horizel current={page} id={2} pager={pageHandle} icon={BsDiagram3} text={"Groups"} />
+{/* <Horizel current={page} id={3} pager={pageHandle} icon={BsTruck} text={"so,thing"} />
+<Horizel current={page} id={2} pager={pageHandle} icon={BsDiagram3} text={"Groups"} /> */}
    
    
    

@@ -295,7 +295,7 @@ fetch(`${API_URL}/orders/${oid}?func=deliverOrder&&order=${oid}`, requestOptions
                       <BsTruck style={{fontWeight:'bold',marginRight:5}}/>
                         Return
                       </div>
-
+                  
                    
                     </td>: <td  className=" whitespace-nowrap  text-sm font-medium">
                       <div  onClick={()=>{cancelSale(product.id)}} style={{ display:product.status==8?'none':"flex",fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:'red',padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">

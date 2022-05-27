@@ -170,11 +170,11 @@ const notify = (type,msg)=>{
 
 <Horizel current={page} id={1} pager={pageHandle} icon={BsBoxSeam} text={"Delivered"} />
 
-
+{/* 
 <Horizel current={page} id={2} pager={pageHandle} icon={BsBoxSeam} text={"Delivered"} />
 
 
-<Horizel current={page} id={3} pager={pageHandle} icon={BsBoxSeam} text={"Delivered"} />
+<Horizel current={page} id={3} pager={pageHandle} icon={BsBoxSeam} text={"Delivered"} /> */}
 
 
 

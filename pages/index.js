@@ -2,20 +2,24 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Nav from '../comps/nav'
 import Image from 'next/image'
+import { useEffect } from 'react'
 import { API_URL,ROOT_URL } from '../utils/url'
 import Product from '../comps/product/product'
 import DefaultLayout from '../layouts/Default'
 import Crumb from '../comps/crumb/crumb'
+import AuthContext from '../context/AuthContext';
 import { MAIN_STYLE } from '../utils/style'
 import Hero from '../comps/hero'
 import Slidev from '../comps/slidev'
+import { useContext } from 'react'
 import { useRouter } from 'next/router'
+
 import { CURRENCY } from '../utils/url'
 // import ProductList from '../comps/productlist/ProductList'
 export default function Home({catagories,products,pros}) {
  const router = useRouter();
 const ls = require("local-storage");
-
+const{checkLogged} = useContext(AuthContext)
 ls.set("promo",pros);
 
  const cheapest = (ob)=>{
@@ -28,6 +32,13 @@ ls.set("promo",pros);
 
  }
 
+
+ 
+useEffect(()=>{
+
+  checkLogged();    
+ 
+ },[])
 
  const dummyProducts = [
    {"id":1,"name":"pospstar"},
