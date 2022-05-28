@@ -7,10 +7,12 @@ import ProductPanel from './productpanel';
 import { useEffect,useState } from 'react';
 import {BsDiagram3,BsPencil,BsThreeDotsVertical,BsFillXCircleFill,BsCoin} from 'react-icons/bs'
 import Modal from '../../comps/modal';
+import ListLoading from '../../comps/loading/listloading';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 function OrderList(props) {
     const [products, setProducts] = useState(null);
     const [selpro, setSelpro] = useState(null);
+    const [lod, setLod] = useState(0);
     const [modalOpen,setModalOpen] = useState(false);
     const  ls = require('local-storage');
     useEffect(()=>{
@@ -164,6 +166,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSaleVendor&&order=${oid}`, requestOpt
              }
 
     async function getData(){
+      setLod(1);
       const requestOptions = {
         method: 'GET',
         headers: {
@@ -177,6 +180,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSaleVendor&&order=${oid}`, requestOpt
           
        
      setProducts(data);  
+     setLod(0);
       console.log(data) 
            
         });
@@ -188,6 +192,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSaleVendor&&order=${oid}`, requestOpt
 <div style={{display:'flex',justifyContent:'flex-end'}}>
 </div>
    
+<ListLoading text={"Loading your orders"} lod={lod} width={100}/>
 <div className='grid grid-cols-2 gap-y-5 sm:grid-cols-2 gap-x-5 lg:grid-cols-6 xl:grid-cols-6 xl:gap-x-6 xl:gap-y-6 lg:gap-x-5 lg:gap-y-5'>
 
 {/* {products&&products.data.map(product=>(

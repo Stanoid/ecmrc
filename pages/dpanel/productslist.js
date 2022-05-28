@@ -5,12 +5,14 @@ import { CURRENCY } from '../../utils/url';
 import { MdAdd } from 'react-icons/md';
 import ProductPanel from './productpanel';
 import { useEffect,useState } from 'react';
+import ListLoading from '../../comps/loading/listloading';
 import {BsDiagram3,BsPencil,BsThreeDotsVertical,BsFillXCircleFill,BsCoin,BsTruck} from 'react-icons/bs'
 import Modal from '../../comps/modal';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 function ProductsList(props) {
     const [products, setProducts] = useState(null);
     const [selpro, setSelpro] = useState(null);
+    const [lod, setLod] = useState(0);
     const [modalOpen,setModalOpen] = useState(false);
     const  ls = require('local-storage');
     useEffect(()=>{
@@ -166,6 +168,7 @@ fetch(`${API_URL}/orders/${oid}?func=deliverOrder&&order=${oid}`, requestOptions
              }
 
     async function getData(){
+      setLod(1)
       const requestOptions = {
         method: 'GET',
         headers: {
@@ -177,7 +180,7 @@ fetch(`${API_URL}/orders/${oid}?func=deliverOrder&&order=${oid}`, requestOptions
         .then(response => response.json())
         .then(data =>{
           
-       
+       setLod(0)
      setProducts(data);  
       console.log(data) 
            
@@ -316,6 +319,7 @@ fetch(`${API_URL}/orders/${oid}?func=deliverOrder&&order=${oid}`, requestOptions
                 ))}
               </tbody>
             </table>
+            <ListLoading text={"Loading your orders"} lod={lod} width={100}/>
           </div>
         </div>
       </div>

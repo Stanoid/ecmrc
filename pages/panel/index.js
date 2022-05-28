@@ -14,7 +14,7 @@ import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 export default function Mpanel() {
 const [emial, setEmial] = useState("");
 const [pass, setpass] = useState("");
-const [page, setPage] = useState(0);
+const [page, setPage] = useState(1);
 const [userData, setUserData] = useState(0);
 const ls = require("local-storage")
 const router = useRouter();

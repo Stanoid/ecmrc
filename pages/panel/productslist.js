@@ -6,10 +6,11 @@ import { MdAdd } from 'react-icons/md';
 import ProductPanel from './productpanel';
 import { useEffect,useState } from 'react';
 import {BsDiagram3,BsPencil} from 'react-icons/bs'
-
+import ListLoading from '../../comps/loading/listloading';
 
 function ProductsList(props) {
     const [products, setProducts] = useState(null);
+    const [lod, setLod] = useState(0);
     const  ls = require('local-storage');
     useEffect(()=>{
 
@@ -31,6 +32,7 @@ function ProductsList(props) {
        }    
 
     async function getData(){
+      setLod(1);
       const requestOptions = {
         method: 'GET',
         headers: {
@@ -42,7 +44,7 @@ function ProductsList(props) {
         .then(response => response.json())
         .then(data =>{
           
-       
+       setLod(0)
       setProducts(data);  
       console.log(data) 
            
@@ -72,6 +74,7 @@ function ProductsList(props) {
 
  
  <div className="flex flex-col" style={{marginTop:15}}>
+   <ListLoading text={"Loading your products"} lod={lod} width={100}/>
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
