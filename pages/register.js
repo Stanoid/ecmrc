@@ -117,44 +117,44 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
         <div>
            <ToastContainer  limit={3}/>
 
-            <div className="h-screen bg-gradient-to-br from-primary to-secondary flex justify-center items-center w-full">
+            <div className="h-screen  bg-gradient-to-br from-primary text-right to-secondary flex justify-center items-center w-full">
   
     <div style={{display:type==0?"none":"block"}} className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
       <div className="space-y-4">
-        <h1 className="text-center text-2xl font-semibold text-gray-600">Register</h1>
+        <h1 className="text-center text-2xl font-semibold text-gray-600">تسجيل حساب</h1>
         <div>
-          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">Username</label>
+          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">أسم المستخدم</label>
           <input  onChange={(event)=>{setname(event.target.value)}} value={name} type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
         <div>
-          <label  htmlFor="email" className="block mb-1 text-gray-600 font-semibold">Email</label>
+          <label  htmlFor="email" className="block mb-1 text-gray-600 font-semibold">البريد الإلكتروني</label>
           <input value={email} onChange={(event)=>{setemail(event.target.value)}} type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
         <div>
-          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">Password</label>
+          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">كلمة المرور</label>
           <input value={pass} onChange={(event)=>{setpass(event.target.value)}} type="password" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
         <div>
-          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">Confirm password</label>
+          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">تأكيد كلمة المرور </label>
           <input value={cpass} onChange={(event)=>{setcpass(event.target.value)}} type="password" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
       </div>
-      <button onClick={()=>{regis()}} className="mt-4 w-full bg-primary font-semibold  text-secondary py-2 rounded-md text-lg tracking-wide">Register</button>
-      <button onClick={()=>{router.replace("/login")}} className="mt-4 w-full   text-primary py-2 rounded-md text-lg underline tracking-wide">Login instead</button>
+      <button onClick={()=>{regis()}} className="mt-4 w-full bg-primary font-semibold  text-secondary py-2 rounded-md text-lg tracking-wide">إنشاء</button>
+      <button onClick={()=>{router.replace("/login")}} className="mt-4 w-full   text-primary py-2 rounded-md text-lg underline tracking-wide">تسجيل دخول  </button>
  
     </div>
 
     <div style={{display:type==0?"block":"none"}} className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-xl">
       <div className="space-y-4">
-        <h1 className=" text-1xl font-semibold text-gray-600">Join Bendari As:</h1>
+        <h1 className=" text-1xl font-semibold text-gray-600">إنضم لبنداري ك؟  :</h1>
 
         <div className='grid grid-cols-6 gap-x-4 gap-y-4' style={{marginTop:40}}>
         <div className='col-span-6 lg:col-span-3' > 
         <div onClick={()=>{handleType(1)}}  className='p-2 shadow-md hover:shadow-xl transition ease-in-out rounded-md' style={{cursor:'pointer',display:"flex",alignItems:"center",justifyContent:"space-between"}}>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:'column'}}>
        <BsMegaphone  className='text-primary'  style={{fontSize:60,marginBottom:10}}/>
-        <h1 className=" text-2xl font-semibold text-gray-600">Markerter</h1>
-        <h1 className="p-4 text-1xl text-center font-semibold text-gray-600">I want to promote products with commission</h1>
+        <h1 className=" text-2xl font-semibold text-gray-600">مسوق</h1>
+        <h1 className="p-4 text-1xl text-center font-semibold text-gray-600">أريد تسويق منتجات وأخذ بالعمولة</h1>
           </div>
           
         
@@ -166,8 +166,8 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
         <div onClick={()=>{handleType(2)}} className='p-2 shadow-md hover:shadow-xl transition ease-in-out rounded-md' style={{ cursor:"pointer", display:"flex",alignItems:"center",justifyContent:"space-between"}}>
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:'column'}}>
         <BsShop className='text-primary' style={{fontSize:60,marginBottom:10}}/>
-        <h1 className=" text-2xl font-semibold text-gray-600">Seller</h1>
-        <h1 className="p-4 text-1xl text-center font-semibold text-gray-600">I have products and looking for markerters</h1>
+        <h1 className=" text-2xl font-semibold text-gray-600">بائع</h1>
+        <h1 className="p-4 text-1xl text-center font-semibold text-gray-600">لدي منتجات و أبحث عن مسوقين</h1>
           </div>
           
         

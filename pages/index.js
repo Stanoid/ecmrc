@@ -54,7 +54,7 @@ useEffect(()=>{
 
 
   return (
-    <div className={styles.container}>
+    <div style={{textAlign:'right'}} className={styles.container}>
       <Head>
         <title>Bendari | Get online marketers on Bendari </title>
         <meta name="description" content="Bendari shop, experience the best shopping in sudan" />
@@ -77,7 +77,7 @@ useEffect(()=>{
 <div style={{marginTop:10}} className='p-2 lg:p-6 xl:p-6 md:p-6 '>
 
  <h1 className={styles.MAIN_FONT} style={{color:MAIN_STYLE.grey,fontWeight:'bold',fontSize:20}}>
-               Latest Products:
+              وصل حديثآ
               </h1>
 <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column',marginTop:10,width:'100%'}}>
 
@@ -96,12 +96,12 @@ useEffect(()=>{
 
 
 
-<div style={{marginTop:10}} className='p-2 lg:p-6 xl:p-6 md:p-6 '>
+{/* <div style={{marginTop:10}} className='p-2 lg:p-6 xl:p-6 md:p-6 '>
 <h1 className={styles.MAIN_FONT} style={{color:MAIN_STYLE.grey,fontWeight:'bold',fontSize:20}}>
                Bendari best selling:
               </h1>
 <Slidev prd={products} />
-</div>
+</div> */}
 
 
   </DefaultLayout>

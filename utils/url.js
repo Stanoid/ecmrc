@@ -20,7 +20,7 @@ export const G_KEY = process.envNEXT_PUBLIC_GOOGLE_ANALYTICS || 'G-64NVNT1656'
 
 
 export const MAGIC_PUBLIC_KEY = process.env.NEXT_PUBLIC_MAGIC_PUBLIC_KEY || 'pk_live_AD3A83EA7CEA4BEF';
-export const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY || "SDG"
+export const CURRENCY = process.env.NEXT_PUBLIC_CURRENCY || "جنيه"
 
  /**
   * 

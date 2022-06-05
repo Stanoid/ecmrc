@@ -52,17 +52,17 @@ const createGroup = ()=>{
  
 
   if(newPrice<oldPrice){
-    notify("warn","Sale price cannot be less than listed price.")
+    notify("warn","سعر البيع أقل من السعر الأساسي   .")
     return
   }
 
   if(part<1){
-    notify("warn","Quantity cannot be less that 1.")
+    notify("warn","لا يمكن للكمية ان تكون اقل من 1")
     return
   }
 
   if(bname==""||bname==" "||badd==""||badd==" "||bphone==""||bphone==" "){
-    notify("warn","Buyer's information cannot be empty.")
+    notify("warn","معلومات المشتري فارغة.")
     return
   }
 
@@ -96,7 +96,7 @@ fetch(`${API_URL}/orders/${props.Oid}?func=makeSale&&order=${props.Oid}`, reques
     .then(response => response.json())
     .then(data =>{
       console.log("done",data);
-      notify("success",`Sale has been Created, waiting customer confirmation.`)
+      notify("success",`تمت العملية, في إنتظار تأكيد المشتري`)
        setLoading(0);
       props.pagdler(1)
        
@@ -137,12 +137,12 @@ const notify = (type,msg)=>{
     return (
       <div>
              <ToastContainer  limit={3}/>
-           <div style={{minHeight:"100vh"}}>
+           <div  style={{minHeight:"100vh",textAlign:"right"}}>
               <div style={{display:"flex",justifyContent:'space-between',alignItems:'center'}}>
 
               <div onClick={()=>{props.pagdler(1)}} style={{display:'flex',justifyContent:'flex-start',alignItems:'center',cursor:'pointer'}}>
                 <MdChevronLeft style={{color:'white', backgroundColor:MAIN_STYLE.primary,fontSize:25,marginRight:5,borderRadius:100,padding:0}}/> 
-                <span >Back</span>
+                <span >رجوع</span>
               </div>
 
              
@@ -157,10 +157,9 @@ const notify = (type,msg)=>{
   <div className="md:grid md:grid-cols-3 md:gap-6">
     <div className="md:col-span-1">
       <div className="px-4 sm:px-0">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">Make a sell</h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-900">عملية بيع</h3>
         <p className="mt-1 text-sm text-gray-600">
-        Please provide the buyers information.
-        Buyer will be contacted to confirm sale.
+      الرجاء كتابة معلومات المشتري بدقة, سيتم التواصل مع المشتري لتأكيد الطلب
         </p>
       </div>
     </div>
@@ -171,7 +170,7 @@ const notify = (type,msg)=>{
             <div className="grid grid-cols-3 gap-6">
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                  Product name
+                   المنتج
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                 
@@ -181,7 +180,7 @@ const notify = (type,msg)=>{
 
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                  Listed price
+                  السعر الأساسي 
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                 
@@ -191,7 +190,7 @@ const notify = (type,msg)=>{
             
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                  Sale price
+                  سعر البيع 
                 </label>
                 <div style={{display:"flex",flexDirection:'column'}} className="mt-1 flex rounded-md shadow-sm">
                 
@@ -205,7 +204,7 @@ const notify = (type,msg)=>{
 
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                 Quantity
+                 الكمية
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                 
@@ -215,7 +214,7 @@ const notify = (type,msg)=>{
 
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                 Buyers name
+                 إسم المشتري 
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                 
@@ -225,7 +224,7 @@ const notify = (type,msg)=>{
 
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                 Buyers phone
+                 رقم الهاتف 
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                 
@@ -235,7 +234,7 @@ const notify = (type,msg)=>{
 
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                 Buyers backup phone
+                 رقم الهاتف الإحتياطي  
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                 
@@ -245,7 +244,7 @@ const notify = (type,msg)=>{
 
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                 Buyers address
+                 العنوان 
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                 
@@ -271,9 +270,9 @@ const notify = (type,msg)=>{
 
 <LoadingButton
 act={createGroup}
-text={"Sell"}
+text={"بيع"}
 lod= {loading}
-msg={"Proccessing ..."}
+msg={"جاري التحقق ..."}
 />
 
 {/* <div  onClick={()=>{createGroup()}}  className="bg-white px-10  rounded-xl w-screen  max-w-sm">

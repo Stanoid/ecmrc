@@ -151,7 +151,7 @@ fetch(`${API_URL}/orders?func=orderInit`, requestOptions)
     .then(data =>{
       console.log("done",data);
       ls.set("cart",[]);
-      notify("success",`Products added succussfully.`)
+      notify("success",`تمت إضافة المنتجات  .`)
       props.openHandler(false);
      
     
@@ -208,7 +208,7 @@ const notify = (type,msg)=>{
           >
             <Dialog.Overlay  className="absolute inset-0 bg-black lg:bg-black  bg-opacity-10 lg:bg-opacity-50 transition-opacity" />
           </Transition.Child>
-          <div className="fixed bottom-0 right-0 lg:top-0 max-h-1/2   max-w-md flex ">
+          <div className="fixed bottom-0 right-0 lg:top-0 max-h-1/2 text-right   max-w-md flex ">
             <Transition.Child
               as={Fragment}
               enter="transform transition ease-in-out duration-200 sm:duration-300"
@@ -227,7 +227,7 @@ const notify = (type,msg)=>{
                       </div>
                   <div className="px-4 sm:px-6 flex align-middle justify-between">
                     
-                    <Dialog.Title className="text-lg font-medium text-gray-900  ">My Cart</Dialog.Title>
+                    <Dialog.Title className="text-lg font-medium text-gray-900  ">سلتي </Dialog.Title>
                     <button className='hidden lg:block' onClick={()=>{props.openHandler(false)}} >   <XIcon className="h-8 w-8 p-1 border-2 rounded-full border-black  " aria-hidden="true" /></button>
                   </div>
                   <div className="mt-6 relative flex-1 px-4 sm:px-6">
@@ -243,8 +243,8 @@ const notify = (type,msg)=>{
                )):
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
                  <MdRemoveShoppingCart style={{fontSize:100}} />
-                 <div style={{fontWeight:'bold'}}> Empty cart </div>
-                 <div>Browse and add items to complete order</div>
+                 <div style={{fontWeight:'bold'}}> سلة فارغة  </div>
+                 <div>تصفح المنتجات و أضفها للمتابعة</div>
                  </div>}
            
 
@@ -289,7 +289,7 @@ const notify = (type,msg)=>{
                         <div style={{fontSize:15,fontWeight:'bold'}}></div>
                         <div>
                           
-                            <button onClick={carts.length==0?()=>{notify("warn","Empty cart")}:()=>{checkUser()}} className='shadow-md font-semibold' style={{padding:"10px 15px 10px 15px",backgroundColor:MAIN_STYLE.primary,color:MAIN_STYLE.secondary,borderRadius:5}}>Finish</button>
+                            <button onClick={carts.length==0?()=>{notify("warn","سلة فارغة ")}:()=>{checkUser()}} className='shadow-md font-semibold' style={{padding:"10px 15px 10px 15px",backgroundColor:MAIN_STYLE.primary,color:MAIN_STYLE.secondary,borderRadius:5}}>متابعة</button>
                         </div>
                         </div>                  
                     {/* /End replace */}

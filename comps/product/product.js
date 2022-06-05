@@ -75,7 +75,7 @@ setCimg(nx);
 
       <div className='col-span-2' >
 <span style={{color:"grey",fontSize:8}} 
-      className={Styles.MAIN_FONT}>  <span style={{fontWeight:"bold",color:MAIN_STYLE.primary,fontSize:20}} >{parseFloat(props.price.comm)} </span> profit
+      className={Styles.MAIN_FONT}>  <span style={{fontWeight:"bold",color:MAIN_STYLE.primary,fontSize:20}} >{parseFloat(props.price.comm)} </span> عمولة
       </span>
    </div>
 

@@ -27,23 +27,23 @@ function ProductsList(props) {
     const statushand = (stat)=>{
       switch(stat){
         case 1:
-          return <div style={{backgroundColor:"grey",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Initiated</div>
+          return <div style={{backgroundColor:"grey",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >طلب مبدئي</div>
           break;
 
           case 2:
-            return <div style={{backgroundColor:"orange",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Pending</div>
+            return <div style={{backgroundColor:"orange",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >قيد الإنتظار</div>
             break;
 
             case 3:
-              return <div style={{backgroundColor:"green",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Aproved</div>
+              return <div style={{backgroundColor:"green",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >مؤكد</div>
               break;
 
               case 8:
-                return <div style={{backgroundColor:"black",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Canceled</div>
+                return <div style={{backgroundColor:"black",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >ملغي</div>
                 break;
 
               case 9:
-                return <div style={{backgroundColor:"red",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Deleted</div>
+                return <div style={{backgroundColor:"red",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >محذوف</div>
                 break;
       }
 
@@ -214,21 +214,21 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Name
+                    الإسم
                   </th>
                  
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                   Commission
+                   العمولة
                   </th>
 
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Price 
+                    السعر 
                   </th>
 
 
@@ -236,14 +236,14 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                   Buyer
+                   المشتري
                   </th>
 
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                   Status
+                   الحالة
                   </th>
 
                   
@@ -292,14 +292,14 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                         {product.status==1? <td  className=" whitespace-nowrap  text-sm font-medium">
                       <div onClick={()=>{props.pagdler(5,product.product.id,product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:MAIN_STYLE.secondary,backgroundColor:MAIN_STYLE.primary,padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
                       <BsCoin style={{fontWeight:'bold',marginRight:5}}/>
-                        Sell
+                        بيع
                       </div>
 
                    
                     </td>: <td  className=" whitespace-nowrap  text-sm font-medium">
                       <div  onClick={()=>{cancelSale(product.id)}} style={{ display:product.status==8?'none':"flex",fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:'red',padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
                       <BsFillXCircleFill style={{fontWeight:'bold',marginRight:5}}/>
-                        Cancel
+                        إلغاء
                       </div>
 
                    
@@ -319,7 +319,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                 ))}
               </tbody>
             </table>
-            <ListLoading text={"Loading your orders"} lod={lod} width={100}/>
+            <ListLoading text={"جاري تحميل طلباتك"} lod={lod} width={100}/>
           </div>
         </div>
       </div>

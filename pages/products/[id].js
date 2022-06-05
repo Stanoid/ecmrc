@@ -344,7 +344,8 @@ return null
        ls.set("cart",tempCart);
       // setQty(0);
        handleHasOf(order.id);
-       notify("success","Added to cart")
+       notify("success","تمت الإضافة إلى  السلة  ")
+
       return;
     }
 
@@ -367,10 +368,10 @@ return null
 
     if(existso==0){
       tempCart.push(order);
-      notify("success","Added to cart")
+      notify("success","تمت الإضافة إلى  السلة  ")
       ls.set("cart",tempCart)
     }else{
-      notify("warn","Item already in cart")
+      notify("warn","المنتج موجود في السلة  ")
     }
 
     // ls.set("total",total);
@@ -599,7 +600,7 @@ return null
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md"
                 style={{backgroundColor:qty==0?'grey':''}}
               >
-                Add to Cart
+                إضافة إلى السلة  
               </button>
               {/* <div style={{marginTop:30}}>
                 <div style={{color:MAIN_STYLE.grey,fontWeight:'bold',fontSize:20}}>

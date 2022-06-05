@@ -10,23 +10,23 @@ export default function Modal(props) {
   const statushand = (stat)=>{
     switch(stat){
       case 1:
-        return <div style={{backgroundColor:"grey",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Initiated</div>
+        return <div style={{backgroundColor:"grey",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >طلب مبدئي</div>
         break;
 
         case 2:
-          return <div style={{backgroundColor:"orange",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Pending</div>
+          return <div style={{backgroundColor:"orange",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >قيد الإنتظار</div>
           break;
 
           case 3:
-            return <div style={{backgroundColor:"green",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Aproved</div>
+            return <div style={{backgroundColor:"green",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >موكد</div>
             break;
 
             case 8:
-              return <div style={{backgroundColor:"black",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Canceled</div>
+              return <div style={{backgroundColor:"black",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >ملغي</div>
               break;
 
             case 9:
-              return <div style={{backgroundColor:"red",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >Deleted</div>
+              return <div style={{backgroundColor:"red",color:"white",fontWeight:"bold",padding:5,borderRadius:0,textAlign:'center'}} >محذوف</div>
               break;
     }
 
@@ -37,7 +37,7 @@ export default function Modal(props) {
   return (
     <Transition.Root show={props.open} as={Fragment}>
       <Dialog as="div" className="fixed z-10   inset-0 overflow-y-auto" initialFocus={cancelButtonRef}  onClose={() => props.setopen(false)}>
-        <div style={{backdropFilter:"blur(7px)",backgroundColor:"rgba(0,0,0,0.2)"}} className="flex  items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div style={{backdropFilter:"blur(7px)",backgroundColor:"rgba(0,0,0,0.2)"}} className="flex text-right  items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-10"
@@ -71,7 +71,7 @@ export default function Modal(props) {
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                     Order details
+                     تفاصيل لبطلب 
                     </Dialog.Title>
                     <div className="mt-2">
                    
@@ -98,11 +98,11 @@ export default function Modal(props) {
         
            <div style={{textAlign:"left"}} className='grid grid-cols-6 gap-6 mt-3'>
            <div className='col-span-6 xl:col-span-3 md:col-span-3 lg:col-span-3 '>
-             <div style={{fontSize:20,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Details</div>
+             <div style={{fontSize:20,color:MAIN_STYLE.grey,fontWeight:"bold"}}> التفاصبل</div>
 
              <div style={{marginTop:0,textAlign:"left"}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Product name:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> إسم المنتج :</div>
                  </div>
                  <div className='col-span-3 '>
                  {`${props.order&&props.order.product.name} `}
@@ -111,7 +111,7 @@ export default function Modal(props) {
 
              <div style={{marginTop:0,textAlign:"left"}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Price:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> السعر:</div>
                  </div>
                  <div className='col-span-3 '>
                  {`${props.order&&props.order.sale_price} ${CURRENCY} `}
@@ -121,7 +121,7 @@ export default function Modal(props) {
 
                <div style={{marginTop:0,textAlign:'left'}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Quantity:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> الكمية:</div>
                  </div>
                  <div className='col-span-3 '>
                  {props.order&&props.order.qty}
@@ -130,7 +130,7 @@ export default function Modal(props) {
 
                <div style={{marginTop:0}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Commission:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> العمولة:</div>
                  </div>
                  <div className='col-span-3 '>
                  {`${props.order&&props.order.commission} ${CURRENCY}`}
@@ -138,7 +138,7 @@ export default function Modal(props) {
                </div>
                <div style={{marginTop:0}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Delivery:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> التوصيل:</div>
                  </div>
                  <div className='col-span-3 '>
                  {`1000 ${CURRENCY}`}
@@ -147,7 +147,7 @@ export default function Modal(props) {
 
                <div style={{marginTop:10}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Status:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> الحالة:</div>
                  </div>
                  <div className='col-span-3 '>
                {statushand(props.order&&props.order.status)}
@@ -163,11 +163,11 @@ export default function Modal(props) {
            </div>
           
            <div style={{display:props.order&&props.order.buyers_name==null?"none":"block",textAlign:'left'}} className='col-span-6 xl:col-span-3 md:col-span-3 lg:col-span-3'>
-           <div style={{  fontSize:20,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Buyer's information</div>
+           <div style={{  fontSize:20,color:MAIN_STYLE.grey,fontWeight:"bold"}}> معلومات المشتري</div>
           
            <div style={{marginTop:0}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Name:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> الإسم:</div>
                  </div>
                  <div className='col-span-3 '>
                  {`${props.order&&props.order.buyers_name}`}
@@ -176,7 +176,7 @@ export default function Modal(props) {
 
                <div style={{marginTop:0}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Address:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> العنوان:</div>
                  </div>
                  <div className='col-span-3 '>
                  {`${props.order&&props.order.buyers_address}`}
@@ -185,7 +185,7 @@ export default function Modal(props) {
 
                <div style={{marginTop:0}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Phone:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> الهاتف:</div>
                  </div>
                  <div className='col-span-3 '>
                  {`${props.order&&props.order.buyers_phone}`}
@@ -194,7 +194,7 @@ export default function Modal(props) {
 
                <div style={{marginTop:0}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> Backup phone:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> الهاتف الإحتياطي :</div>
                  </div>
                  <div className='col-span-3 '>
                  {`${props.order&&props.order.buyer_backup_number}`}
@@ -222,7 +222,7 @@ export default function Modal(props) {
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => props.act(props.order&&props.order.id)}
                 >
-                  Delete
+                  حذف
                 </button>
                 <button
                   type="button"
@@ -230,15 +230,15 @@ export default function Modal(props) {
                   onClick={() => props.setopen(false)}
                   ref={cancelButtonRef}
                 >
-                  Close
+                  إغلاق
                 </button>
 
                 
               </div>
               <div style={{display:props.type==1||props.type==3?"blobk":"none"}} className='bg-gray-50 px-4 py-3 sm:px-6'>
-                <div style={{fontSize:13}} >Order + Delivery: <span style={{color:MAIN_STYLE.grey,fontWeight:"bold"}}  >{`${props.order&&props.order.sale_price * props.order.qty + 1000} ${CURRENCY}`} </span></div>
-                <div style={{fontSize:13}}>Commission: <span style={{color:MAIN_STYLE.grey,fontWeight:"bold"}}>{`${props.order&&props.order.commission * props.order.qty} ${CURRENCY}`} </span></div>
-                <div style={{fontSize:17,fontWeight:"bold"}}>Total: <span style={{color:MAIN_STYLE.primary,fontWeight:"bold"}}>{`${(props.order&&props.order.sale_price * props.order.qty + 1000) + (props.order&&props.order.commission * props.order.qty)  } ${CURRENCY}`} </span></div>
+                <div style={{fontSize:13}} >الطلب + التوصيل: <span style={{color:MAIN_STYLE.grey,fontWeight:"bold"}}  >{`${props.order&&props.order.sale_price * props.order.qty + 1000} ${CURRENCY}`} </span></div>
+                <div style={{fontSize:13}}>العمولة: <span style={{color:MAIN_STYLE.grey,fontWeight:"bold"}}>{`${props.order&&props.order.commission * props.order.qty} ${CURRENCY}`} </span></div>
+                <div style={{fontSize:17,fontWeight:"bold"}}>المجموع: <span style={{color:MAIN_STYLE.primary,fontWeight:"bold"}}>{`${(props.order&&props.order.sale_price * props.order.qty + 1000) + (props.order&&props.order.commission * props.order.qty)  } ${CURRENCY}`} </span></div>
                 </div>
               </div>
 

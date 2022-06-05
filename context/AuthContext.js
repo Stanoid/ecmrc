@@ -21,10 +21,10 @@ export const AuthProvider = (props)=>{
      * @param {string} email 
      */
     const loginUser = async (email,password)=>{
-    
+    setLoading(1);
         if(email==""||password==""){
             notify("error","Empty email or password")
-            return
+            setLoading(0);
         }
 
             const requestOptions = {
@@ -47,31 +47,40 @@ export const AuthProvider = (props)=>{
                      setStype(data.user.type)
                      switch(data.user.type){
                        case 1:
-                        notify("success",`Welcom back ${data.user.username}, you will be redirected.`)
+                        notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
                         router.replace("/")
+                        setLoading(0);
+                      
                          break;
 
                          case 2:
-                          notify("success",`Welcom back ${data.user.username}, you will be redirected.`)
-                          router.replace("/panel")
+                          notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                          router.replace("/panel");
+                          setLoading(0);
+                         
 
                            break;
 
                            case 3:
-                            notify("success",`Welcom back ${data.user.username}, you will be redirected.`)
-                            router.replace("/dpanel")
+                            notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                            router.replace("/dpanel");
+                            setLoading(0);
+                          
   
                              break;
 
                            default:
-                            notify("success",`Welcom back ${data.user.username}, you will be redirected.`)
-                            router.replace("/")
+                            notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                            router.replace("/");
+                            setLoading(0);
+                          
   
                              break;
                      }
                        
                     }else{
-                        notify("error","Invalid email or password")
+                        notify("error","بريد إلكتروني أو كلمة سر خاطئة ");
+                        setLoading(0);
                     }
                 });
     
@@ -134,6 +143,12 @@ export const AuthProvider = (props)=>{
 
         }
             }
+
+
+            const log = async ()=>{
+               
+             
+                  }
 
 
              const checkLogged = async()=>{
@@ -203,7 +218,7 @@ export const AuthProvider = (props)=>{
 
 
 return(
-    <AuthContext.Provider value={{user,loginUser,logOutUser,notify,stype,checkLogged}}>
+    <AuthContext.Provider value={{user,loginUser,logOutUser,notify,stype,checkLogged,loading}}>
           <ToastContainer  limit={3}/>
         {props.children}
     </AuthContext.Provider>

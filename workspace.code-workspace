@@ -7,7 +7,7 @@
 			"path": "."
 		},
 		{
-			"path": "..\\landing"
+			"path": "..\\..\\..\\xampp\\htdocs\\landing"
 		}
 	],
 	"settings": {}

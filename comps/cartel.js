@@ -42,7 +42,7 @@ export default function Cartel(props) {
   return (
   <div>
        <li  className="py-6 flex">
-                              <div className="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
+       <div className="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
                                 <img
                                   src={props.img}
                                   alt={"alt"}
@@ -51,7 +51,7 @@ export default function Cartel(props) {
                               </div>
 
                               <div className="ml-4 flex-1 flex flex-col">
-                                <div>
+                                <div style={{textAlign:"right"}}>
                                   <div className="flex justify-between text-base font-medium text-gray-900">
                                     <h3>
                                       <a href={"link"}>{props.name}</a>
@@ -59,17 +59,21 @@ export default function Cartel(props) {
                                     <p className="ml-4">{`${props.price}  ${CURRENCY}` }</p>
                                   </div>
                                   {/* <p className="mt-1 text-sm text-gray-500">{props.color}</p> */}
-                                  <p className="ml-4">{` commission: ${props.comm}  ${CURRENCY}` }</p>
+                                  <p className="ml-4">{` عمولة: ${props.comm}  ${CURRENCY}` }</p>
                                 </div>
                                 <div className="flex-1 flex items-end justify-between text-sm">
                                  
                                   <div className="flex" >
                                     <button onClick={()=>{props.removeItem(props.size.id)}} type="button" style={{color:'red'}} className="font-medium text-indigo-600 hover:text-indigo-500">
-                                      Remove
+                                      حذف
                                     </button>
                                   </div>
                                 </div>
                               </div>
+
+                           
+
+
                             </li>
 
                            <hr></hr>

@@ -40,7 +40,7 @@ setOpen(open)
 
     return (
       <div>
-    <div className='shadow-sm'  style={{display:"flex",width:'100%',position:"fixed",backgroundColor:MAIN_STYLE.primary,
+    <div className='shadow-sm'  style={{display:"flex",width:'100%',position:"fixed",backgroundColor:"white",
     alignContent:'center',justifyContent:"space-between",padding:15,paddingBottom:7,zIndex:10,color:MAIN_STYLE.grey}}>
     <Menu openHandler={handleOpen}  open={open} />
     <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
@@ -53,7 +53,7 @@ setOpen(open)
   <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
 <Link href="/" class="navbar-brand" >
       <div>
-      <Image src={'/newlo.svg'} width={110} height={40} />
+      <Image src={'/nnng.svg'} width={110} height={40} />
       </div>
         </Link>
         </div>
@@ -64,14 +64,14 @@ setOpen(open)
    
 
         <div className='hidden lg:block xl:block md:block '>
-        <div className=" bg-white w-96 grid grid-cols-9 p-2">
+        {/* <div className=" bg-white w-96 grid grid-cols-9 p-2">
           <div className='col-span-8  span justify-start items-center'>
      <input placeholder='Search anything...' style={{width:"100%",height:'100%',border:0,fontSize:17,outline:"none"}} />
           </div>
           <div className='col-span-1 flex justify-center items-center'  >
             <MdSearch style={{color:MAIN_STYLE.grey,fontSize:20}} />
           </div>
-</div>
+</div> */}
     </div>
 
 
