@@ -46,19 +46,7 @@ setOpen(open)
     <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
    
 
-<div style={{display:"flex",justifyContent:"center",alignItems:"space-between"}}>
-  {/* <div onClick={()=>{setOpen(true)}} style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-  <MdMenu style={{color:MAIN_STYLE.grey,fontSize:20}} />
-  </div> */}
-  <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-<Link href="/" class="navbar-brand" >
-      <div>
-      <Image src={'/nnng.svg'} width={110} height={40} />
-      </div>
-        </Link>
-        </div>
 
-</div>
   
     
    
@@ -101,6 +89,20 @@ setOpen(open)
     </Link>
     </div>
       )}
+
+<div style={{display:"flex",justifyContent:"center",alignItems:"space-between"}}>
+  {/* <div onClick={()=>{setOpen(true)}} style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+  <MdMenu style={{color:MAIN_STYLE.grey,fontSize:20}} />
+  </div> */}
+  <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
+<Link href="/" class="navbar-brand" >
+      <div>
+      <Image src={'/nnng.svg'} width={110} height={40} />
+      </div>
+        </Link>
+        </div>
+
+</div>
      
         </div>
 
