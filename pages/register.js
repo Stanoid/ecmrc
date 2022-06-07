@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 export default function Register() {
 
   const [name, setname] = useState("");
-  const [type, setType] = useState(0);
+  const [type, setType] = useState(1);
   const [email, setemail] = useState("");
   const [pass, setpass] = useState("");
   const [cpass, setcpass] = useState("");
@@ -97,12 +97,19 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
     .then(response => response.json())
     .then(data =>{
       if(data.jwt){
-        notify("success",`Welcome on board ${data.user.username}`);
+        notify("success",`مرحبآ بك معنا   ${data.user.username}`);
     ls.set("atkn",data.jwt)
     router.replace("/")
 
       }else{
-        notify("error","Something wrong, please try again later");
+        console.log(data.error.message)
+
+        if(data.error.message=="Email is already taken"){
+          notify("error","بريد إلكتروني مستخدم, حاول تسجيل دخول");
+        }else{
+          notify("error","حدث خطأ ما,الرجاء المحاولة مرة أخري");
+        }
+      
       }
       
        console.log(data);

@@ -50,17 +50,17 @@ setOpen(open)
   
     
    
-
+{/* 
         <div className='hidden lg:block xl:block md:block '>
-        {/* <div className=" bg-white w-96 grid grid-cols-9 p-2">
+        <div className=" bg-white w-96 grid grid-cols-9 p-2">
           <div className='col-span-8  span justify-start items-center'>
      <input placeholder='Search anything...' style={{width:"100%",height:'100%',border:0,fontSize:17,outline:"none"}} />
           </div>
           <div className='col-span-1 flex justify-center items-center'  >
             <MdSearch style={{color:MAIN_STYLE.grey,fontSize:20}} />
           </div>
-</div> */}
-    </div>
+</div>
+    </div> */}
 
 
 

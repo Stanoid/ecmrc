@@ -37,7 +37,7 @@ export default function Modal(props) {
   return (
     <Transition.Root show={props.open} as={Fragment}>
       <Dialog as="div" className="fixed z-10   inset-0 overflow-y-auto" initialFocus={cancelButtonRef}  onClose={() => props.setopen(false)}>
-        <div style={{backdropFilter:"blur(7px)",backgroundColor:"rgba(0,0,0,0.2)"}} className="flex text-right  items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div style={{backdropFilter:"blur(7px)",backgroundColor:"rgba(0,0,0,0.2)"}} className="flex   items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-10"
@@ -71,7 +71,7 @@ export default function Modal(props) {
                   </div>
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                     تفاصيل لبطلب 
+                     تفاصيل الطلب 
                     </Dialog.Title>
                     <div className="mt-2">
                    
@@ -82,9 +82,10 @@ export default function Modal(props) {
             <div style={{display:"flex",justifyContent:"flex-end",alignItems:"flex-end"}} className='col-span-1'>
               <div   style={{position:'absolute',backgroundColor:MAIN_STYLE.primary,borderRadius:"5px 0px 0px 0px",cursor:"pointer",display:'flex',justifyContent:'center',alignItems:'center',padding:7,color:"white"}} 
               className='transition-opacity  hover:opacity-90' >
-                <a href={props.order&&props.order.product.image[0].url} download={true}>
+             
+                <a download={props.order&&props.order.product.name} href={props.order&&props.order.product.image[0].url} title="ImageName">
                 <BsDownload/>
-                </a>
+                 </a>
               
               
                 </div>
@@ -109,12 +110,22 @@ export default function Modal(props) {
                  </div>
                </div>
 
-             <div style={{marginTop:0,textAlign:"left"}} className='grid grid-cols-6'>
+               <div style={{marginTop:0,textAlign:"left"}} className='grid grid-cols-6'>
                <div className='col-span-3 '>
-               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> السعر:</div>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> السعر الأساسي:</div>
                  </div>
                  <div className='col-span-3 '>
-                 {`${props.order&&props.order.sale_price} ${CURRENCY} `}
+                 {`${props.order&&props.order.price} ${CURRENCY} `}
+                 </div>
+               </div>
+
+             <div style={{marginTop:0,textAlign:"left"}} className='grid grid-cols-6'>
+               <div className='col-span-3 '>
+               <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> سعر البيع:</div>
+                 </div>
+                 <div className='col-span-3 '>
+                {props.order&&props.order.sale_price!=null?`${props.order&&props.order.sale_price} ${CURRENCY} `: "لم يباع"}
+                 
                  </div>
                </div>
 
@@ -124,7 +135,8 @@ export default function Modal(props) {
                <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> الكمية:</div>
                  </div>
                  <div className='col-span-3 '>
-                 {props.order&&props.order.qty}
+                 {props.order&&props.order.qty!=null?`${props.order&&props.order.qty} ${CURRENCY} `: "لم يباع"}
+                 
                  </div>
                </div>
 
@@ -237,7 +249,12 @@ export default function Modal(props) {
               </div>
               <div style={{display:props.type==1||props.type==3?"blobk":"none"}} className='bg-gray-50 px-4 py-3 sm:px-6'>
                 <div style={{fontSize:13}} >الطلب + التوصيل: <span style={{color:MAIN_STYLE.grey,fontWeight:"bold"}}  >{`${props.order&&props.order.sale_price * props.order.qty + 1000} ${CURRENCY}`} </span></div>
-                <div style={{fontSize:13}}>العمولة: <span style={{color:MAIN_STYLE.grey,fontWeight:"bold"}}>{`${props.order&&props.order.commission * props.order.qty} ${CURRENCY}`} </span></div>
+                <div style={{fontSize:13}}>العمولة: <span style={{color:MAIN_STYLE.grey,fontWeight:"bold"}}>
+
+                {props.order&&props.order.sale_price!=null?`${props.order&&props.order.commission * props.order.qty} ${CURRENCY} `: "لم يباع"}
+                 
+ 
+                   </span></div>
                 <div style={{fontSize:17,fontWeight:"bold"}}>المجموع: <span style={{color:MAIN_STYLE.primary,fontWeight:"bold"}}>{`${(props.order&&props.order.sale_price * props.order.qty + 1000) + (props.order&&props.order.commission * props.order.qty)  } ${CURRENCY}`} </span></div>
                 </div>
               </div>
