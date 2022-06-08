@@ -50,13 +50,13 @@ setType(type);
   const regis =()=>{
 
     if(pass==""||name==""||email==""){
-      notify("error","Empty fields, all fields are requiered");
+      notify("error","جميع الحقول مطلوبة ");
       return;
 
     }
 
     if(pass!==cpass){
-      notify("error","Password mismatch");
+      notify("error","كلمة السر غير متطابقة ");
       return;
 
     }
@@ -107,7 +107,7 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
         if(data.error.message=="Email is already taken"){
           notify("error","بريد إلكتروني مستخدم, حاول تسجيل دخول");
         }else{
-          notify("error","حدث خطأ ما,الرجاء المحاولة مرة أخري");
+          notify("error","حدث خطأ ما,الرجاء المحاولة مرة أخري "+ data.error.message);
         }
       
       }
