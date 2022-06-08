@@ -3,11 +3,19 @@ import { useState } from 'react'
 import axios from 'axios';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import { API_URL,ROOT_URL } from '../utils/url';
-import { BsMegaphone,BsShop } from 'react-icons/bs'
+import { BsMegaphone,BsShop } from 'react-icons/bs';
+import { ArrowRightIcon,PlusIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
+import Link from 'next/link'
+import Image from 'next/image';
+import { MAIN_STYLE } from '../utils/style';
 export default function Register() {
 
   const [name, setname] = useState("");
+  const [social1,setSocial1]=useState();
+  const [social2,setSocial2]=useState();
+  const [social3,setSocial3]=useState();
+  const [phone, setPhone] = useState("");
   const [type, setType] = useState(1);
   const [email, setemail] = useState("");
   const [pass, setpass] = useState("");
@@ -49,7 +57,7 @@ setType(type);
 
   const regis =()=>{
 
-    if(pass==""||name==""||email==""){
+    if(pass==""||name==""||email==""||phone==""||social1==""){
       notify("error","جميع الحقول مطلوبة ");
       return;
 
@@ -77,6 +85,11 @@ setType(type);
   //   notify("error","Something wrong, please try again later");
   // });
 
+  let sso = {
+    "first":social1,
+    "second":social2,
+    "third":social3,
+  }
 
   const requestOptions = {
     method: 'POST',
@@ -88,6 +101,8 @@ setType(type);
       {
           "username": name,
           "type":type,
+          "phone":phone,
+          "social":sso,
           "email": email,
           "password": pass,
         }
@@ -122,11 +137,28 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
 
     return (
         <div>
-           <ToastContainer  limit={3}/>
+            <div style={{position:'absolute', top:0,left:0,zIndex:0}}>
+      <Image  src={'/dec1.svg'} width={200} height={200} />
+      </div>
 
-            <div className="h-screen  bg-gradient-to-br from-primary text-right to-secondary flex justify-center items-center w-full">
+
+      <div style={{position:'absolute', bottom:0,right:0,zIndex:0}}>
+      <Image  src={'/dec2.svg'} width={200} height={200} />
+      </div>
+           <ToastContainer  limit={3}/>
   
-    <div style={{display:type==0?"none":"block"}} className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+            <div className="  bg-gradient-to-br text-right  flex justify-center flex-col items-center w-full">
+
+          
+
+    <div className='py-8' style={{zIndex:1}}>
+    <Link href="/" class="navbar-brand" >
+      <div>
+      <Image src={'/nnng.svg'} width={150} height={60} />
+      </div>
+        </Link>
+    </div>
+    <div style={{display:type==0?"none":"block",zIndex:1}} className=" px-10 py-8 rounded-xl w-screen  max-w-sm">
       <div className="space-y-4">
         <h1 className="text-center text-2xl font-semibold text-gray-600">تسجيل حساب</h1>
         <div>
@@ -138,6 +170,11 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
           <input value={email} onChange={(event)=>{setemail(event.target.value)}} type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
         <div>
+          <label  htmlFor="email" className="block mb-1 text-gray-600 font-semibold"> رقم الهاتف</label>
+          <input value={phone} onChange={(event)=>{setPhone(event.target.value)}} type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+        </div>
+
+        <div>
           <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">كلمة المرور</label>
           <input value={pass} onChange={(event)=>{setpass(event.target.value)}} type="password" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
@@ -146,51 +183,62 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
           <input value={cpass} onChange={(event)=>{setcpass(event.target.value)}} type="password" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
       </div>
-      <button onClick={()=>{regis()}} className="mt-4 w-full bg-primary font-semibold  text-secondary py-2 rounded-md text-lg tracking-wide">إنشاء</button>
+      <button style={{backgroundColor:MAIN_STYLE.primary}} onClick={()=>{setType(0)}} className="mt-4 w-full font-semibold  text-white py-2 rounded-md text-lg tracking-wide">
+        <div style={{display:'flex',justifyContent:"center",alignItems:"center"}}>
+       
+        التالي
+       
+        </div>
+       
+        </button>
       <button onClick={()=>{router.replace("/login")}} className="mt-4 w-full   text-primary py-2 rounded-md text-lg underline tracking-wide">تسجيل دخول  </button>
  
     </div>
 
-    <div style={{display:type==0?"block":"none"}} className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-xl">
+    <div style={{display:type==0?"block":"none",zIndex:1}} className=" px-10 py-8 rounded-xl w-screen  max-w-sm">
       <div className="space-y-4">
-        <h1 className=" text-1xl font-semibold text-gray-600">إنضم لبنداري ك؟  :</h1>
+        <h1 className="text-center text-2xl font-semibold text-gray-600">تسجيل حساب</h1>
+        <div onClick={()=>{setType(1)}} style={{fontSize:15,textDecoration:"underline",color:MAIN_STYLE.primary,textAlign:"left"}}>
+          رجوع
 
-        <div className='grid grid-cols-6 gap-x-4 gap-y-4' style={{marginTop:40}}>
-        <div className='col-span-6 lg:col-span-3' > 
-        <div onClick={()=>{handleType(1)}}  className='p-2 shadow-md hover:shadow-xl transition ease-in-out rounded-md' style={{cursor:'pointer',display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:'column'}}>
-       <BsMegaphone  className='text-primary'  style={{fontSize:60,marginBottom:10}}/>
-        <h1 className=" text-2xl font-semibold text-gray-600">مسوق</h1>
-        <h1 className="p-4 text-1xl text-center font-semibold text-gray-600">أريد تسويق منتجات وأخذ بالعمولة</h1>
-          </div>
-          
-        
-       
         </div>
+        <div>
+          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">روابط صفحات التسويق </label>
+          <input  onChange={(event)=>{setSocial1(event.target.value)}} value={social1} placeholder="مطلوب" type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
 
-        <div className='col-span-6 lg:col-span-3' > 
-        <div onClick={()=>{handleType(2)}} className='p-2 shadow-md hover:shadow-xl transition ease-in-out rounded-md' style={{ cursor:"pointer", display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:'column'}}>
-        <BsShop className='text-primary' style={{fontSize:60,marginBottom:10}}/>
-        <h1 className=" text-2xl font-semibold text-gray-600">بائع</h1>
-        <h1 className="p-4 text-1xl text-center font-semibold text-gray-600">لدي منتجات و أبحث عن مسوقين</h1>
-          </div>
-          
-        
-       
+        <div>
+          <input  onChange={(event)=>{setSocial2(event.target.value)}} value={social2} placeholder="إختياري"  type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
+
+        <div>
+          <input  onChange={(event)=>{setSocial3(event.target.value)}} value={social3} type="text" placeholder="إختياري" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
-        </div>
-        
+
+        <h3>
+          <b>ملحوظة:</b>بمعرفة صفحات إعلانك يمكننا تقديم نصائح حول كيفية زيادة مبيعاتك
+        </h3>
+
+        <div onClick={()=>{console.log("aaaa")}} style={{fontSize:15,textDecoration:"underline",color:MAIN_STYLE.primary}}>
+       إضافة
+           </div>
     
       
+
       
       
       </div>
-     
+      <button style={{backgroundColor:MAIN_STYLE.primary}} onClick={()=>{regis();}} className="mt-4 w-full  font-semibold  text-white py-2 rounded-md text-lg tracking-wide">
+        <div style={{display:'flex',justifyContent:"center",alignItems:"center"}}>
+       
+        إنشاء حساب
+       
+        </div>
+       
+        </button>
+    
+ 
     </div>
-  
 </div>
             
         </div>

@@ -5,6 +5,8 @@ import {useState,useContext} from "react";
 import axios from "axios";
 import LoadingBtn from '../comps/loading/loadingbtn';
 import { useRouter } from 'next/router'
+import Link from 'next/link'
+import Image from 'next/image';
 import AuthContext from '../context/AuthContext';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 export default function Login() {
@@ -30,11 +32,29 @@ const handlelogin=()=>{
 
     return (
         <div>
-            <DefaultLayout>
+           
 
-            <div className="h-screen text-right bg-gradient-to-br from-blue-600 to-indigo-600 flex justify-center items-center w-full">
+          
+            <div className=" text-right  to-indigo-600 flex justify-center flex-col items-center w-full">
  
-    <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+            <div style={{position:'absolute', top:0,left:0,zIndex:0}}>
+      <Image  src={'/dec1.svg'} width={200} height={200} />
+      </div>
+
+
+      <div style={{position:'absolute', bottom:0,right:0,zIndex:0}}>
+      <Image  src={'/dec2.svg'} width={200} height={200} />
+      </div>
+
+      <div className='py-8' style={{zIndex:1}}>
+    <Link href="/" class="navbar-brand" >
+      <div>
+      <Image src={'/nnng.svg'} width={150} height={60} />
+      </div>
+        </Link>
+    </div>
+
+    <div className=" px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
       <div className="space-y-4">
         <h1 className="text-center text-2xl font-semibold text-gray-600">تسجيل دخول</h1>
        
@@ -66,7 +86,7 @@ const handlelogin=()=>{
                
   </div>
                 </div> */}
-            </DefaultLayout>
+           
         </div>
     )
 }
