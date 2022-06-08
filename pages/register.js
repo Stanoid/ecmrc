@@ -100,7 +100,7 @@ setType(type);
     body: JSON.stringify(
       {
           "username": name,
-          "type":type,
+          "type":1,
           "phone":phone,
           "social":sso,
           "email": email,
