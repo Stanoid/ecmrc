@@ -290,7 +290,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                   
                   
                         {product.status==1? <td  className=" whitespace-nowrap  text-sm font-medium">
-                      <div onClick={()=>{props.pagdler(5,product.product.id,product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:MAIN_STYLE.secondary,backgroundColor:MAIN_STYLE.primary,padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
+                      <div onClick={()=>{props.pagdler(5,product.product.id,product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:MAIN_STYLE.primary,borderRadius:5}} className="text-indigo-600 py-2 px-4 text-center hover:text-indigo-900 shadow-xl">
                       <BsCoin style={{fontWeight:'bold',marginRight:5}}/>
                         بيع
                       </div>

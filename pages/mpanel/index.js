@@ -6,8 +6,8 @@ import axios from "axios";
 import LoadingButton from '../../comps/buttons/loadingButton';
 import { useRouter } from 'next/router'
 import Container from './container';
-import {MdOutlineShoppingCart,MdOfflineBolt,MdSafetyDivider,} from 'react-icons/md'
-import {BsBoxSeam,BsBarChartSteps,BsFileBarGraph,BsTruck,BsDiagram3} from 'react-icons/bs'
+import {MdHelpCenter} from 'react-icons/md'
+import {BsBoxSeam} from 'react-icons/bs'
 
 import Horizel from '../../comps/lists/horizel';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
@@ -147,7 +147,8 @@ const notify = (type,msg)=>{
             <div className='flex lg:hidden md:flex xl:hidden shadow-xl  justify-around md:justify-center' style={{backgroundColor:'white',width:'100vw',position:"fixed", bottom:0}}>
    
             {/* <Horizel current={page} id={0} pager={pageHandle} icon={BsBarChartSteps} text={"Stats"} /> */}
-<Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"Orders"} />
+<Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"الطلبات"} />
+<Horizel current={page} id={2} pager={pageHandle}  icon={MdHelpCenter} text={"مساعدة؟"} />
 {/* <Horizel current={page} id={3} pager={pageHandle} icon={BsTruck} text={"so,thing"} />
 <Horizel current={page} id={2} pager={pageHandle} icon={BsDiagram3} text={"Groups"} /> */}
    
@@ -164,6 +165,7 @@ const notify = (type,msg)=>{
   <div className='col-span-0 hidden md:hidden lg:block xl:block  md:col-span-0 lg:col-span-2 xl:col-span-2  shadow-md ' style={{padding:10}}  >
  
 <Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"الطلبات"} />
+<Horizel current={page} id={2} pager={pageHandle}  icon={MdHelpCenter} text={"مساعدة؟"} />
 
 
 

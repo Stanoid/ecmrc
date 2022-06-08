@@ -54,7 +54,7 @@ const handlelogin=()=>{
         </Link>
     </div>
 
-    <div className=" px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+    <div style={{zIndex:1}} className=" px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
       <div className="space-y-4">
         <h1 className="text-center text-2xl font-semibold text-gray-600">تسجيل دخول</h1>
        

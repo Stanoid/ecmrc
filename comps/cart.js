@@ -152,6 +152,7 @@ fetch(`${API_URL}/orders?func=orderInit`, requestOptions)
       console.log("done",data);
       ls.set("cart",[]);
       notify("success",`تمت إضافة المنتجات  .`)
+      router.push("/mpanel")
       props.openHandler(false);
      
     
