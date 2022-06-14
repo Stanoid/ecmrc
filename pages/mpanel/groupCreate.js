@@ -285,6 +285,8 @@ msg={"جاري التحقق ..."}
 {/* <span   onClick={uploadImage} style={{backgroundColor:MAIN_STYLE.primary,color:"white",padding:"10px 15px",borderRadius:5,cursor:'pointer',margin:"auto"}}>Upload</span>
 */}
 </div>
+
+<div style={{height:50}}></div>
          
         </div>
       </form>

@@ -147,8 +147,8 @@ const notify = (type,msg)=>{
             <div className='flex lg:hidden md:flex xl:hidden shadow-xl  justify-around md:justify-center' style={{backgroundColor:'white',width:'100vw',position:"fixed", bottom:0}}>
    
             {/* <Horizel current={page} id={0} pager={pageHandle} icon={BsBarChartSteps} text={"Stats"} /> */}
-<Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"الطلبات"} />
-<Horizel current={page} id={2} pager={pageHandle}  icon={MdHelpCenter} text={"مساعدة؟"} />
+{/* <Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"الطلبات"} />
+<Horizel current={page} id={2} pager={pageHandle}  icon={MdHelpCenter} text={"مساعدة؟"} /> */}
 {/* <Horizel current={page} id={3} pager={pageHandle} icon={BsTruck} text={"so,thing"} />
 <Horizel current={page} id={2} pager={pageHandle} icon={BsDiagram3} text={"Groups"} /> */}
    

@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Nav from '../comps/nav'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect } from 'react'
 import { API_URL,ROOT_URL } from '../utils/url'
 import Product from '../comps/product/product'
@@ -13,6 +14,7 @@ import Hero from '../comps/hero'
 import Slidev from '../comps/slidev'
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
+
 
 import { CURRENCY } from '../utils/url'
 // import ProductList from '../comps/productlist/ProductList'
@@ -64,11 +66,13 @@ useEffect(()=>{
 
  
   <DefaultLayout>
- <div className='bg lg:overflow-hidden xl:overflow-hidden overflow-scroll' style={{margin:0,marginTop:0,whiteSpace:'nowrap',padding:'5px 5px 5px 5px'}}>
+ {/* <div className='bg lg:overflow-hidden xl:overflow-hidden overflow-scroll' style={{margin:0,marginTop:0,whiteSpace:'nowrap',padding:'5px 5px 5px 5px'}}>
 {catagories.data&&catagories.data.map(catagory=>(
   <Crumb key={catagory.id} id={catagory.id} name={catagory.attributes.Name} />
 ))}
- </div>
+ </div> */}
+
+
 
  <div>
  <Hero/>

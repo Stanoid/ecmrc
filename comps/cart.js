@@ -290,7 +290,7 @@ const notify = (type,msg)=>{
                         <div style={{fontSize:15,fontWeight:'bold'}}></div>
                         <div>
                           
-                            <button onClick={carts.length==0?()=>{notify("warn","سلة فارغة ")}:()=>{checkUser()}} className='shadow-md font-semibold' style={{padding:"10px 15px 10px 15px",backgroundColor:MAIN_STYLE.primary,color:"white".secondary,borderRadius:5}}>متابعة</button>
+                            <button onClick={carts.length==0?()=>{notify("warn","سلة فارغة ")}:()=>{checkUser()}} className='shadow-md font-semibold' style={{padding:"10px 15px 10px 15px",backgroundColor:MAIN_STYLE.primary,color:"white",borderRadius:5}}>متابعة</button>
                         </div>
                         </div>                  
                     {/* /End replace */}
