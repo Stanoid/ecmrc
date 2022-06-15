@@ -7,6 +7,7 @@ import { MdRemoveShoppingCart } from 'react-icons/md'
 import { MAIN_STYLE } from '../utils/style'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import { CURRENCY } from '../utils/url'
+import Image from 'next/image';
 import { useRouter } from 'next/router'
 import { useRecoilState } from "recoil";
 import { API_URL } from '../utils/url';
@@ -243,7 +244,9 @@ const notify = (type,msg)=>{
            
                )):
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
-                 <MdRemoveShoppingCart style={{fontSize:100}} />
+                  <div>
+      <Image src={'/void.svg'} width={200} height={200} />
+      </div>
                  <div style={{fontWeight:'bold'}}> سلة فارغة  </div>
                  <div>تصفح المنتجات و أضفها للمتابعة</div>
                  </div>}

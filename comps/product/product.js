@@ -106,7 +106,7 @@ borderRadius:"3px 5px 0px 5px",fontSize:13}}>{props.cat[0].Name}
 </div>
 
       
-      <div className='col-span-3' style={{display:'flex',justifyContent:'flex-end'}}>
+      {/* <div className='col-span-3' style={{display:'flex',justifyContent:'flex-end'}}>
         <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
         <BsStarFill style={{color:"#F5A523"}} />
         <span style={{color:"#F5A523",marginLeft:3,fontWeight:'bold'}}>4.9</span>
@@ -114,7 +114,7 @@ borderRadius:"3px 5px 0px 5px",fontSize:13}}>{props.cat[0].Name}
         </div>
         
         
-        </div>
+        </div> */}
 
       
 

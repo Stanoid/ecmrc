@@ -8,7 +8,7 @@ import Head from 'next/head';
 import Cart from './cart';
 import { useRef } from 'react';
 import {BiMenuAltLeft} from 'react-icons/bi'
-import {MdOutlineAccountCircle,MdOutlineLogout,MdOutlineShoppingCart,MdSearch,MdPlaylistAddCheck,MdOutlineSupport,MdGridView} from 'react-icons/md'
+import {MdOutlineAccountCircle,MdOutlineLogout,MdOutlineShoppingCart,MdSearch,MdPlaylistAddCheck,MdOutlineSupport,MdAccountCircle} from 'react-icons/md'
 import AuthContext from '../context/AuthContext';
 import { MAIN_STYLE } from '../utils/style';
 
@@ -79,32 +79,37 @@ setOpen(open)
         </Link>
         </div>
 
+       
+
 </div>
      
         </div>
 
         <div className='flex md:flex xl:hidden lg:hidden shadow-sm' style={{width:'100%',backgroundColor:'white',
-    alignContent:'center',justifyContent:"space-between",padding:15,paddingBottom:7,zIndex:10,position:"fixed"}}>
-        <div>
-    
-    <div  style={{top:0,zIndex:10,backgroundColor:"white",display:"flex",width:"100vw",
+    alignContent:'center',justifyContent:"space-between",padding:5,paddingBottom:7,zIndex:10,position:"fixed"}}>
+     
+
+
+
+    <div  style={{top:0,zIndex:10,backgroundColor:"white",display:"flex",
 justifyContent:"center",alignItems:"center",zIndex:1
 }}>
-
-
-     
       <Image src={'/nnng.svg'} width={110} height={40} />
-      
-     
-      
-
 </div>
+
+<Link  href={"/help"}>
+ <div style={{display:"flex",justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
+             <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
+             <div style={{fontWeight:"bold",fontSize:10,color:MAIN_STYLE.grey}} > المساعدة </div>
+
+      </div>
+      </Link>
 
 {/* <div style={{position:'absolute', top:0,left:0,zIndex:0}}>
       <Image  src={'/dec1.svg'} width={200} height={200} />
       </div> */}
 
-      </div>
+      
     </div>
     <div style={{height:60}} ></div>
     
@@ -167,9 +172,15 @@ justifyContent:"center",alignItems:"center",zIndex:1
              
          
             
-             <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
+             {/* <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
              <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
              <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > المساعدة </div>
+
+             </div> */}
+
+<div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
+             <MdOutlineAccountCircle style={{fontSize:30,cursor:'pointer'}} />
+             <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > الحساب </div>
 
              </div>
               
