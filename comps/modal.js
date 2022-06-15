@@ -135,7 +135,7 @@ export default function Modal(props) {
                <div style={{fontSize:15,color:MAIN_STYLE.grey,fontWeight:"bold"}}> الكمية:</div>
                  </div>
                  <div className='col-span-3 '>
-                 {props.order&&props.order.qty!=null?`${props.order&&props.order.qty} ${CURRENCY} `: "لم يباع"}
+                 {props.order&&props.order.qty!=null?`${props.order&&props.order.qty} `: "لم يباع"}
                  
                  </div>
                </div>

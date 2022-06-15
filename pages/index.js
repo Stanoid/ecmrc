@@ -129,10 +129,10 @@ export async function getServerSideProps(){
   console.log("ssssssssssssssssssssssssssssssssss",responseprod)
 
   const products = await responseprod.json();
-  console.log("ssssssssssssssssssssssssssssssssss",products)
+  console.log("ssssssssssssssssssssssssssssssssss",products.reverse())
 // console.log(catagories);
 // console.log(products);
-
+ products.reverse();
   return{
     props:{
       catagories,products,pros

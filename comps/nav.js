@@ -88,21 +88,25 @@ setOpen(open)
         <div>
     
     <div  style={{top:0,zIndex:10,backgroundColor:"white",display:"flex",width:"100vw",
-justifyContent:"center",alignItems:"center"
+justifyContent:"center",alignItems:"center",zIndex:1
 }}>
 
 
      
       <Image src={'/nnng.svg'} width={110} height={40} />
       
-        
+     
       
 
 </div>
 
+{/* <div style={{position:'absolute', top:0,left:0,zIndex:0}}>
+      <Image  src={'/dec1.svg'} width={200} height={200} />
+      </div> */}
+
       </div>
     </div>
-    <div style={{height:60}} className="block md:block xl:hidden lg:hidden"></div>
+    <div style={{height:60}} ></div>
     
 
 
