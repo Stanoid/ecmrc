@@ -38,7 +38,7 @@ ls.set("promo",pros);
  
 useEffect(()=>{
 
-  checkLogged();    
+  checkLogged(1);    
  
  },[])
 

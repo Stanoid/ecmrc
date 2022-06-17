@@ -117,11 +117,12 @@ justifyContent:"center",alignItems:"center",zIndex:1
 
 
     <div className='shadow-sm flex xl:hidden md:flex lg:hidden'  style={{width:'100%',zIndex:10,position:"fixed",bottom:0,backgroundColor:"white",
-    alignContent:'center',justifyContent:"space-around",color:MAIN_STYLE.grey}}>
+    alignContent:'center',justifyContent:"space-around",color:MAIN_STYLE.grey,display:stype==1?"flex":"none"}}>
     <Menu openHandler={handleOpen}  open={open} />
     <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
      
        <>
+      
       
        <Link  href={"/"}>
               <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>

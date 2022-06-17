@@ -11,6 +11,7 @@ let magic
 export const AuthProvider = (props)=>{
 
     const[user,setUser] = useState(null);
+   
     const[stype,setStype] = useState(null);
     const [loading,setLoading]= useState(false);
     const router = useRouter();
@@ -42,7 +43,7 @@ export const AuthProvider = (props)=>{
                     
                     if(data.jwt){
                         ls.set("atkn",data.jwt);
-            
+                     console.log("thiis tokwn",data.jwt)
                      setUser(data.user.username)
                      setStype(data.user.type)
                      switch(data.user.type){
@@ -151,14 +152,15 @@ export const AuthProvider = (props)=>{
                   }
 
 
-             const checkLogged = async()=>{
+             const checkLogged = async(chk)=>{
+        
+              // let myPromise = new Promise(function(resolve, reject) {
+            
+              // });
 
                 if(ls.get("atkn")){
-                    
-                }else{
-                    return
-                }
-                const requestOptions = {
+                     
+                  const requestOptions = {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json",
@@ -169,15 +171,20 @@ export const AuthProvider = (props)=>{
                 fetch(`${API_URL}/users/me`, requestOptions)
                     .then(response => response.json())
                     .then(data =>{
-
-                      console.log("data",data)
+                   //  console.log("after call token",ls.get("atkn"))
+                      console.log("dataaftercall",data)
                      
                       if(data.id){
                     setUser(data.username);
+                    setStype(data.type)
                     switch(data.type){
                       case 1:
-                     
-                       router.replace("/")
+                        if(chk==1){
+                          
+                        }else{
+                          router.replace("/mpanel");
+                        }
+                      
                         break;
 
                         case 2:
@@ -201,10 +208,16 @@ export const AuthProvider = (props)=>{
                  
                       }else{
                         setUser(null);
+                        //router.replace("/login")
                       }
                        
                        
                     });
+                    
+                }else{
+                   router.replace("/login")
+                }
+                
 
                 
 

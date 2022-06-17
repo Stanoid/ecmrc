@@ -58,7 +58,7 @@ function ProductsList(props) {
 
 <div onClick={()=>{props.pagdler(2)}} style={{display:'flex',justifyContent:'flex-end',alignItems:'center', backgroundColor:MAIN_STYLE.primary,cursor:'pointer',padding:'5px 7px 5px 7px',borderRadius:5}}>
   <MdAdd style={{color:'white',fontSize:25,marginRight:0,padding:0}}/> 
-  <span style={{color:'white'}} >Add new product</span>
+  <span style={{color:'white'}} >إضافة منتج جديد</span>
 </div>
 </div>
    

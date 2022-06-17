@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import axios from 'axios';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import { API_URL,ROOT_URL } from '../utils/url';
@@ -12,9 +12,15 @@ import { MAIN_STYLE } from '../utils/style';
 export default function Register() {
 
   const [name, setname] = useState("");
+  const [states, setstaes] = useState("");
+  const [cities, setcities] = useState("");
+
   const [social1,setSocial1]=useState();
   const [social2,setSocial2]=useState();
   const [social3,setSocial3]=useState();
+  const [state,setstate]=useState();
+  const [city,setcity]=useState();
+  const [address,setaddress]=useState();
   const [phone, setPhone] = useState("");
   const [type, setType] = useState(1);
   const [email, setemail] = useState("");
@@ -51,13 +57,45 @@ const notify = (type,msg)=>{
 }
 
 
+
+useEffect(()=>{
+
+  getstate();    
+ 
+ },[])
+
+
+ const getstate=()=>{
+
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+        "Content-Type": "application/json",
+      
+    },
+  
+};
+fetch(`${API_URL}/states`, requestOptions)
+    .then(response => response.json())
+    .then(data =>{
+     
+    console.log(data);
+    setstaes(data.data);
+       
+    });
+
+
+
+   
+ }
+
 const handleType=(type)=>{
 setType(type);
 }
 
   const regis =()=>{
 
-    if(pass==""||name==""||email==""||phone==""||social1==""){
+    if(pass==""||name==""||email==""||phone==""||address==""||city==""||state==""){
       notify("error","جميع الحقول مطلوبة ");
       return;
 
@@ -101,6 +139,9 @@ setType(type);
       {
           "username": name,
           "type":1,
+          "city":city,
+          "state":state,
+          "adress":address,
           "phone":phone,
           "social":sso,
           "email": email,
@@ -132,6 +173,31 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
     });
 
 
+
+  }
+
+  const handlestate=(value)=>{
+    console.log("Aaa",value);
+    setstate(value)
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+        "Content-Type": "application/json",
+      
+    },
+  
+};
+fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
+    .then(response => response.json())
+    .then(data =>{
+     
+    console.log(data.data.attributes.cities.data);
+   setcities(data.data.attributes.cities.data);
+       
+    });
+
+
+    
 
   }
 
@@ -202,9 +268,38 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
           رجوع
 
         </div>
+
+   <div>
+   <label className='block mb-1 text-gray-600 font-semibold' for="cars">إختر المحلية :</label>
+
+<select onChange={()=>{handlestate(event.target.value);}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="cars" id="cars">
+  <option selected value="">المحلية</option>
+  {states&&states.map(stateo=>(
+  <option  value={stateo.id}>{stateo.attributes.name}</option>
+))}
+</select>
+   </div>
+       
+   <div>
+   <label className='block mb-1 text-gray-600 font-semibold' for="cars">إختر المدينة :</label>
+
+<select onChange={()=>{setcity(event.target.value);}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="cars" id="cars">
+  <option value="">المدينة</option>
+  {cities&&cities.map(cityo=>(
+  <option  value={cityo.id}>{cityo.attributes.name}</option>
+))}
+</select>
+   </div>
+
+   <div>
+          <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">  العنوان بالتفصيل </label>
+          <input  onChange={(event)=>{setaddress(event.target.value)}} value={address} placeholder="العنوان" type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+        </div>
+
+
         <div>
           <label htmlFor="email" className="block mb-1 text-gray-600 font-semibold">روابط صفحات التسويق </label>
-          <input  onChange={(event)=>{setSocial1(event.target.value)}} value={social1} placeholder="مطلوب" type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+          <input  onChange={(event)=>{setSocial1(event.target.value)}} value={social1} placeholder="إختياري" type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
 
         <div>

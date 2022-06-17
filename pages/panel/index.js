@@ -2,67 +2,71 @@ import React from 'react'
 import DefaultLayout from '../../layouts/Default'
 import { API_URL } from '../../utils/url';
 import {useState,useEffect} from "react";
+import AuthContext from '../../context/AuthContext';
+import { MAIN_STYLE } from '../../utils/style';
 import axios from "axios";
 import LoadingButton from '../../comps/buttons/loadingButton';
 import { useRouter } from 'next/router'
 import Container from './container';
-import {MdOutlineShoppingCart,MdOfflineBolt,MdSafetyDivider,} from 'react-icons/md'
-import {BsBoxSeam,BsBarChartSteps,BsFileBarGraph,BsTruck,BsDiagram3} from 'react-icons/bs'
+import {MdPlaylistAddCheck,MdCases} from 'react-icons/md'
+import {BsBoxSeam} from 'react-icons/bs';
 
+import { useContext } from 'react';
 import Horizel from '../../comps/lists/horizel';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 export default function Mpanel() {
 const [emial, setEmial] = useState("");
 const [pass, setpass] = useState("");
+
 const [page, setPage] = useState(1);
 const [userData, setUserData] = useState(0);
 const ls = require("local-storage")
 const router = useRouter();
 const [lod, setlod] = useState(0);
-
+const{checkLogged} = useContext(AuthContext)
 
 useEffect(()=>{
 
   
-   checkUser(ls.get("atkn"))
+  checkLogged();
      
   
   },[])
 
 
-  async function checkUser(token){
+//   async function checkUser(token){
   
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + token
-      },
+//     const requestOptions = {
+//       method: 'GET',
+//       headers: {
+//           "Content-Type": "application/json",
+//           "Authorization": 'Bearer ' + token
+//       },
      
-  };
-  fetch(`${API_URL}/users/me`, requestOptions)
-      .then(response => response.json())
-      .then(data =>{
+//   };
+//   fetch(`${API_URL}/users/me`, requestOptions)
+//       .then(response => response.json())
+//       .then(data =>{
         
-         console.log("userdata",data)
-         if(data.type===2){
-          setUserData(data);
-         }else{
-          router.replace("/login")
-         }
+//          console.log("userdata",data)
+//          if(data.type===2){
+//           setUserData(data);
+//          }else{
+//           router.replace("/login")
+//          }
        
          
          
-      }).catch(error =>{ 
+//       }).catch(error =>{ 
       
-        console.log(error)
-        router.replace("/login")
+//         console.log(error)
+//         router.replace("/login")
       
-      });
+//       });
 
 
 
-}
+// }
 
 
 
@@ -146,11 +150,11 @@ const notify = (type,msg)=>{
  
    
 
-            <div className='flex lg:hidden md:flex xl:hidden shadow-xl  justify-around md:justify-center' style={{backgroundColor:'white',width:'100vw',position:"fixed", bottom:0}}>
+            <div className='shadow-sm flex xl:hidden md:flex lg:hidden'  style={{width:'100%',zIndex:10,position:"fixed",bottom:0,backgroundColor:"white",
+    alignContent:'center',justifyContent:"space-around",color:MAIN_STYLE.grey}}>
    
-   
-            <Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"Products"} />
-<Horizel current={page} id={3} pager={pageHandle} icon={BsTruck} text={"Orders"} />
+            <Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"المنتجات"} />
+<Horizel current={page} id={3} pager={pageHandle} icon={MdPlaylistAddCheck} text={"الطلبات"} />
    
    
    
@@ -161,8 +165,8 @@ const notify = (type,msg)=>{
          <div className="grid grid-cols-12 gap-2">
   <div className='col-span-0 hidden md:hidden lg:block xl:block  md:col-span-0 lg:col-span-2 xl:col-span-2  shadow-md ' style={{padding:10}}  >
   
-  <Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"Products"} />
-<Horizel current={page} id={3} pager={pageHandle} icon={BsTruck} text={"Orders"} />
+  <Horizel current={page} id={1} pager={pageHandle}  icon={BsBoxSeam} text={"المنتجات"} />
+<Horizel current={page} id={3} pager={pageHandle} icon={MdPlaylistAddCheck} text={"الطلبات"} />
    
    
    

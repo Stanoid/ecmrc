@@ -7,8 +7,9 @@ import LoadingButton from '../../comps/buttons/loadingButton';
 import { useRouter } from 'next/router'
 import Container from './container';
 import {MdHelpCenter} from 'react-icons/md'
-import {BsBoxSeam} from 'react-icons/bs'
-
+import {BsBoxSeam} from 'react-icons/bs';
+import AuthContext from '../../context/AuthContext';
+import { useContext } from 'react';
 import Horizel from '../../comps/lists/horizel';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 export default function Mpanel() {
@@ -19,50 +20,50 @@ const [userData, setUserData] = useState(0);
 const ls = require("local-storage")
 const router = useRouter();
 const [lod, setlod] = useState(0);
-
+const{checkLogged} = useContext(AuthContext)
 
 useEffect(()=>{
 
   
-   checkUser(ls.get("atkn"))
+   checkLogged()
      
   
   },[])
 
 
-  async function checkUser(token){
+//   async function checkUser(token){
   
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer ' + token
-      },
+//     const requestOptions = {
+//       method: 'GET',
+//       headers: {
+//           "Content-Type": "application/json",
+//           "Authorization": 'Bearer ' + token
+//       },
      
-  };
-  fetch(`${API_URL}/users/me`, requestOptions)
-      .then(response => response.json())
-      .then(data =>{
+//   };
+//   fetch(`${API_URL}/users/me`, requestOptions)
+//       .then(response => response.json())
+//       .then(data =>{
         
-         console.log("userdata",data)
-         if(data.type==1){
-          setUserData(data);
-         }else{
-          router.replace("/login")
-         }
+//          console.log("userdata",data)
+//          if(data.type==1){
+//           setUserData(data);
+//          }else{
+//           router.replace("/login")
+//          }
        
          
          
-      }).catch(error =>{ 
+//       }).catch(error =>{ 
       
-        console.log(error)
-       router.replace("/login")
+//         console.log(error)
+//        router.replace("/login")
       
-      });
+//       });
 
 
 
-}
+// }
 
 ///content is on hold until further notice
 
