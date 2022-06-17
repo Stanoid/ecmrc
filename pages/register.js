@@ -270,7 +270,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
         </div>
 
    <div>
-   <label className='block mb-1 text-gray-600 font-semibold' for="state">إختر المحلية :</label>
+   <label className='block mb-1 text-gray-600 font-semibold' htmlFor=''="state">إختر المحلية :</label>
 
 <select onChange={()=>{handlestate(event.target.value);}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="cars" id="state">
   <option selected value="">المحلية</option>
@@ -281,7 +281,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
    </div>
        
    <div>
-   <label className='block mb-1 text-gray-600 font-semibold' for="city">إختر المدينة :</label>
+   <label className='block mb-1 text-gray-600 font-semibold' htmlFor=''="city">إختر المدينة :</label>
 
 <select onChange={()=>{setcity(event.target.value);}} className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" name="cars" id="city">
   <option value="">المدينة</option>
