@@ -18,11 +18,11 @@ import { useRouter } from 'next/router'
 
 import { CURRENCY } from '../utils/url'
 // import ProductList from '../comps/productlist/ProductList'
-export default function Home({catagories,products,pros}) {
+export default function Home({products}) {
  const router = useRouter();
 const ls = require("local-storage");
 const{checkLogged} = useContext(AuthContext)
-ls.set("promo",pros);
+// ls.set("promo",pros);
 
  const cheapest = (ob)=>{
   let arrs=[];
@@ -118,14 +118,14 @@ useEffect(()=>{
 
 export async function getServerSideProps(){
   const  ls = require('local-storage');
-  const response = await fetch(`${API_URL}/catagories`);
+  // const response = await fetch(`${API_URL}/catagories`);
   const responseprod = await fetch(`${API_URL}/products?func=getAllProducts`);
-  const promores = await fetch(`${API_URL}/promo`);
-  const pros = await promores.json();
-  ls.set("promo",pros);
-  console.log("promo",pros)
-  const catagories = await response.json();
-   ls.set("catagories",catagories);
+  // const promores = await fetch(`${API_URL}/promo`);
+  // const pros = await promores.json();
+  // ls.set("promo",pros);
+  // console.log("promo",pros)
+  // const catagories = await response.json();
+  //  ls.set("catagories",catagories);
   console.log("ssssssssssssssssssssssssssssssssss",responseprod)
 
   const products = await responseprod.json();
@@ -135,7 +135,7 @@ export async function getServerSideProps(){
  products.reverse();
   return{
     props:{
-      catagories,products,pros
+      products
     }
     
   }

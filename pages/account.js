@@ -5,7 +5,7 @@ import DefaultLayout from '../layouts/Default'
 import {MdAccountCircle} from 'react-icons/md'
 import AuthContext from '../context/AuthContext'
 import { MAIN_STYLE } from '../utils/style'
-export default function account() {
+export default function Account() {
     const{userData,checkLogged} = useContext(AuthContext)
 
     useEffect(()=>{
