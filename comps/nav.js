@@ -98,7 +98,7 @@ justifyContent:"center",alignItems:"center",zIndex:1
 </div>
 
 <Link  href={"/help"}>
- <div style={{display:"flex",justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
+ <div style={{display:"flex",paddingRight:5,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
              <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
              <div style={{fontWeight:"bold",fontSize:10,color:MAIN_STYLE.grey}} > المساعدة </div>
 
@@ -168,7 +168,7 @@ justifyContent:"center",alignItems:"center",zIndex:1
            
          </Link>
 
-         <Link  href={"/help"}>
+         <Link  href={"/account"}>
             {/* <a> {user.email}</a> */}
              
          

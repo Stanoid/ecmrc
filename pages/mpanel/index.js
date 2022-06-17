@@ -25,7 +25,7 @@ const{checkLogged} = useContext(AuthContext)
 useEffect(()=>{
 
   
-   checkLogged()
+   checkLogged(3)
      
   
   },[])

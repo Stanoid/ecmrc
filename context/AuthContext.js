@@ -11,7 +11,7 @@ let magic
 export const AuthProvider = (props)=>{
 
     const[user,setUser] = useState(null);
-   
+    const[userData,setuserData] = useState(null);
     const[stype,setStype] = useState(null);
     const [loading,setLoading]= useState(false);
     const router = useRouter();
@@ -44,7 +44,8 @@ export const AuthProvider = (props)=>{
                     if(data.jwt){
                         ls.set("atkn",data.jwt);
                      console.log("thiis tokwn",data.jwt)
-                     setUser(data.user.username)
+                     setUser(data.user.username);
+                     setuserData(data.user);
                      setStype(data.user.type)
                      switch(data.user.type){
                        case 1:
@@ -168,7 +169,7 @@ export const AuthProvider = (props)=>{
                     },
                   
                 };
-                fetch(`${API_URL}/users/me`, requestOptions)
+                fetch(`${API_URL}/users/me?populate=*`, requestOptions)
                     .then(response => response.json())
                     .then(data =>{
                    //  console.log("after call token",ls.get("atkn"))
@@ -176,12 +177,15 @@ export const AuthProvider = (props)=>{
                      
                       if(data.id){
                     setUser(data.username);
+                    setuserData(data);
                     setStype(data.type)
                     switch(data.type){
                       case 1:
                         if(chk==1){
                           
-                        }else{
+                        }else if(chk==2){
+                          router.replace("/account");
+                        }else if(chk==3){
                           router.replace("/mpanel");
                         }
                       
@@ -231,7 +235,7 @@ export const AuthProvider = (props)=>{
 
 
 return(
-    <AuthContext.Provider value={{user,loginUser,logOutUser,notify,stype,checkLogged,loading}}>
+    <AuthContext.Provider value={{user,loginUser,logOutUser,notify,stype,checkLogged,loading,userData}}>
           <ToastContainer  limit={3}/>
         {props.children}
     </AuthContext.Provider>
