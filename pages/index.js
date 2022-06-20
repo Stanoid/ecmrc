@@ -12,16 +12,18 @@ import AuthContext from '../context/AuthContext';
 import { MAIN_STYLE } from '../utils/style'
 import Hero from '../comps/hero'
 import Slidev from '../comps/slidev'
-import { useContext } from 'react'
+import { useContext,useState } from 'react'
 import { useRouter } from 'next/router'
 
 
 import { CURRENCY } from '../utils/url'
 // import ProductList from '../comps/productlist/ProductList'
-export default function Home({products}) {
+export default function Home() {
  const router = useRouter();
+ const [products, setProducts] = useState(null);
 const ls = require("local-storage");
 const{checkLogged} = useContext(AuthContext)
+
 // ls.set("promo",pros);
 
  const cheapest = (ob)=>{
@@ -38,9 +40,34 @@ const{checkLogged} = useContext(AuthContext)
  
 useEffect(()=>{
 
-  checkLogged(1);    
+  checkLogged(1);   
+  
+  
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+        "Content-Type": "application/json",
+       
+    },
+};
+
+fetch(`${API_URL}/products?func=getAllProducts`, requestOptions)
+    .then(response => response.json())
+    .then(data =>{
+      
+   
+ setProducts(data);  
+  console.log(data) 
+       
+    });
+
+
+  
  
  },[])
+
+
+ 
 
  const dummyProducts = [
    {"id":1,"name":"pospstar"},
@@ -116,30 +143,30 @@ useEffect(()=>{
 
 
 
-export async function getServerSideProps(){
-  const  ls = require('local-storage');
-  // const response = await fetch(`${API_URL}/catagories`);
-  const responseprod = await fetch(`${API_URL}/products?func=getAllProducts`);
-  // const promores = await fetch(`${API_URL}/promo`);
-  // const pros = await promores.json();
-  // ls.set("promo",pros);
-  // console.log("promo",pros)
-  // const catagories = await response.json();
-  //  ls.set("catagories",catagories);
-  console.log("ssssssssssssssssssssssssssssssssss",responseprod)
+// export async function getServerSideProps(){
+//   const  ls = require('local-storage');
+//   // const response = await fetch(`${API_URL}/catagories`);
+//   const responseprod = await fetch(`${API_URL}/products?func=getAllProducts`);
+//   // const promores = await fetch(`${API_URL}/promo`);
+//   // const pros = await promores.json();
+//   // ls.set("promo",pros);
+//   // console.log("promo",pros)
+//   // const catagories = await response.json();
+//   //  ls.set("catagories",catagories);
+//   console.log("ssssssssssssssssssssssssssssssssss",responseprod)
 
-  const products = await responseprod.json();
-  console.log("ssssssssssssssssssssssssssssssssss",products)
-// console.log(catagories);
-// console.log(products);
- products.reverse();
-  return{
-    props:{
-      products
-    }
+//   const products = await responseprod.json();
+//   console.log("ssssssssssssssssssssssssssssssssss",products)
+// // console.log(catagories);
+// // console.log(products);
+//  products.reverse();
+//   return{
+//     props:{
+//       products
+//     }
     
-  }
+//   }
 
 
-}
+// }
 
