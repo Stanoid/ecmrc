@@ -3,6 +3,8 @@ import styles from '../styles/Home.module.css'
 import Nav from '../comps/nav'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import Loading from "../img/pulse.gif"
 import { useEffect } from 'react'
 import { API_URL,ROOT_URL } from '../utils/url'
 import Product from '../comps/product/product'
@@ -114,13 +116,19 @@ fetch(`${API_URL}/products?func=getAllProducts`, requestOptions)
 
 <div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-2  ' style={{width:'100%'}}>
 
-{products&&products.map(product=>(
+{ products!=null? products&&products.map(product=>(
  
 <div  key={product.id}>
  <Product key={product.id} cat={product.catagories&&product.catagories} ver={product.vendor&&product.vendor.confirmed} vendor={product.vendor&&product.vendor.username} id={product.id} hasGroup={product.group}  img={product.image[0].url} description={product.description} price={product.stock&&product.stock} name={product.name} />
 
 </div>
-))}
+)):
+
+<div style={{width:"100vw",height:"100vh",backgroundColor:"rgba(0,0,0,0.3)",position:"fixed",top:0,left:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
+<div class="lds-facebook"><div></div><div></div><div></div></div>
+</div>
+
+}
 </div>
 </div>
 </div>
