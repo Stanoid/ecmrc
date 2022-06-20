@@ -26,6 +26,40 @@ function ProductsList(props) {
     },[])
 
 
+    const confirmOrder=(oid)=>{
+      
+      
+  const requestOptions = {
+    method: 'PUT',
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + ls.get("atkn")
+    },
+    body: JSON.stringify({
+      "data":{
+      }
+   })
+    
+
+};
+
+
+
+fetch(`${API_URL}/orders/${oid}?func=confirmOrder&&order=${oid}`, requestOptions)
+    .then(response => response.json())
+    .then(data =>{
+      //console.log("done",data);
+      notify("success",`Sale has been confirmed.`)
+     
+     getData();
+       
+       
+    });
+
+       
+
+    }
+
     const downloadImage = (ob) => {
       //saveAs('', 'سشؤلعغلغ') // Put your image url here.
 
@@ -247,7 +281,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                   المشتري
+                  التاجر
                   </th>
 
                   <th
@@ -290,9 +324,8 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     </td>
 
                     <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900"> 
-                    {product.status!=1? product.buyers_name : "-"}
-                    </div>
+                    <div className="text-sm text-gray-900">    {product.user.username} </div>
+                    <div className="text-sm text-gray-900">    {product.user.phone} </div>
                     </td>
 
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -301,7 +334,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                   
                   
                         {product.status==1? <td  className=" whitespace-nowrap  text-sm font-medium">
-                      <div onClick={()=>{props.pagdler(5,product.product.id,product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:MAIN_STYLE.primary,borderRadius:5}} className="text-indigo-600 py-2 px-4 text-center hover:text-indigo-900 shadow-xl">
+                      <div onClick={()=>{confirmOrder(product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:MAIN_STYLE.primary,borderRadius:5}} className="text-indigo-600 py-2 px-4 text-center hover:text-indigo-900 shadow-xl">
                       <BsCheck style={{fontWeight:'bold',marginRight:5}}/>
                         تأكيد
                       </div>
@@ -360,12 +393,12 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                   </th> */}
 
 
-                  {/* <th
+                  <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                   المشتري
-                  </th> */}
+                   التاجر
+                  </th>
 
                   <th
                     scope="col"
@@ -417,6 +450,12 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     </div>
                     </td> */}
 
+<td className="px-6 py-2 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">    {product.user.username} </div>
+                    <div className="text-sm text-gray-900">    {product.user.phone} </div>
+
+                    </td>
+
                     <td className="px-6 py-2 whitespace-nowrap">
                     <div className="text-sm text-gray-900">    {statushand(product.status)}</div>
                     </td>
@@ -428,7 +467,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
              <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
             
 
-                      <div onClick={()=>{props.pagdler(5,product.product.id,product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:MAIN_STYLE.primary,borderRadius:5}} className="text-indigo-600 py-2 px-3 text-center hover:text-indigo-900 shadow-xl">
+                      <div onClick={()=>{confirmOrder(product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:MAIN_STYLE.primary,borderRadius:5}} className="text-indigo-600 py-2 px-3 text-center hover:text-indigo-900 shadow-xl">
                       <BsCheck style={{fontWeight:'bold',marginRight:5}}/>
                         تأكيد
                       </div>
