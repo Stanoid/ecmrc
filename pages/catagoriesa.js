@@ -1,12 +1,13 @@
 import React from 'react'
-import DefaultLayout from '../../layouts/Default'
+
 import { useState,useEffect } from 'react'
 import axios from 'axios';
-import LoadingButton from '../../comps/buttons/loadingButton';
+import DefaultLayout from '../layouts/DefaultA';
+import LoadingButton from '../comps/buttons/loadingButton';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
-import { MAIN_STYLE } from '../../utils/style';
+import { MAIN_STYLE } from '../utils/style';
 import { MdChevronLeft } from 'react-icons/md';
-import { API_URL } from '../../utils/url';
+import { API_URL } from '../utils/url';
  function UploadForm(props) {
     const [name, setname] = useState("");
     // const [cat, setcat] = useState(cats&&cats.length!==0?cats[0].id:null);
@@ -108,40 +109,40 @@ console.log(ls.get("atkn"))
 
 const newob = ob;
 console.log("imageob",newob);
-let stock_id_array=[];
+// let stock_id_array=[];
 
 let doo = new Promise(function(suc) {
     // "Producing Code" (May take some time)
   
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": 'Bearer ' + ls.get("atkn")
-            },
-            body: JSON.stringify({
-               "data":{
-                   "comm":top,
-                   "stock":tstock,
-                   "price": tprice
-               }
-            })
-        };
-        fetch(`${API_URL}/stocks`, requestOptions)
-            .then(response => response.json())
-            .then(data =>{
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Authorization": 'Bearer ' + ls.get("atkn")
+        //     },
+        //     body: JSON.stringify({
+        //        "data":{
+        //            "comm":top,
+        //            "stock":tstock,
+        //            "price": tprice
+        //        }
+        //     })
+        // };
+        // fetch(`${API_URL}/stocks`, requestOptions)
+        //     .then(response => response.json())
+        //     .then(data =>{
                 
-              console.log(data.data.id);
+        //       console.log(data.data.id);
              
-                newob.data.stock=data.data.id;
-                console.log("stock object",newob);
-                suc(newob);
+        //         newob.data.stock=data.data.id;
+        //         console.log("stock object",newob);
+        //         suc(newob);
                
                
                
-            });
+        //     });
            
-       
+        suc(newob)
        
       
 
@@ -150,7 +151,7 @@ let doo = new Promise(function(suc) {
     });
     doo.then( 
           function(ob){
-            const tess = ob.data.stocks;
+          
            
             const requestOptions = {
                 method: 'POST',
@@ -160,12 +161,12 @@ let doo = new Promise(function(suc) {
                 },
                 body: JSON.stringify(ob)
             };
-            fetch(`${API_URL}/products?func=addProduct`, requestOptions)
+            fetch(`${API_URL}/catagories?func=addcat`, requestOptions)
                 .then(response => response.json())
                 .then(data =>{
-                    notify("success",`Product ${data.name} has been added.`)
+                    notify("success",`catagory ${data.name} has been added.`)
                     setlod(false)
-                    props.pagdler(1)
+                   // props.pagdler(1)
                    console.log("finalconsole",data)
                    
                    
@@ -200,10 +201,7 @@ let doo = new Promise(function(suc) {
         const upob = {
             "data":{
                 name:name,
-                description:desc,
-                stock:stock,
-                colors:colors,
-                catagories:cat,
+               
                
             }
         }
@@ -299,15 +297,10 @@ const notify = (type,msg)=>{
     
     return (
       <div>
+        <DefaultLayout>
              <ToastContainer  limit={3}/>
            <div style={{minHeight:"100vh"}}>
-              <div style={{display:"inline-block"}}>
-
-              <div onClick={()=>{props.pagdler(1)}} style={{display:'flex',justifyContent:'flex-start',alignItems:'center',cursor:'pointer'}}>
-                <MdChevronLeft style={{color:'white', backgroundColor:MAIN_STYLE.primary,fontSize:25,marginRight:5,borderRadius:100,padding:0}}/> 
-                <span >Back</span>
-              </div>
-              </div>
+            
                <div style={{padding:20,display:"flex",justifyContent:'center',alignItems:'center',flexDirection:"column"}} > 
                {/* <input value={name} placeholder='name' type={"text"} onChange={(event)=>{setname(event.target.value)}} />
                <input value={desc} placeholder='description' type={"text"} onChange={(event)=>{setdesc(event.target.value)}} />
@@ -318,9 +311,9 @@ const notify = (type,msg)=>{
   <div className="md:grid md:grid-cols-3 md:gap-6">
     <div className="md:col-span-1">
       <div className="px-4 sm:px-0">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">Product informations</h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-900"> Add catagoty </h3>
         <p className="mt-1 text-sm text-gray-600">
-         Make it as informative as you can to convert sales 
+       
         </p>
       </div>
     </div>
@@ -331,7 +324,7 @@ const notify = (type,msg)=>{
             <div className="grid grid-cols-3 gap-6">
               <div className="col-span-3 sm:col-span-2">
                 <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                  Product name
+                  Catagory name
                 </label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                 
@@ -340,33 +333,9 @@ const notify = (type,msg)=>{
               </div>
             </div>
 
-            <div>
-              <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                Description
-              </label>
-              <div className="mt-1">
-                <textarea value={desc} onChange={(event)=>{setdesc(event.target.value)}} id="about" name="about" rows="3" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
-              </div>
-              <p className="mt-2 text-sm text-gray-500">
-                Brief description of the product.
-              </p>
-            </div>
+         
 
-            <div className="col-span-6 sm:col-span-3">
-                <label htmlFor="country" className="block text-sm font-medium text-gray-700">Catagory</label>
-                <select value={cat} onChange={(event)=>{setcat(event.target.value)}} id="country" name="country" autoComplete="country-name" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-               
-                 {
-                      
-                    sercats&&sercats.map((cat)=>{
-                     return <option key={cat.id} value={cat.id} >{cat.attributes.Name}</option>
-                     })
-                 }
-                </select>
-
-                <p style={{color:MAIN_STYLE.primary,textAlign:'right',textDecoration:'underline'}}>Add new catagory</p>
-            
-              </div>
+           
 
            
 
@@ -410,6 +379,8 @@ const notify = (type,msg)=>{
                         <div style={{display:image?"none":"block",color:"grey",fontWeight:"bold"}}>No images</div>
                     </div>
             </div>
+
+
           </div>
           <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
             <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -422,63 +393,6 @@ const notify = (type,msg)=>{
   </div>
 </div>
 
-<div className="hidden sm:block" aria-hidden="true">
-  <div className="py-5">
-    <div className="border-t border-gray-200"></div>
-  </div>
-</div>
-
-<div className="mt-10 sm:mt-0">
-  <div className="md:grid md:grid-cols-3 md:gap-6">
-    <div className="md:col-span-1">
-      <div className="px-4 sm:px-0">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">Stock and pricing</h3>
-      
-      </div>
-    </div>
-    <div className="mt-5 md:mt-0 md:col-span-2">
-      <form action="#" method="POST">
-        <div className="shadow overflow-hidden sm:rounded-md">
-          <div className="px-4 py-5 bg-white sm:p-6">
-            <div className="grid grid-cols-6 gap-6">
-              
-
-            <div className="col-span-6 md:col-span-3 xl:col-span-3 lg:col-span-3">
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700">Commission per unit</label>
-                <input value={top}  onChange={(event)=>{settop(event.target.value)}} type="number" name="city" id="city" autoComplete="address-level2" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
-              </div>
-
-              <div className="col-span-6 md:col-span-3 xl:col-span-3 lg:col-span-3">
-                <label htmlFor="region" className="block text-sm font-medium text-gray-700">Stock</label>
-                <input value={tstock}  onChange={(event)=>{settstock(event.target.value)}} type="number" name="region" id="region" autoComplete="address-level1" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
-              </div>
-
-              <div className="col-span-6 md:col-span-6 xl:col-span-6 lg:col-span-6">
-                <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">Price</label>
-                <input value={tprice}  onChange={(event)=>{settprice(event.target.value)}} type="number" name="postal-code" id="postal-code" autoComplete="postal-code" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
-              </div>
-              <div className='col-span-12'>
-              <div style={{float:'right'}} className="col-span-4 sm:col-span-3 lg:col-span-2">
-               </div>
-              
-              </div>
-          <div>
-              
-          </div>
-            </div>
-          </div>
-
-
-          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              Save
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 
 
@@ -589,6 +503,7 @@ const notify = (type,msg)=>{
                </div>
                </div>
            </div>
+           </DefaultLayout>
        </div>
     )
 }

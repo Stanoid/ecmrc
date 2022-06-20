@@ -44,7 +44,7 @@ function EditForm(props) {
     setname(found.data.attributes.name);
     setdesc(found.data.attributes.description);
     // setCleanUp(found.data.attributes.stocks.data);
-    settop(found.data.attributes.stock.data.attributes.price);
+    settop(found.data.attributes.stock.data.attributes.comm);
     settstock(found.data.attributes.stock.data.attributes.stock);
     settprice(found.data.attributes.stock.data.attributes.price);
 
@@ -709,7 +709,7 @@ function EditForm(props) {
   </div>
 </div> */}
           </div>
-          <div style={{ display: "flex", marginTop: 20 }}>
+          <div style={{ display: "flex", marginTop: 20,marginBottom:60 }}>
             <LoadingButton
               act={uploadImage}
               text={"Update"}

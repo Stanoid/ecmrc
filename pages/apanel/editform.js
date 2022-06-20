@@ -5,18 +5,19 @@ import axios from 'axios';
 import LoadingButton from '../../comps/buttons/loadingButton';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 import { MAIN_STYLE } from '../../utils/style';
-import { MdChevronLeft } from 'react-icons/md';
+import { MdChevronLeft,MdDeleteForever } from 'react-icons/md';
 import { API_URL } from '../../utils/url';
- function UploadForm(props) {
+ function EditForm(props) {
     const [name, setname] = useState("");
     // const [cat, setcat] = useState(cats&&cats.length!==0?cats[0].id:null);
     const [sercats, setsercats] = useState();
     const [desc, setdesc] = useState("");
-    const [cat, setcat] = useState("");
     const [stock, setstock] = useState([]);
     const [colors, setcolors] = useState([]);
     const ls = require("local-storage")   
     const [image, setImage ] = useState([]);
+    const [cleanUp, setCleanUp ] = useState(null);
+    
     const [ url, setUrl ] = useState("");
     const [top, settop] = useState("")
     const [tstock, settstock] = useState("")
@@ -25,26 +26,44 @@ import { API_URL } from '../../utils/url';
     const [colorname, setcolorname] = useState("")
     const [colovalue, setcolovalue] = useState("")
 
+
     useEffect(() => {
-      getCats();
+     getProductData();
     }, [])
 
 
+    async function getProductData(){
+        const product_res = await fetch(`${API_URL}/products/${props.Pid}?populate=*`);
+        const found = await product_res.json();
+      
+      
+        console.log(found)
+        setname(found.data.attributes.name)
+        setdesc(found.data.attributes.description);
+        setCleanUp(found.data.attributes.stocks.data);
+        let old = [];
+        let colors =[]
+        for (let i = 0; i < found.data.attributes.stocks.data.length; i++) {
+        //  console.log(found.data.attributes.stocks.data[i].attributes.option_name)
+        const ob = {"ob":found.data.attributes.stocks.data[i].attributes.option_name,"stock":found.data.attributes.stocks.data[i].attributes.stock,"price":found.data.attributes.stocks.data[i].attributes.stock_price};
+      old.push(ob);
+        }
+
+        setstock(old);
+        console.log("alstock",old)
+      
+        setcolors(found.data.attributes.colors);
+        
+      
 
 
-    async function getCats (){
-
-      const product_res = await fetch(`${API_URL}/catagories`);
-    const found = await product_res.json();
-    console.log(found);
-    setsercats(found.data);
-
+       // console.log(found)
     }
+
+
     const addstock =()=>{
         const old = stock;
   const ob = {"ob":top,"stock":tstock,"price":tprice};
-  
-  
   
 
  const joind = old.concat(ob);
@@ -53,6 +72,51 @@ import { API_URL } from '../../utils/url';
 
  
     }
+
+    
+    const deletStock =(index)=>{
+   
+    const sstock = stock;
+    // console.log("indev stock",sstock.slice([0,1]))
+
+    const newar = [];
+    for (let i = 0; i < sstock.length; i++) {
+       console.log("aaaa",i)
+       if(i==index){
+
+       }else{
+           newar.push(sstock[i])
+       }
+        
+    }
+
+    console.log(newar);
+    setstock(newar);
+
+
+  }
+
+  const deletColor =(index)=>{
+   
+    const ccolor = colors;
+    // console.log("indev stock",sstock.slice([0,1]))
+
+    const newar = [];
+    for (let i = 0; i < ccolor.length; i++) {
+       console.log("aaaa",i)
+       if(i==index){
+
+       }else{
+           newar.push(ccolor[i])
+       }
+        
+    }
+
+    console.log(newar);
+    setcolors(newar);
+
+
+  }
 
 
     const addcolor =()=>{
@@ -112,7 +176,8 @@ let stock_id_array=[];
 
 let doo = new Promise(function(suc) {
     // "Producing Code" (May take some time)
-  
+    for (let i = 0; i < ob.data.stocks.length; i++) {
+        console.log(newob.data.stocks[i].ob)
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -121,27 +186,26 @@ let doo = new Promise(function(suc) {
             },
             body: JSON.stringify({
                "data":{
-                   "comm":top,
-                   "stock":tstock,
-                   "price": tprice
+                   "option_name":newob.data.stocks[i].ob,
+                   "stock":newob.data.stocks[i].stock,
+                   "stock_price": newob.data.stocks[i].price
                }
             })
         };
         fetch(`${API_URL}/stocks`, requestOptions)
             .then(response => response.json())
             .then(data =>{
-                
-              console.log(data.data.id);
-             
-                newob.data.stock=data.data.id;
-                console.log("stock object",newob);
+                stock_id_array.push(data.data.id)
+               console.log(data.data.id)
+               if(i==ob.data.stocks.length-1){
+                newob.data.stocks=stock_id_array;
                 suc(newob);
-               
+               }
                
                
             });
            
-       
+       }
        
       
 
@@ -151,29 +215,29 @@ let doo = new Promise(function(suc) {
     doo.then( 
           function(ob){
             const tess = ob.data.stocks;
-           
+            console.log("time 2", tess)
+            console.log("submitted object",ob);
             const requestOptions = {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": 'Bearer ' + ls.get("atkn")
                 },
                 body: JSON.stringify(ob)
             };
-            fetch(`${API_URL}/products?func=addProduct`, requestOptions)
+            fetch(`${API_URL}/products/${props.Pid}`, requestOptions)
                 .then(response => response.json())
                 .then(data =>{
-                    notify("success",`Product ${data.name} has been added.`)
-                    setlod(false)
-                    props.pagdler(1)
+
+                 
                    console.log("finalconsole",data)
+                   cleanFunc(data.data.attributes.name);
                    
                    
                 }).catch(error =>{ 
                   notify("error",`Somthing went wrong.`)
                   console.log(error)
-                  props.pagdler(1)
-                  setlod(false)
+                  setlod(flase)
                 });
 
         }
@@ -188,11 +252,59 @@ let doo = new Promise(function(suc) {
 
 
 
-    const finalupload = (ob)=>{
-       
-
-
+    const cleanFunc = (name)=>{
+    for (let i = 0; i < cleanUp.length; i++) {
+      const requestOptions = {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": 'Bearer ' + ls.get("atkn")
+        },  
+    };
+    fetch(`${API_URL}/stocks/${cleanUp[i].id}`, requestOptions)
+        .then(response => response.json())
+        .then(data =>{
+        
+         
+           if(i==cleanUp.length-1){
+          console.log("clean")
+          notify("success",`Product ${name} has been Edited.`)
+          setlod(false);
+          props.pagdler(1)
+           ////done
+           }
+           
+           
+        });  
     }
+    }
+
+
+    const deleteProduct = ()=>{
+     
+        const requestOptions = {
+          method: 'DELETE',
+          headers: {
+              "Content-Type": "application/json",
+              "Authorization": 'Bearer ' + ls.get("atkn")
+          },  
+      };
+      fetch(`${API_URL}/products/${props.Pid}`, requestOptions)
+          .then(response => response.json())
+          .then(data =>{
+          
+           
+         
+            notify("success",`Product  has been Deleted.`)
+           
+            props.pagdler(1)
+             ////done
+            
+             
+             
+          });  
+      }
+      
 
     const uploadImage = () => {
     
@@ -201,9 +313,10 @@ let doo = new Promise(function(suc) {
             "data":{
                 name:name,
                 description:desc,
-                stock:stock,
+                stocks:stock,
                 colors:colors,
-                catagories:cat,
+                vendor:props.userData.id,
+                catagories:1,
                
             }
         }
@@ -215,39 +328,39 @@ let doo = new Promise(function(suc) {
 let doo = new Promise(function(suc) {
     // "Producing Code" (May take some time)
     
-    for (let i = 0; i < image.length; i++) {
+    // for (let i = 0; i < image.length; i++) {
        
-        console.log("began")
-        const data = new FormData()
-        data.append("file", image[i])
-        data.append("upload_preset", "products")
-        data.append("cloud_name","strapimedia")
-        fetch("  https://api.cloudinary.com/v1_1/strapimedia/image/upload",{
-        method:"post",
-        body: data
-        })
-        .then(resp => resp.json())
-        .then(data => {
+    //     console.log("began")
+    //     const data = new FormData()
+    //     data.append("file", image[i])
+    //     data.append("upload_preset", "products")
+    //     data.append("cloud_name","strapimedia")
+    //     fetch("  https://api.cloudinary.com/v1_1/strapimedia/image/upload",{
+    //     method:"post",
+    //     body: data
+    //     })
+    //     .then(resp => resp.json())
+    //     .then(data => {
           
-            if(i==image.length-1){
+    //         if(i==image.length-1){
               
-                 imar.push({"url":data.url})
-                upob.data.image = imar;
-                console.log("very very novel",upob)
-                upload(upob)
-            }else{
-                imar.push({"url":data.url})
-                console.log("very novel",upob)
-            }
-      //  upob.data.image = data.url;
-      //  upload(upob)
-        })
-        .catch(err => console.log(err))
+    //              imar.push({"url":data.url})
+    //             upob.data.image = imar;
+    //             console.log("very very novel",upob)
+    //             upload(upob)
+    //         }else{
+    //             imar.push({"url":data.url})
+    //             console.log("very novel",upob)
+    //         }
+    // //    upob.data.image = data.url;
+    // //    upload(upob)
+    //     })
+    //     .catch(err => console.log(err))
         
-    }
+    // }
        
-    // upob.data.image = '[{"url": "http://res.cloudinary.com/strapimedia/image/upload/v1644231459/awezxxuppkemoic0jctp.png"}]';
-    // upload(upob)
+    upob.data.image = '[{"url": "http://res.cloudinary.com/strapimedia/image/upload/v1644231459/awezxxuppkemoic0jctp.png"}]';
+    upload(upob)
      
     });
     doo.then( 
@@ -264,11 +377,6 @@ let doo = new Promise(function(suc) {
     }
 
     
-    const DummL=(load)=>{
-
-    }
-
-
 const notify = (type,msg)=>{
 
     const options={
@@ -301,11 +409,16 @@ const notify = (type,msg)=>{
       <div>
              <ToastContainer  limit={3}/>
            <div style={{minHeight:"100vh"}}>
-              <div style={{display:"inline-block"}}>
+              <div style={{display:"flex",justifyContent:'space-between',alignItems:'center'}}>
 
               <div onClick={()=>{props.pagdler(1)}} style={{display:'flex',justifyContent:'flex-start',alignItems:'center',cursor:'pointer'}}>
                 <MdChevronLeft style={{color:'white', backgroundColor:MAIN_STYLE.primary,fontSize:25,marginRight:5,borderRadius:100,padding:0}}/> 
                 <span >Back</span>
+              </div>
+
+              <div onClick={()=>{deleteProduct()}} style={{display:'flex',backgroundColor:'red',padding:5,borderRadius:5,justifyContent:'flex-start',alignItems:'center',cursor:'pointer'}}>
+                <MdDeleteForever style={{color:'white',fontSize:25,marginRight:5,borderRadius:100,padding:0}}/> 
+                <span style={{color:"white"}}>Delete product</span>
               </div>
               </div>
                <div style={{padding:20,display:"flex",justifyContent:'center',alignItems:'center',flexDirection:"column"}} > 
@@ -354,15 +467,15 @@ const notify = (type,msg)=>{
 
             <div className="col-span-6 sm:col-span-3">
                 <label htmlFor="country" className="block text-sm font-medium text-gray-700">Catagory</label>
-                <select value={cat} onChange={(event)=>{setcat(event.target.value)}} id="country" name="country" autoComplete="country-name" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                {/* <select value={cat} onChange={(event)=>{setcat(event.target.value)}} id="country" name="country" autoComplete="country-name" className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                
                  {
                       
-                    sercats&&sercats.map((cat)=>{
+                    cats&&cats.map((cat)=>{
                      return <option key={cat.id} value={cat.id} >{cat.attributes.Name}</option>
                      })
                  }
-                </select>
+                </select> */}
 
                 <p style={{color:MAIN_STYLE.primary,textAlign:'right',textDecoration:'underline'}}>Add new catagory</p>
             
@@ -443,32 +556,174 @@ const notify = (type,msg)=>{
             <div className="grid grid-cols-6 gap-6">
               
 
-            <div className="col-span-6 md:col-span-3 xl:col-span-3 lg:col-span-3">
-                <label htmlFor="city" className="block text-sm font-medium text-gray-700">Commission per unit</label>
-                <input value={top}  onChange={(event)=>{settop(event.target.value)}} type="number" name="city" id="city" autoComplete="address-level2" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
+            <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                <label htmlFor="city" className="block text-sm font-medium text-gray-700">Option name</label>
+                <input value={top}  onChange={(event)=>{settop(event.target.value)}} type="text" name="city" id="city" autoComplete="address-level2" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
               </div>
 
-              <div className="col-span-6 md:col-span-3 xl:col-span-3 lg:col-span-3">
+              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
                 <label htmlFor="region" className="block text-sm font-medium text-gray-700">Stock</label>
                 <input value={tstock}  onChange={(event)=>{settstock(event.target.value)}} type="number" name="region" id="region" autoComplete="address-level1" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
               </div>
 
-              <div className="col-span-6 md:col-span-6 xl:col-span-6 lg:col-span-6">
+              <div className="col-span-4 sm:col-span-3 lg:col-span-2">
                 <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">Price</label>
                 <input value={tprice}  onChange={(event)=>{settprice(event.target.value)}} type="number" name="postal-code" id="postal-code" autoComplete="postal-code" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
               </div>
               <div className='col-span-12'>
               <div style={{float:'right'}} className="col-span-4 sm:col-span-3 lg:col-span-2">
+                
+                
+
+                <span   onClick={()=>{addstock()}} style={{backgroundColor:MAIN_STYLE.primary,color:"white",padding:"10px 15px",borderRadius:5,cursor:'pointer'}}>Add option</span>
                </div>
               
               </div>
+              
+
+
+        
+              <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                <label htmlFor="city" className="block text-sm font-medium text-gray">Option name</label>
+              
+              </div>
+
+              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label htmlFor="region" className="block text-sm font-medium text-gray">Stock</label>
+               
+              </div>
+
+              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label htmlFor="postal-code" className="block text-sm font-medium text-gray">Price</label>
+              
+              </div>
+               {stock.map((stock,index)=>{
+                   return (
+                     <>
+                     <div className='col-span-12' style={{borderBottom:'1px solid grey'}}></div>
+                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                   
+                <label htmlFor="city" className="block text-sm font-medium text-black">{stock.ob}</label>
+              
+              </div>
+
+              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label htmlFor="region" className="block text-sm font-medium text-black">{stock.stock}</label>
+               
+              </div>
+
+              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label htmlFor="postal-code" className="block text-sm font-medium text-black">{stock.price}</label>
+                </div>
+
+                <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label htmlFor="postal-code" style={{color:'red'}} className="block text-sm font-medium text-black">
+                 <div onClick={()=>{deletStock(index)}}>Remove</div> 
+                  </label>
+                </div>
+                     </>  
+                     
+                   )
+               })}
+              
+          
+
           <div>
               
           </div>
+             
+
+            
+
+            
+
+             
+
+             
             </div>
           </div>
 
+          <div className="px-4 py-5 bg-white sm:p-6">
+            <div className="grid grid-cols-6 gap-6">
+              
 
+            <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                <label htmlFor="city" className="block text-sm font-medium text-gray-700">Color name</label>
+                <input value={colorname}  onChange={(event)=>{setcolorname(event.target.value)}} type="text" name="city" id="city" autoComplete="address-level2" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
+              </div>
+
+              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label htmlFor="region" className="block text-sm font-medium text-gray-700">Color</label>
+                <input value={colovalue}  onChange={(event)=>{setcolovalue(event.target.value)}} type="color" name="region" id="region" style={{width:100,height:50}} autoComplete="address-level1" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
+              </div>
+
+            
+              <div className='col-span-12'>
+              <div style={{float:'right'}} className="col-span-4 sm:col-span-3 lg:col-span-2">
+                
+                <span  onClick={()=>{addcolor()}} style={{backgroundColor:MAIN_STYLE.primary,color:"white",padding:"10px 15px",borderRadius:5,cursor:'pointer'}}>Add color</span>
+               </div>
+              
+              </div>
+              
+
+
+        
+              <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                <label htmlFor="city" className="block text-sm font-medium text-gray">Color name</label>
+              
+              </div>
+
+              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <label htmlFor="region" className="block text-sm font-medium text-gray">Color</label>
+               
+              </div>
+
+            
+               {colors.map((color,index)=>{
+                   return (
+                     <>
+                     <div className='col-span-12' style={{borderBottom:'1px solid grey'}}></div>
+                     <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                <label htmlFor="city" className="block text-sm font-medium text-black">{color.color_name}</label>
+              
+              </div>
+
+              <div className="col-span-6 sm:col-span-3 lg:col-span-2">
+                <div style={{width:30,height:30,borderRadius:100,backgroundColor:color.color_value}}></div>
+              </div>
+
+              <div className="col-span-6 sm:col-span-6 lg:col-span-2">
+                <label htmlFor="city" style={{color:'red'}} className="block text-sm font-medium text-black">
+                 <div onClick={()=>{deletColor(index)}}>Remove</div> 
+                  </label>
+              
+              </div>
+
+              
+
+             
+                     </>  
+                     
+                   )
+               })}
+              
+          
+
+          <div>
+              
+          </div>
+             
+
+            
+
+            
+
+             
+
+             
+            </div>
+          </div>
           <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
             <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Save
@@ -576,14 +831,16 @@ const notify = (type,msg)=>{
 
 
 </div>
-               <div style={{display:"flex",marginTop:20,marginBottom:60}}> 
+               <div style={{display:"flex",marginTop:20}}> 
 
                <LoadingButton
       act={uploadImage}
-      text={"Upload"}
+      text={"Update"}
       lod= {lod}
-      msg={"Uploading ..."}
+      msg={"Updating ..."}
       />
+
+      
                {/* <span   onClick={uploadImage} style={{backgroundColor:MAIN_STYLE.primary,color:"white",padding:"10px 15px",borderRadius:5,cursor:'pointer',margin:"auto"}}>Upload</span>
                */}
                </div>
@@ -594,7 +851,7 @@ const notify = (type,msg)=>{
 }
 
 
-export default UploadForm;
+export default EditForm;
 
 
 

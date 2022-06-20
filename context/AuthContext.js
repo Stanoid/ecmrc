@@ -71,6 +71,14 @@ export const AuthProvider = (props)=>{
   
                              break;
 
+                             case 4:
+                              notify("success",`شنو يا مكنة`)
+                              router.replace("/apanel");
+                              setLoading(0);
+                            
+    
+                               break;
+
                            default:
                             notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
                             router.replace("/");
@@ -202,6 +210,12 @@ export const AuthProvider = (props)=>{
                            router.replace("/dpanel")
  
                             break;
+
+                            case 4:
+                         
+                              router.replace("/apanel")
+    
+                               break;
 
                           default:
                       

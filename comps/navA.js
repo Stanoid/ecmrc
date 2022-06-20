@@ -45,28 +45,12 @@ setOpen(open)
     <Menu openHandler={handleOpen}  open={open} />
     <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
       {user?(
-        // <div style={{display:'flex',flexDirection:'row',color:MAIN_STYLE.grey}}>
-        // <div style={{marginRight:20}} >  
-            
-        //     <MdOutlineShoppingCart onClick={()=>{setOpenCart(true); childCompRef.current.showAlert();}} style={{fontSize:29,cursor:"pointer"}} />
-        //  </div>
-        //  <div >
-        //  <Link  href={stype===1?"/mpanel":"/panel"}>
-        //     {/* <a> {user.email}</a> */}
-             
-        //     {isaccount?<MdOutlineLogout onClick={logOutUser} style={{fontSize:30,color:MAIN_STYLE.grey,cursor:'pointer'}} /> :<MdOutlineAccountCircle style={{fontSize:30,cursor:'pointer'}} /> }
-        
-        //  </Link>
-        //  </div>
-        // </div>
        
-
-        
-       <div style={{display:stype==1?"flex":"none",alignContent:'center',justifyContent:"space-around"}}>
+       <div style={{display:stype==4?"flex":"none",alignContent:'center',justifyContent:"space-around"}}>
       
       
        <Link  href={"/"}>
-              <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"row",alignItems:'center',color:MAIN_STYLE.primary}}>
+              <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
               <MdSearch  onClick={()=>{}} style={{fontSize:29,cursor:"pointer"}} />
                 <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > تصفح </div>
               </div>
@@ -77,17 +61,14 @@ setOpen(open)
             <MdOutlineShoppingCart onClick={()=>{setOpenCart(true); childCompRef.current.showAlert();}} style={{fontSize:29,cursor:"pointer"}} />
               <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > السلة </div>
             </div> */}
-
-
-
             
 
-            <Link  href={"/catagories"}>
+            <Link  href={"/catagoriesa"}>
           
              
          
             
-             <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"row",alignItems:'center',color:MAIN_STYLE.primary}}>
+             <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
              <MdGridView style={{fontSize:30,cursor:'pointer'}} />
              <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > الفئات </div>
 
@@ -103,7 +84,7 @@ setOpen(open)
              
          
             
-             <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"row",alignItems:'center',color:MAIN_STYLE.primary}}>
+             <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
              <MdPlaylistAddCheck style={{fontSize:30,cursor:'pointer'}} />
              <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > الطلبات </div>
 
@@ -123,7 +104,7 @@ setOpen(open)
 
              </div> */}
 
-<div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"row",alignItems:'center',color:MAIN_STYLE.primary}}>
+<div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
              <MdOutlineAccountCircle style={{fontSize:30,cursor:'pointer'}} />
              <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > الحساب </div>
 
@@ -133,22 +114,12 @@ setOpen(open)
          </Link>
 
 
-         <div style={{display:"flex",marginLeft:20,paddingRight:5,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
-      <div style={{position:"relative",left:0,top:0,marginLeft:-30,marginBottom:-5,width:15,height:15,fontSize:10,backgroundColor:MAIN_STYLE.secondary,color:"white",borderRadius:200,display:"flex",justifyContent:"center",alignItems:"center"}}>
-      <div >{ls.get("cart")&& ls.get("cart").length}</div>
-        </div>  
-            <MdOutlineShoppingCart onClick={()=>{setOpenCart(true); childCompRef.current.showAlert();}} style={{fontSize:29,cursor:"pointer"}} />
-              {/* <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > السلة </div> */}
-            </div>
-
-
        
 
 
        
          </div>
-
-
+         
       ) : (
         <div >
         <Link href={"/login"}>
@@ -171,6 +142,7 @@ setOpen(open)
        
 
 </div>
+
      
         </div>
 
@@ -212,7 +184,8 @@ justifyContent:"center",alignItems:"center",zIndex:1
 
       
     </div>
-    <div style={{height:60}} ></div>
+    <div className='hidden xl:block md:hidden lg:block' style={{height:100}} ></div>
+    <div className='block xl:hidden md:block lg:hidden' style={{height:40}} ></div>
     
 
 
@@ -222,7 +195,7 @@ justifyContent:"center",alignItems:"center",zIndex:1
     <Menu openHandler={handleOpen}  open={open} />
     <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
      
-       <div style={{display:stype==1?"flex":"none",alignContent:'center',justifyContent:"space-around",width:"100%"}}>
+       <div style={{display:stype==4?"flex":"none",alignContent:'center',justifyContent:"space-around",width:"100%"}}>
       
       
        <Link  href={"/"}>
@@ -239,7 +212,7 @@ justifyContent:"center",alignItems:"center",zIndex:1
             </div> */}
             
 
-            <Link  href={"/catagories"}>
+            <Link  href={"/catagoriesa"}>
           
              
          
