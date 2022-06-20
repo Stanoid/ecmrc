@@ -7,7 +7,7 @@ import { saveAs } from 'file-saver'
 import ProductPanel from './productpanel';
 import { useEffect,useState } from 'react';
 import ListLoading from '../../comps/loading/listloading';
-import {BsDiagram3,BsPencil,BsThreeDotsVertical,BsFillXCircleFill,BsCoin,BsDownload} from 'react-icons/bs'
+import {BsDiagram3,BsPencil,BsThreeDotsVertical,BsFillXCircleFill,BsCheck,BsDownload} from 'react-icons/bs'
 import Modal from '../../comps/modal';
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 function ProductsList(props) {
@@ -185,7 +185,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
             "Authorization": 'Bearer ' + ls.get("atkn")
         },
     };
-    fetch(`${API_URL}/orders?func=getMarkerterOrders`, requestOptions)
+    fetch(`${API_URL}/orders?func=getAdminOrders`, requestOptions)
         .then(response => response.json())
         .then(data =>{
           
@@ -302,16 +302,16 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                   
                         {product.status==1? <td  className=" whitespace-nowrap  text-sm font-medium">
                       <div onClick={()=>{props.pagdler(5,product.product.id,product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:MAIN_STYLE.primary,borderRadius:5}} className="text-indigo-600 py-2 px-4 text-center hover:text-indigo-900 shadow-xl">
-                      <BsCoin style={{fontWeight:'bold',marginRight:5}}/>
-                        بيع
+                      <BsCheck style={{fontWeight:'bold',marginRight:5}}/>
+                        تأكيد
                       </div>
 
                    
                     </td>: <td  className=" whitespace-nowrap  text-sm font-medium">
-                      <div  onClick={()=>{cancelSale(product.id)}} style={{ display:product.status==8?'none':"flex",fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:'red',padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
+                      {/* <div  onClick={()=>{cancelSale(product.id)}} style={{ display:product.status==8?'none':"flex",fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:'red',padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
                       <BsFillXCircleFill style={{fontWeight:'bold',marginRight:5}}/>
                         إلغاء
-                      </div>
+                      </div> */}
 
                    
                     </td>}
@@ -422,15 +422,15 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     </td>
                   
                   
-                    {product.status==1? <td  className=" whitespace-nowrap  text-sm font-medium">
+                    {product.status==2? <td  className=" whitespace-nowrap  text-sm font-medium">
                      <div style={{display:'flex', justifyContent:"center", alignItems:"center"}}>
                     
              <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
             
 
                       <div onClick={()=>{props.pagdler(5,product.product.id,product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:MAIN_STYLE.primary,borderRadius:5}} className="text-indigo-600 py-2 px-3 text-center hover:text-indigo-900 shadow-xl">
-                      <BsCoin style={{fontWeight:'bold',marginRight:5}}/>
-                        بيع
+                      <BsCheck style={{fontWeight:'bold',marginRight:5}}/>
+                        تأكيد
                       </div>
 
                      
@@ -452,10 +452,10 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     <div style={{display:'flex', justifyContent:"center", alignItems:"center"}}>
                     
                        
-                    <div onClick={()=>{cancelSale(product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:"red",borderRadius:5}} className="text-indigo-600 py-2 px-2 text-center hover:text-indigo-900 shadow-xl">
+                    {/* <div onClick={()=>{cancelSale(product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:"red",borderRadius:5}} className="text-indigo-600 py-2 px-2 text-center hover:text-indigo-900 shadow-xl">
                       <BsFillXCircleFill style={{fontWeight:'bold',marginRight:5}}/>
                       إلغاء
-                      </div>
+                      </div> */}
 
                       {/* <div  onClick={()=>{cancelSale(product.id)}} style={{ display:product.status==8?'none':"flex",fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:'red',padding:5,borderRadius:5}} className="text-indigo-600 text-center hover:text-indigo-900 shadow-xl">
                       <BsFillXCircleFill style={{fontWeight:'bold',marginRight:5}}/>
@@ -481,7 +481,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                 ))}
               </tbody>
             </table>
-            <ListLoading text={"جاري تحميل طلباتك"} lod={lod} width={100}/>
+            <ListLoading text={"جاري تحميل الطلبات"} lod={lod} width={100}/>
           </div>
 
 

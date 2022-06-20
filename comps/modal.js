@@ -255,7 +255,7 @@ export default function Modal(props) {
                  
  
                    </span></div>
-                <div style={{fontSize:17,fontWeight:"bold"}}>المجموع: <span style={{color:MAIN_STYLE.primary,fontWeight:"bold"}}>{`${(props.order&&props.order.sale_price * props.order.qty + 1000) + (props.order&&props.order.commission * props.order.qty)  } ${CURRENCY}`} </span></div>
+                <div style={{fontSize:17,fontWeight:"bold"}}>المجموع: <span style={{color:MAIN_STYLE.primary,fontWeight:"bold"}}>{`${(props.order&&props.order.sale_price * props.order.qty + 1000)  } ${CURRENCY}`} </span></div>
                 </div>
               </div>
 
