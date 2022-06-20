@@ -3,8 +3,6 @@ import styles from '../styles/Home.module.css'
 import Nav from '../comps/nav'
 import Image from 'next/image'
 import Link from 'next/link'
-
-import Loading from "../img/pulse.gif"
 import { useEffect } from 'react'
 import { API_URL,ROOT_URL } from '../utils/url'
 import Product from '../comps/product/product'
@@ -14,18 +12,16 @@ import AuthContext from '../context/AuthContext';
 import { MAIN_STYLE } from '../utils/style'
 import Hero from '../comps/hero'
 import Slidev from '../comps/slidev'
-import { useContext,useState } from 'react'
+import { useContext } from 'react'
 import { useRouter } from 'next/router'
 
 
 import { CURRENCY } from '../utils/url'
 // import ProductList from '../comps/productlist/ProductList'
-export default function Home() {
+export default function Home({products}) {
  const router = useRouter();
- const [products, setProducts] = useState(null);
 const ls = require("local-storage");
 const{checkLogged} = useContext(AuthContext)
-
 // ls.set("promo",pros);
 
  const cheapest = (ob)=>{
@@ -42,34 +38,9 @@ const{checkLogged} = useContext(AuthContext)
  
 useEffect(()=>{
 
-  checkLogged(1);   
-  
-  
-  const requestOptions = {
-    method: 'GET',
-    headers: {
-        "Content-Type": "application/json",
-       
-    },
-};
-
-fetch(`${API_URL}/products?func=getAllProducts`, requestOptions)
-    .then(response => response.json())
-    .then(data =>{
-      
-   
- setProducts(data);  
-  console.log(data) 
-       
-    });
-
-
-  
+  checkLogged(1);    
  
  },[])
-
-
- 
 
  const dummyProducts = [
    {"id":1,"name":"pospstar"},
@@ -116,19 +87,13 @@ fetch(`${API_URL}/products?func=getAllProducts`, requestOptions)
 
 <div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-2  ' style={{width:'100%'}}>
 
-{ products!=null? products&&products.map(product=>(
+{products&&products.map(product=>(
  
 <div  key={product.id}>
  <Product key={product.id} cat={product.catagories&&product.catagories} ver={product.vendor&&product.vendor.confirmed} vendor={product.vendor&&product.vendor.username} id={product.id} hasGroup={product.group}  img={product.image[0].url} description={product.description} price={product.stock&&product.stock} name={product.name} />
 
 </div>
-)):
-
-<div style={{width:"100vw",height:"100vh",backgroundColor:"rgba(0,0,0,0.3)",position:"fixed",top:0,left:0,display:"flex",justifyContent:"center",alignItems:"center"}}>
-<div class="lds-facebook"><div></div><div></div><div></div></div>
-</div>
-
-}
+))}
 </div>
 </div>
 </div>
@@ -151,30 +116,30 @@ fetch(`${API_URL}/products?func=getAllProducts`, requestOptions)
 
 
 
-// export async function getServerSideProps(){
-//   const  ls = require('local-storage');
-//   // const response = await fetch(`${API_URL}/catagories`);
-//   const responseprod = await fetch(`${API_URL}/products?func=getAllProducts`);
-//   // const promores = await fetch(`${API_URL}/promo`);
-//   // const pros = await promores.json();
-//   // ls.set("promo",pros);
-//   // console.log("promo",pros)
-//   // const catagories = await response.json();
-//   //  ls.set("catagories",catagories);
-//   console.log("ssssssssssssssssssssssssssssssssss",responseprod)
+export async function getServerSideProps(){
+  const  ls = require('local-storage');
+  // const response = await fetch(`${API_URL}/catagories`);
+  const responseprod = await fetch(`${API_URL}/products?func=getAllProducts`);
+  // const promores = await fetch(`${API_URL}/promo`);
+  // const pros = await promores.json();
+  // ls.set("promo",pros);
+  // console.log("promo",pros)
+  // const catagories = await response.json();
+  //  ls.set("catagories",catagories);
+  console.log("ssssssssssssssssssssssssssssssssss",responseprod)
 
-//   const products = await responseprod.json();
-//   console.log("ssssssssssssssssssssssssssssssssss",products)
-// // console.log(catagories);
-// // console.log(products);
-//  products.reverse();
-//   return{
-//     props:{
-//       products
-//     }
+  const products = await responseprod.json();
+  console.log("ssssssssssssssssssssssssssssssssss",products)
+// console.log(catagories);
+// console.log(products);
+ products.reverse();
+  return{
+    props:{
+      products
+    }
     
-//   }
+  }
 
 
-// }
+}
 
