@@ -2,10 +2,12 @@ import React from 'react';
 import { MAIN_STYLE } from '../utils/style';
 import { CURRENCY,API_URL } from '../utils/url';
 import { MdAdd } from 'react-icons/md';
+import Link from "next/link";
 import DefaultLayout from '../layouts/Default';
 import Image from 'next/image';
 import { useEffect,useState } from 'react';
 import {BsDiagram3,BsPencil} from 'react-icons/bs'
+
 
 
 function Help(props) {
@@ -62,11 +64,22 @@ function Help(props) {
 <div style={{fontSize:25,fontWeight:'bold',color:MAIN_STYLE.primary,display:'flex', flexDirection:'column',justifyContent:"center",alignItems:'center'}}>
 <Image  src={'/support.svg'} width={200} height={200} />
 <h1> مرحبآ بك في مركز المساعدة</h1>
+
+
+<Link href={"https://app.tango.us/app/workflow/--------------------45a43636d4ee4ddb8d5bff9efe4e1e7a"}>
+ <div className=' shadow-md px-2 py-1' style={{marginTop:100,fontSize:20,backgroundColor:MAIN_STYLE.primary,color:"white",borderRadius:5}}>
+كيف تتم عملية البيع؟
+ </div>
+  </Link>
+
+
 </div>
 
 
 
- 
+
+
+
   </div> </DefaultLayout>;
 }
 
