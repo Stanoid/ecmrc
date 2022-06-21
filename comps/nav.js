@@ -112,7 +112,7 @@ setOpen(open)
            
          </Link>
 
-         <Link  href={"/account"}>
+         <Link  href={"/help"}>
             {/* <a> {user.email}</a> */}
              
          
@@ -124,8 +124,8 @@ setOpen(open)
              </div> */}
 
 <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"row",alignItems:'center',color:MAIN_STYLE.primary}}>
-             <MdOutlineAccountCircle style={{fontSize:30,cursor:'pointer'}} />
-             <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > الحساب </div>
+             <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
+             <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > المساعدة </div>
 
              </div>
               
@@ -274,7 +274,7 @@ justifyContent:"center",alignItems:"center",zIndex:1
 
 
 
-         <Link  href={"/account"}>
+         <Link  href={"/help"}>
             {/* <a> {user.email}</a> */}
              
          
@@ -289,8 +289,8 @@ justifyContent:"center",alignItems:"center",zIndex:1
              
 
 <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
-             <MdOutlineAccountCircle style={{fontSize:30,cursor:'pointer'}} />
-             <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > الحساب </div>
+             <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
+             <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > المساعدة </div>
 
              </div>
               
