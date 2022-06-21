@@ -48,7 +48,7 @@ setCimg(nx);
      <div style={{width:15,height:15,borderRadius:100,backgroundColor:MAIN_STYLE.primary,margin:2}}></div>
      <div style={{width:15,height:15,borderRadius:100,backgroundColor:MAIN_STYLE.primary,margin:2}}></div>
       </div>
-    <img
+    <imag
       quality={"50"}
        width={"100%"}
         height={"100%"} 

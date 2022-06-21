@@ -286,7 +286,7 @@ msg={"جاري التحقق ..."}
 */}
 </div>
 
-<div style={{height:50}}></div>
+<div style={{height:200}}></div>
          
         </div>
       </form>

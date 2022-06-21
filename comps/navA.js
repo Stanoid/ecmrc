@@ -77,7 +77,7 @@ setOpen(open)
            
          </Link>
 
-       
+         
        
          <Link  href={stype===1?"/mpanel":"/panel"}>
             {/* <a> {user.email}</a> */}
