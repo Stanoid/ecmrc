@@ -122,7 +122,7 @@ const notify = (type,msg)=>{
         fetch(`${API_URL}/auth/local`, requestOptions)
             .then(response => response.json())
             .then(data =>{
-                console.log(data);
+               // console.log(data);
                 
                 if(data.jwt){
                     ls.set("atkn",data.jwt);

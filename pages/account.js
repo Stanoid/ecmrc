@@ -12,7 +12,7 @@ export default function Account() {
 
      checkLogged(2);
         getData();
-    console.log("rrrr",userData);
+    //console.log("rrrr",userData);
            
         
         },[])

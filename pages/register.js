@@ -176,6 +176,12 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
 
   }
 
+
+  const handleemail =(email)=>{
+    const newemail= email.replace(/ /g,'');
+    setemail(newemail);
+  }
+
   const handlestate=(value)=>{
     console.log("Aaa",value);
     setstate(value)
@@ -233,7 +239,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
         </div>
         <div>
           <label  htmlFor="email" className="block mb-1 text-gray-600 font-semibold">البريد الإلكتروني</label>
-          <input value={email} onChange={(event)=>{setemail(event.target.value)}} type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
+          <input value={email} onChange={(event)=>{handleemail(event.target.value)}} type="text" className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full" />
         </div>
         <div>
           <label  htmlFor="email" className="block mb-1 text-gray-600 font-semibold"> رقم الهاتف</label>

@@ -45,22 +45,8 @@ setOpen(open)
     <Menu openHandler={handleOpen}  open={open} />
     <Cart ref={childCompRef}   openHandler={handleOpenCart} open={openCart} />
       {user?(
-        // <div style={{display:'flex',flexDirection:'row',color:MAIN_STYLE.grey}}>
-        // <div style={{marginRight:20}} >  
-            
-        //     <MdOutlineShoppingCart onClick={()=>{setOpenCart(true); childCompRef.current.showAlert();}} style={{fontSize:29,cursor:"pointer"}} />
-        //  </div>
-        //  <div >
-        //  <Link  href={stype===1?"/mpanel":"/panel"}>
-        //     {/* <a> {user.email}</a> */}
-             
-        //     {isaccount?<MdOutlineLogout onClick={logOutUser} style={{fontSize:30,color:MAIN_STYLE.grey,cursor:'pointer'}} /> :<MdOutlineAccountCircle style={{fontSize:30,cursor:'pointer'}} /> }
-        
-        //  </Link>
-        //  </div>
-        // </div>
-       
 
+       
         
        <div style={{display:stype==1?"flex":"none",alignContent:'center',justifyContent:"space-around"}}>
       
@@ -151,11 +137,11 @@ setOpen(open)
 
       ) : (
         <div >
-        <Link href={"/login"}>
+        {/* <Link href={"/login"}>
         {isaccount?<MdOutlineLogout  onClick={logOutUser} style={{fontSize:30,color:'black',cursor:"pointer"}} /> : <MdOutlineAccountCircle  style={{fontSize:30,cursor:'pointer'}} /> }
         
         
-    </Link>
+    </Link> */}
     </div>
       )}
 

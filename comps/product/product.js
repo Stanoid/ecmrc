@@ -26,15 +26,15 @@ export default function Product(props) {
   let imm = props.img;
   let ino = imm.split("/", 6).join("/").length
   let res = "";
- console.log(props.cat)
+ //console.log(props.cat)
 let head = imm.slice(0,ino+1);
 let foot = imm.slice(ino+1,imm.length);
-console.log("head",head);
-console.log("foot",foot);
+//console.log("head",head);
+//console.log("foot",foot);
 let nx = head.concat("w_1000,ar_1:1,c_fill/")
 nx = nx.concat(foot);
-console.log("nx",nx)
-console.log("result",head.concat(foot))
+//console.log("nx",nx)
+//console.log("result",head.concat(foot))
 setCimg(nx);
    }, [])
     return (

@@ -66,11 +66,7 @@ useEffect(()=>{
 
  
   <DefaultLayout>
- {/* <div className='bg lg:overflow-hidden xl:overflow-hidden overflow-scroll' style={{margin:0,marginTop:0,whiteSpace:'nowrap',padding:'5px 5px 5px 5px'}}>
-{catagories.data&&catagories.data.map(catagory=>(
-  <Crumb key={catagory.id} id={catagory.id} name={catagory.attributes.Name} />
-))}
- </div> */}
+
 
 
 
@@ -126,10 +122,10 @@ export async function getServerSideProps(){
   // console.log("promo",pros)
   // const catagories = await response.json();
   //  ls.set("catagories",catagories);
-  console.log("ssssssssssssssssssssssssssssssssss",responseprod)
+ // console.log("ssssssssssssssssssssssssssssssssss",responseprod)
 
   const products = await responseprod.json();
-  console.log("ssssssssssssssssssssssssssssssssss",products)
+  //console.log("ssssssssssssssssssssssssssssssssss",products)
 // console.log(catagories);
 // console.log(products);
  products.reverse();

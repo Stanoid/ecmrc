@@ -17,7 +17,7 @@ export default function Hero(props) {
            <Slider slides={['/ltd2.jpg','/per.jpg','/wat.jpg']} />
            </div>
            <div style={{height:"40vh",position:"relative"}} className='lg:col-span-2 xl:col-span-2 md:col-span-3 col-span-6'>
-           <Image  className="rounded-lg" src={'/blk2.jpg'}layout="fill" objectFit="cover" />
+           <Image priority={true}  className="rounded-lg" src={'/blk2.jpg'}layout="fill" objectFit="cover" />
            </div>
 
            {/* <div style={{width:'100%',position:"relative",height:"40vh"}} className='lg:col-span-4 xl:col-span-4 md:col-span-3 col-span-6'>
