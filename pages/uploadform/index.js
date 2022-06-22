@@ -12,7 +12,7 @@ import { API_URL } from '../../utils/url';
     // const [cat, setcat] = useState(cats&&cats.length!==0?cats[0].id:null);
     const [sercats, setsercats] = useState();
     const [desc, setdesc] = useState("");
-    const [cat, setcat] = useState("");
+    const [cat, setcat] = useState(1);
     const [stock, setstock] = useState([]);
     const [colors, setcolors] = useState([]);
     const ls = require("local-storage")   
