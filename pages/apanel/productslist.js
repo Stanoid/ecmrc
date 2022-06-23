@@ -224,7 +224,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
         .then(data =>{
           
        setLod(0)
-     setProducts(data);  
+     setProducts(data.reverse());  
       console.log(data) 
            
         });
@@ -333,7 +333,7 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     </td>
                   
                   
-                        {product.status==1? <td  className=" whitespace-nowrap  text-sm font-medium">
+                        {product.status==2? <td  className=" whitespace-nowrap  text-sm font-medium">
                       <div onClick={()=>{confirmOrder(product.id)}} style={{display:'flex',fontWeight:'bold',justifyContent:'center',alignItems:'center',cursor:"pointer",color:"white",backgroundColor:MAIN_STYLE.primary,borderRadius:5}} className="text-indigo-600 py-2 px-4 text-center hover:text-indigo-900 shadow-xl">
                       <BsCheck style={{fontWeight:'bold',marginRight:5}}/>
                         تأكيد
