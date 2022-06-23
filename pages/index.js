@@ -38,7 +38,8 @@ const{checkLogged} = useContext(AuthContext)
  
 useEffect(()=>{
 
-  checkLogged(1);    
+  checkLogged(1);   
+   
  
  },[])
 

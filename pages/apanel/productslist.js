@@ -8,9 +8,22 @@ import ProductPanel from './productpanel';
 import { useEffect,useState } from 'react';
 import ListLoading from '../../comps/loading/listloading';
 import {BsDiagram3,BsPencil,BsThreeDotsVertical,BsFillXCircleFill,BsCheck,BsDownload} from 'react-icons/bs'
+
 import Modal from '../../comps/modal';
+// import TimeAgo from 'javascript-time-ago'
+
+// import en from 'javascript-time-ago/locale/en'
+
+
+
 import { Flip, Slide, toast,ToastContainer } from 'react-toastify'
 function ProductsList(props) {
+
+
+  // TimeAgo.addDefaultLocale(en)
+
+  // const timeAgo = new TimeAgo('en-US',{ polyfill: false })
+
     const [products, setProducts] = useState(null);
     const [selpro, setSelpro] = useState(null);
     const [lod, setLod] = useState(0);
@@ -284,6 +297,14 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                   التاجر
                   </th>
 
+
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                   التاريخ
+                  </th>
+
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -326,6 +347,11 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">    {product.user.username} </div>
                     <div className="text-sm text-gray-900">    {product.user.phone} </div>
+                    </td>
+
+
+                    <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">    {statushand(product.createdAt)}</div>
                     </td>
 
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -400,6 +426,14 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                    التاجر
                   </th>
 
+
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                   التاريخ
+                  </th>
+
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -455,6 +489,17 @@ fetch(`${API_URL}/orders/${oid}?func=cancelSale&&order=${oid}`, requestOptions)
                     <div className="text-sm text-gray-900">    {product.user.phone} </div>
 
                     </td>
+
+                    
+<td className="px-6 py-2 whitespace-nowrap">
+                    <div className="text-sm text-gray-900">    {
+                      product.createdAt
+                    } </div>
+                   
+
+                    </td>
+
+                  
 
                     <td className="px-6 py-2 whitespace-nowrap">
                     <div className="text-sm text-gray-900">    {statushand(product.status)}</div>
