@@ -96,9 +96,9 @@ setCimg(nx);
       </div>
 
     
-      <div  style={{marginTop:10}} className='grid grid-cols-5  gap-x-2 gap-y-3' >
+      <div  style={{marginTop:10,wordWrap:""}} className='grid grid-cols-5  gap-x-2 gap-y-3' >
       
-      <div onClick={()=>{router.push(`/catagories/${props.cat[0].id}`)}} className='col-span-2' >
+      <div onClick={()=>{router.push(`/catagories/${props.cat[0].id}`)}} className='col-span-5' >
 <span style={{color:"white",backgroundColor:MAIN_STYLE.primary,padding:"1px 5px 1px 5px",
 borderRadius:"3px 5px 0px 5px",fontSize:13}}>{props.cat[0].Name}
 </span>

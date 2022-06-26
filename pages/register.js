@@ -6,12 +6,14 @@ import { API_URL,ROOT_URL } from '../utils/url';
 import { BsMegaphone,BsShop } from 'react-icons/bs';
 import { ArrowRightIcon,PlusIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
+import LoadingBtn from '../comps/loading/loadingbtn';
 import Link from 'next/link'
 import Image from 'next/image';
 import { MAIN_STYLE } from '../utils/style';
 export default function Register() {
 
   const [name, setname] = useState("");
+  const [lod, setLod] = useState(false);
   const [states, setstaes] = useState("");
   const [cities, setcities] = useState("");
 
@@ -95,14 +97,18 @@ setType(type);
 
   const regis =()=>{
 
+    setLod(true)
+
     if(pass==""||name==""||email==""||phone==""||address==""||city==""||state==""){
       notify("error","جميع الحقول مطلوبة ");
+      setLod(false)
       return;
 
     }
 
     if(pass!==cpass){
       notify("error","كلمة السر غير متطابقة ");
+      setLod(false)
       return;
 
     }
@@ -153,11 +159,13 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
     .then(response => response.json())
     .then(data =>{
       if(data.jwt){
+      
         notify("success",`مرحبآ بك معنا   ${data.user.username}`);
     ls.set("atkn",data.jwt)
     router.replace("/")
 
       }else{
+        
         console.log(data.error.message)
 
         if(data.error.message=="Email is already taken"){
@@ -167,7 +175,7 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
         }
       
       }
-      
+      setLod(false)
        console.log(data);
        
     });
@@ -329,17 +337,21 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
       
       
       </div>
-      <button style={{backgroundColor:MAIN_STYLE.primary}} onClick={()=>{regis();}} className="mt-4 w-full  font-semibold  text-white py-2 rounded-md text-lg tracking-wide">
+      {/* <button style={{backgroundColor:MAIN_STYLE.primary}} onClick={()=>{regis();}} className="mt-4 w-full  font-semibold  text-white py-2 rounded-md text-lg tracking-wide">
         <div style={{display:'flex',justifyContent:"center",alignItems:"center"}}>
        
         إنشاء حساب
        
         </div>
        
-        </button>
+        </button> */}
+
+<LoadingBtn act={()=>{regis()} } text={"إنشاء حساب"} lod={lod} />
+
     
  
     </div>
+    <div style={{height:200}}></div>
 </div>
             
         </div>
