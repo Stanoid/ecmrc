@@ -88,7 +88,7 @@ fetch(`${API_URL}/states`, requestOptions)
     .then(response => response.json())
     .then(data =>{
      
-    console.log(data);
+   // console.log(data);
     setstaes(data.data);
        
     });
@@ -113,7 +113,7 @@ fetch(`${API_URL}/catagories`, requestOptions)
     .then(response => response.json())
     .then(data =>{
      
-    console.log(data);
+    //console.log(data);
   setCats(data.data);
        
     });
@@ -173,7 +173,7 @@ setType(type);
     
   }
 
-  console.log(newarc);
+  //console.log(newarc);
   
 
   const requestOptions = {
@@ -201,7 +201,7 @@ setType(type);
     )
 };
 
-console.log(requestOptions);
+//console.log(requestOptions);
 
 fetch(`${API_URL}/auth/local/register`, requestOptions)
     .then(response => response.json())
@@ -214,7 +214,7 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
 
       }else{
         
-        console.log(data.error.message)
+      //  console.log(data.error.message)
 
         if(data.error.message=="Email is already taken"){
           notify("error","بريد إلكتروني مستخدم, حاول تسجيل دخول");
@@ -224,7 +224,7 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
       
       }
       setLod(false)
-       console.log(data);
+      // console.log(data);
        
     });
 
@@ -235,7 +235,7 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
 
   const removecat=(id)=>{
     const old = selected;
-  console.log("ssss",selected)
+//console.log("ssss",selected)
     const newar = [];
         for (let i = 0; i < old.length; i++) {
         //   console.log("aaaa",i)
@@ -246,6 +246,25 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
            }
             
         }
+
+
+        
+     let newcats = cats
+
+     for (let i = 0; i < newcats.length; i++) {
+    if(newcats[i].id==id){
+      newcats[i].selected=false;
+     // console.log("aa")
+    }else{
+      // newcats.selected=false; 
+      // console.log("aaa")
+    }
+      
+
+   }
+
+   //console.log(newcats)
+   setCats(newcats);
     
         //console.log(newar);
         setSelected(newar)
@@ -254,6 +273,12 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
   }
 
   const addcat=(id,name)=>{
+
+    if(selected.length>=5){
+      return;
+    }
+
+
     let temp = selected
     let cont = false;
     
@@ -264,10 +289,27 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
       }
        
      }
+
+
+     let newcats = cats
+
+     for (let i = 0; i < newcats.length; i++) {
+    if(newcats[i].id==id){
+      newcats[i].selected=true;
+     // console.log("aa")
+    }else{
+      // newcats.selected=false; 
+      // console.log("aaa")
+    }
+      
+
+   }
+
+ 
  
 
     if(!cont){
-      console.log("first")
+      //console.log("first")
       temp.push({"id":id,"name":name});
       setSelected(temp)
       setType(0)
@@ -278,7 +320,7 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
     }
     
 
-    
+    //console.log(selected)
 
     // for (let i = 0; i < temp.length; i++) {
     //  // console.log(temp[i].id)
@@ -312,7 +354,7 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
   }
 
   const handlestate=(value)=>{
-    console.log("Aaa",value);
+   // console.log("Aaa",value);
     setstate(value)
   const requestOptions = {
     method: 'GET',
@@ -326,7 +368,7 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
     .then(response => response.json())
     .then(data =>{
      
-    console.log(data.data.attributes.cities.data);
+  //  console.log(data.data.attributes.cities.data);
    setcities(data.data.attributes.cities.data);
        
     });
@@ -466,15 +508,15 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
    </div>
 
 <div>
-<label className='block mb-1 text-gray-600 font-semibold' htmlFor="gender">  الاهتمامات</label>
-{selected&&selected.map((sel) => (
+<label className='block mb-1 text-gray-600 font-semibold' htmlFor="gender"> {`(5/${selected.length})`} الاهتمامات</label>
+{/* {selected&&selected.map((sel) => (
  <InterCell ex={1} addcat={addcat} removecat={removecat} id={sel.id} key={sel.id}  selected={selected} name={sel.name} />
-))}
-<div style={{width:"100%",borderRadius:5,border:"2px solid gray",minHeight:100}}>
+))} */}
+<div style={{width:"100%",borderRadius:5,border:"2px solid gray",minHeight:100,maxHeight:300,overflowY:"scroll",padding:5}}>
 
   
 {cats&&cats.map((cat) => (
- <InterCell addcat={addcat} id={cat.id}  key={cat.id} removecat={removecat} ex={0} selected={selected} name={cat.attributes.Name} />
+ <InterCell addcat={addcat} id={cat.id}  key={cat.id} removecat={removecat} ex={cat.selected} selected={selected} name={cat.attributes.Name} />
 ))}
   
 {/*   

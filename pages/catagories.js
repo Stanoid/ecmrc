@@ -95,6 +95,9 @@ console.log(catagories)
 ))}
 </div>
 </div>
+
+<div style={{height:100}}></div>
+
 </div>
 
 
