@@ -468,13 +468,13 @@ fetch(`${API_URL}/states/${value}?populate=cities`, requestOptions)
 <div>
 <label className='block mb-1 text-gray-600 font-semibold' htmlFor="gender">  الاهتمامات</label>
 {selected&&selected.map((sel) => (
- <InterCell ex={1} addcat={addcat} removecat={removecat} id={sel.id} selected={selected} name={sel.name} />
+ <InterCell ex={1} addcat={addcat} removecat={removecat} id={sel.id} key={sel.id}  selected={selected} name={sel.name} />
 ))}
 <div style={{width:"100%",borderRadius:5,border:"2px solid gray",minHeight:100}}>
 
   
 {cats&&cats.map((cat) => (
- <InterCell addcat={addcat} id={cat.id} removecat={removecat} ex={0} selected={selected} name={cat.attributes.Name} />
+ <InterCell addcat={addcat} id={cat.id}  key={cat.id} removecat={removecat} ex={0} selected={selected} name={cat.attributes.Name} />
 ))}
   
 {/*   
