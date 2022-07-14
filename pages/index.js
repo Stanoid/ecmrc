@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { useEffect } from 'react'
 import { API_URL,ROOT_URL } from '../utils/url'
-
+import ListLoading from '../comps/loading/listloading'
 import Product from '../comps/product/product'
 import DefaultLayout from '../layouts/Default'
 import AuthContext from '../context/AuthContext';
@@ -79,7 +79,7 @@ console.log("dataqqqq",data);
 <div style={{display:'flex',justifyContent:'center',alignItems:"center",flexDirection:'column',marginTop:10,width:'100%'}}>
 
 <div className='grid  lg:gap-x-4 lg:gap-y-6 xl:gap-x-4 xl:gap-y-6 md:gap-x-4 md:gap-y-4 gap-x-4 gap-y-4 p-4 xl:grid-cols-6 md:grid-cols-4 grid-cols-2  ' style={{width:'100%'}}>
-
+<ListLoading text={"جاري تحميل المنتجات"} lod={status=="success"?0:1} width={100}/>
 {data&&data.map(product=>(
 
 <div  key={product.id}>
