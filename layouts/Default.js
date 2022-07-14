@@ -1,6 +1,7 @@
 import Nav from '../comps/nav'
 import { useRouter } from 'next/router'
 import { useState } from 'react';
+
 import Promo from '../comps/promo';
 import Head from 'next/head';
 export default function DefaultLayout({ children }) {
@@ -12,7 +13,10 @@ export default function DefaultLayout({ children }) {
 
   return (
     <>
-      <Nav />
+  
+     <Nav />
+  
+    
       
     <Head>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>

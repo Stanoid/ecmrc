@@ -315,32 +315,10 @@ fetch(`${API_URL}/auth/local/register`, requestOptions)
       setType(0)
     setTimeout(() => {
       setType(1)
-    }, 1);
+    }, 0);
     
     }
     
-
-    //console.log(selected)
-
-    // for (let i = 0; i < temp.length; i++) {
-    //  // console.log(temp[i].id)
-    //  if(id==temp[i].id){
-    // console.log("shouldnt",i)
-    // return;
-    //  }else{
-    //    console.log("should",i)
-    //   temp.push({"id":id,"name":name});
-    //   setSelected(temp)
-    //   setType(0)
-    // setTimeout(() => {
-    //   setType(1)
-    // }, 1);
-    
-    //   // console.log(selected)
-    //  }
-      
-    // }
-
 
   
   
