@@ -469,7 +469,7 @@ return null
           <div className="mt-4 lg:mt-0 lg:row-span-3">
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl text-gray-900">{`${price} ${CURRENCY}`}</p>
-            <p className="text-2xl text-gray-900">{` commission: ${comm} ${CURRENCY}`}</p>
+            <p className="text-2xl text-gray-900">{` عمولة: ${comm} ${CURRENCY}`}</p>
 
           
           

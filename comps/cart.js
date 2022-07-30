@@ -7,15 +7,18 @@ import { MdRemoveShoppingCart } from 'react-icons/md'
 import { MAIN_STYLE } from '../utils/style'
 import { Flip, toast,ToastContainer } from 'react-toastify'
 import { CURRENCY } from '../utils/url'
+import LoadingBtn from '../comps/loading/loadingbtn';
 import Image from 'next/image';
 import { useRouter } from 'next/router'
 import { useRecoilState } from "recoil";
 import { API_URL } from '../utils/url';
 
 import { forwardRef, useRef,useImperativeHandle  } from "react"
+import handleViewport from 'react-in-viewport'
 const Cart = forwardRef((props, ref) => {
   const [open, setOpen] = useState(true)
   const [scrol,setScrol]=useState(0);
+  const [lod,setLod]=useState(0);
   const [total,setTotal]=useState(0);
   const router = useRouter();
   const [carts,setCarts] = useState([]);
@@ -79,7 +82,7 @@ handleTotal();
 }
    
 async function checkUser(){
-  
+  setLod(1)
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -153,6 +156,7 @@ fetch(`${API_URL}/orders?func=orderInit`, requestOptions)
       console.log("done",data);
       ls.set("cart",[]);
       notify("success",`تمت إضافة المنتجات  .`)
+      setLod(0)
       router.push("/mpanel")
       props.openHandler(false);
      
@@ -194,10 +198,23 @@ const notify = (type,msg)=>{
    
   }
   
+
+ const handleCart = ()=>{
+
+  if(carts.length==0){
+    notify("warn","سلة فارغة ")
+  }else{
+    checkUser();
+  }
+
+
+ }
+
+
   return (
     <Transition.Root updatcart={()=>{setCarts(ls.get("cart"))}} show={props.open} as={Fragment}>
       
-      <Dialog as="div" className="fixed inset-0 overflow-hidden z-20" onClose={()=>{props.openHandler(false)}}>
+      <Dialog as="div" className="fixed inset-0 overflow-hidden z-20" onClose={()=>{props.openHandler(true)}}>
         <div className="absolute inset-0 overflow-hidden">
           <Transition.Child
             as={Fragment}
@@ -230,7 +247,7 @@ const notify = (type,msg)=>{
                   <div className="px-4 sm:px-6 flex align-middle justify-between">
                     
                     <Dialog.Title className="text-lg font-medium text-gray-900  ">سلتي </Dialog.Title>
-                    <button className='hidden lg:block' onClick={()=>{props.openHandler(false)}} >   <XIcon className="h-8 w-8 p-1 border-2 rounded-full border-black  " aria-hidden="true" /></button>
+                    <button className=' lg:block' onClick={()=>{props.openHandler(false)}} >   <XIcon className="h-8 w-8 p-1 border-2 rounded-full border-black  " aria-hidden="true" /></button>
                   </div>
                   <div className="mt-6 relative flex-1 px-4 sm:px-6">
                     {/* Replace with your content */}
@@ -291,10 +308,13 @@ const notify = (type,msg)=>{
    
                     <div style={{padding:20,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
                         <div style={{fontSize:15,fontWeight:'bold'}}></div>
-                        <div>
+                       
                           
-                            <button onClick={carts.length==0?()=>{notify("warn","سلة فارغة ")}:()=>{checkUser()}} className='shadow-md font-semibold' style={{padding:"10px 15px 10px 15px",backgroundColor:MAIN_STYLE.primary,color:"white",borderRadius:5}}>متابعة</button>
-                        </div>
+                          
+                         
+                             <LoadingBtn act={()=>{handleCart()}}  text={"متابعة"} lod={lod} />
+
+                    
                         </div>                  
                     {/* /End replace */}
                   </div>
