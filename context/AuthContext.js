@@ -49,14 +49,14 @@ export const AuthProvider = (props)=>{
                      setStype(data.user.type)
                      switch(data.user.type){
                        case 1:
-                        notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                     //   notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
                         router.replace("/")
                         setLoading(0);
                       
                          break;
 
                          case 2:
-                          notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                       //   notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
                           router.replace("/panel");
                           setLoading(0);
                          
@@ -64,7 +64,7 @@ export const AuthProvider = (props)=>{
                            break;
 
                            case 3:
-                            notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                          //  notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
                             router.replace("/dpanel");
                             setLoading(0);
                           
@@ -72,7 +72,7 @@ export const AuthProvider = (props)=>{
                              break;
 
                              case 4:
-                              notify("success",`شنو يا مكنة`)
+                          //    notify("success",`شنو يا مكنة`)
                               router.replace("/apanel");
                               setLoading(0);
                             
@@ -80,7 +80,7 @@ export const AuthProvider = (props)=>{
                                break;
 
                            default:
-                            notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                          //  notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
                             router.replace("/");
                             setLoading(0);
                           
@@ -162,7 +162,7 @@ export const AuthProvider = (props)=>{
 
 
              const checkLogged = async(chk)=>{
-        
+           console.log("triggered",chk)
               // let myPromise = new Promise(function(resolve, reject) {
             
               // });
@@ -180,55 +180,64 @@ export const AuthProvider = (props)=>{
                 fetch(`${API_URL}/users/me?populate=*`, requestOptions)
                     .then(response => response.json())
                     .then(data =>{
-                   //  console.log("after call token",ls.get("atkn"))
-                    //  console.log("dataaftercall",data)
-                     
+                   // console.log("after call token",ls.get("atkn"))
+                      console.log("dataaftercall",data)
+
+
                       if(data.id){
-                    setUser(data.username);
-                    setuserData(data);
-                    setStype(data.type)
-                    switch(data.type){
-                      case 1:
-                        if(chk==1){
-                          
-                        }else if(chk==2){
-                          router.replace("/account");
-                        }else if(chk==3){
-                          router.replace("/mpanel");
-                        }
+                     
+                 
+                     setUser(data.username);
+                     setuserData(data);
+                     setStype(data.type)
+                     switch(data.type){
+                       case 1:
+                     //   notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                        router.replace("/")
+                        setLoading(0);
                       
-                        break;
+                         break;
 
-                        case 2:
-                   
-                         router.replace("/panel")
-
-                          break;
-
-                          case 3:
+                         case 2:
+                       //   notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                          router.replace("/panel");
+                          setLoading(0);
                          
-                           router.replace("/dpanel")
- 
-                            break;
 
-                            case 4:
-                         
-                              router.replace("/apanel")
+                           break;
+
+                           case 3:
+                          //  notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                            router.replace("/dpanel");
+                            setLoading(0);
+                          
+  
+                             break;
+
+                             case 4:
+                          //    notify("success",`شنو يا مكنة`)
+                              router.replace("/apanel");
+                              setLoading(0);
+                            
     
                                break;
 
-                          default:
-                      
-                          // router.replace("/login")
- 
-                            break;
-                    }
-                 
-                      }else{
-                        setUser(null);
-                        //router.replace("/login")
-                      }
+                           default:
+                          //  notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                            router.replace("/");
+                            setLoading(0);
+                          
+  
+                             break;
+                     }
                        
+                    }else{
+                        notify("error","بريد إلكتروني أو كلمة سر خاطئة ");
+                        setLoading(0);
+                    }
+
+                     
+                     
                        
                     });
                     

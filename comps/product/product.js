@@ -43,10 +43,8 @@ setCimg(nx);
         <div   style={{marginBom:20,display:'inline-block',textAlign:'left',width:props.half?"60%":"100%"}}>
 
       <div onClick={()=>{router.push(`/products/${props.id}`);setLoading(true);}} style={{width:"100%",height:"100%",borderRadius:5,display:'flex',alignItems:'center',justifyContent:"center"}}>
-      <div style={{position:"absolute",zIndex:10,display:loading?'flex':'none', justifyContent:'center',alignItems:'center' }}>
-     <div style={{width:15,height:15,borderRadius:100,backgroundColor:MAIN_STYLE.primary,margin:2}}></div>
-     <div style={{width:15,height:15,borderRadius:100,backgroundColor:MAIN_STYLE.primary,margin:2}}></div>
-     <div style={{width:15,height:15,borderRadius:100,backgroundColor:MAIN_STYLE.primary,margin:2}}></div>
+      <div style={{position:"absolute",zIndex:10,display:loading?'flex':'none' }}>
+      <div style={{justifyContent:"center",alignItems:"center"}} className="lds-facebook"><div></div><div></div><div></div></div>
       </div>
     <img
       quality={"50"}

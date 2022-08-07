@@ -1,7 +1,7 @@
 import React from 'react'
 import DefaultLayout from '../layouts/Default'
 import { API_URL } from '../utils/url';
-import {useState,useContext} from "react";
+import {useState,useContext,useEffect} from "react";
 import axios from "axios";
 import LoadingBtn from '../comps/loading/loadingbtn';
 import { useRouter } from 'next/router'
@@ -14,9 +14,17 @@ const [emial, setEmial] = useState("");
 
 const [pass, setpass] = useState("");
 const [lod, setlod] = useState(0);
-const{loginUser,loading} = useContext(AuthContext)
+const{loginUser,loading,checkLogged} = useContext(AuthContext)
 const router = useRouter();
+const ls = require("local-storage")
 
+
+useEffect(()=>{
+
+ checkLogged(ls.get("atkn"))
+ console.log("aaaa",ls.get("atkn"))
+
+},[])
 
 const handlelogin=()=>{
  setlod(1);
