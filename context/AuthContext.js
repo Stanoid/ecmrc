@@ -162,7 +162,7 @@ export const AuthProvider = (props)=>{
 
 
              const checkLogged = async(chk)=>{
-           console.log("triggered",chk)
+           
               // let myPromise = new Promise(function(resolve, reject) {
             
               // });
@@ -180,64 +180,55 @@ export const AuthProvider = (props)=>{
                 fetch(`${API_URL}/users/me?populate=*`, requestOptions)
                     .then(response => response.json())
                     .then(data =>{
-                   // console.log("after call token",ls.get("atkn"))
-                      console.log("dataaftercall",data)
-
-
-                      if(data.id){
+                   //  console.log("after call token",ls.get("atkn"))
+                    //  console.log("dataaftercall",data)
                      
-                 
-                     setUser(data.username);
-                     setuserData(data);
-                     setStype(data.type)
-                     switch(data.type){
-                       case 1:
-                     //   notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
-                        router.replace("/")
-                        setLoading(0);
-                      
-                         break;
-
-                         case 2:
-                       //   notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
-                          router.replace("/panel");
-                          setLoading(0);
-                         
-
-                           break;
-
-                           case 3:
-                          //  notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
-                            router.replace("/dpanel");
-                            setLoading(0);
+                      if(data.id){
+                    setUser(data.username);
+                    setuserData(data);
+                    setStype(data.type)
+                    switch(data.type){
+                      case 1:
+                        if(chk==1){
                           
-  
-                             break;
+                        }else if(chk==2){
+                          router.replace("/account");
+                        }else if(chk==3){
+                          router.replace("/mpanel");
+                        }
+                      
+                        break;
 
-                             case 4:
-                          //    notify("success",`شنو يا مكنة`)
-                              router.replace("/apanel");
-                              setLoading(0);
-                            
+                        case 2:
+                   
+                         router.replace("/panel")
+
+                          break;
+
+                          case 3:
+                         
+                           router.replace("/dpanel")
+ 
+                            break;
+
+                            case 4:
+                         
+                              router.replace("/apanel")
     
                                break;
 
-                           default:
-                          //  notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
-                            router.replace("/");
-                            setLoading(0);
-                          
-  
-                             break;
-                     }
-                       
-                    }else{
-                        notify("error","بريد إلكتروني أو كلمة سر خاطئة ");
-                        setLoading(0);
+                          default:
+                      
+                          // router.replace("/login")
+ 
+                            break;
                     }
-
-                     
-                     
+                 
+                      }else{
+                        setUser(null);
+                        //router.replace("/login")
+                      }
+                       
                        
                     });
                     
@@ -251,6 +242,98 @@ export const AuthProvider = (props)=>{
 
              }
 
+
+             const isLogged = async(chk)=>{
+              console.log("triggered",chk)
+                 // let myPromise = new Promise(function(resolve, reject) {
+               
+                 // });
+   
+                   if(ls.get("atkn")){
+                        
+                     const requestOptions = {
+                       method: 'GET',
+                       headers: {
+                           "Content-Type": "application/json",
+                           "Authorization": 'Bearer ' + ls.get("atkn")
+                       },
+                     
+                   };
+                   fetch(`${API_URL}/users/me?populate=*`, requestOptions)
+                       .then(response => response.json())
+                       .then(data =>{
+                      // console.log("after call token",ls.get("atkn"))
+                         console.log("dataaftercall",data)
+   
+   
+                         if(data.id){
+                        
+                    
+                        setUser(data.username);
+                        setuserData(data);
+                        setStype(data.type)
+                        switch(data.type){
+                          case 1:
+                        //   notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                           router.replace("/")
+                           setLoading(0);
+                         
+                            break;
+   
+                            case 2:
+                          //   notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                             router.replace("/panel");
+                             setLoading(0);
+                            
+   
+                              break;
+   
+                              case 3:
+                             //  notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                               router.replace("/dpanel");
+                               setLoading(0);
+                             
+     
+                                break;
+   
+                                case 4:
+                             //    notify("success",`شنو يا مكنة`)
+                                 router.replace("/apanel");
+                                 setLoading(0);
+                               
+       
+                                  break;
+   
+                              default:
+                             //  notify("success",`مرحبآ بك  ${data.user.username}, يتم تسجيل دخولك.`)
+                               router.replace("/");
+                               setLoading(0);
+                             
+     
+                                break;
+                        }
+                          
+                       }else{
+                           notify("error","بريد إلكتروني أو كلمة سر خاطئة ");
+                           setLoading(0);
+                       }
+   
+                        
+                        
+                          
+                       });
+                       
+                   }else{
+                      router.replace("/login")
+                   }
+                   
+   
+                   
+   
+   
+                }
+   
+
             useEffect(()=>{
                
                 //checkLogged();
@@ -258,7 +341,7 @@ export const AuthProvider = (props)=>{
 
 
 return(
-    <AuthContext.Provider value={{user,loginUser,logOutUser,notify,stype,checkLogged,loading,userData}}>
+    <AuthContext.Provider value={{user,loginUser,logOutUser,notify,isLogged,stype,checkLogged,loading,userData}}>
           <ToastContainer  limit={3}/>
         {props.children}
     </AuthContext.Provider>

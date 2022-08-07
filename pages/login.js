@@ -14,14 +14,14 @@ const [emial, setEmial] = useState("");
 
 const [pass, setpass] = useState("");
 const [lod, setlod] = useState(0);
-const{loginUser,loading,checkLogged} = useContext(AuthContext)
+const{loginUser,loading,checkLogged,isLogged} = useContext(AuthContext)
 const router = useRouter();
 const ls = require("local-storage")
 
 
 useEffect(()=>{
 
- checkLogged(ls.get("atkn"))
+ isLogged(ls.get("atkn"))
  console.log("aaaa",ls.get("atkn"))
 
 },[])

@@ -20,10 +20,10 @@ import {
 } from 'react-query'
 export default function Home() {
 const{checkLogged} = useContext(AuthContext)
-const ls = require("local-storage")
+
 useEffect(()=>{
 
-  checkLogged(ls.get("atkn"));   
+  checkLogged(1);   
    
  
  },[])
