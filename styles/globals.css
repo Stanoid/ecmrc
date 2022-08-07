@@ -17,6 +17,11 @@
   max-height: 100vh;
 }
 
+html{
+  overflow: scroll !important;
+
+}
+
 .number-slide1 {
   background: rgb(64, 175, 255);
   background: linear-gradient(

@@ -10,7 +10,7 @@ function ListLoading(props) {
         {/* <Loading/> */}
             {/* <Image src={Loading} height={props.width} /> */}
 
-            <div class="lds-facebook"><div></div><div></div><div></div></div>
+            <div className="lds-facebook"><div></div><div></div><div></div></div>
             <div style={{}}>
                 {props.text?props.text:"Loading ..."}
             </div>

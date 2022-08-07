@@ -212,12 +212,13 @@ const notify = (type,msg)=>{
 
 
   return (
-    <Transition.Root updatcart={()=>{setCarts(ls.get("cart"))}} show={props.open} as={Fragment}>
+    <Transition.Root  show={props.open} as={Fragment}>
       
-      <Dialog as="div" className="fixed inset-0 overflow-hidden z-20" onClose={()=>{props.openHandler(true)}}>
+      <Dialog as="div" className="fixed inset-0 overflow-hidden z-20" onClose={()=>{props.openHandler(false)}}>
         <div className="absolute inset-0 overflow-hidden">
           <Transition.Child
             as={Fragment}
+           
             enter="ease-in-out duration-200"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -230,6 +231,7 @@ const notify = (type,msg)=>{
           <div className="fixed bottom-0 right-0 lg:top-0 max-h-1/2 text-right   max-w-md flex ">
             <Transition.Child
               as={Fragment}
+              
               enter="transform transition ease-in-out duration-200 sm:duration-300"
               enterFrom="translate-y-full lg:-translate-y-full"
               enterTo="translate-y-0 lg:-translate-y-0 "
@@ -247,17 +249,17 @@ const notify = (type,msg)=>{
                   <div className="px-4 sm:px-6 flex align-middle justify-between">
                     
                     <Dialog.Title className="text-lg font-medium text-gray-900  ">سلتي </Dialog.Title>
-                    <button className=' lg:block' onClick={()=>{props.openHandler(false)}} >   <XIcon className="h-8 w-8 p-1 border-2 rounded-full border-black  " aria-hidden="true" /></button>
+                    <div className=' lg:block' onClick={()=>{props.openHandler(false)}} >   <XIcon className="h-8 w-8 p-1 border-2 rounded-full border-black  " aria-hidden="true" /></div>
                   </div>
                   <div className="mt-6 relative flex-1 px-4 sm:px-6">
-                    {/* Replace with your content */}
+              
                      
 
                      <div id="scrol"   style={{height:"50vh",overflowY:'scroll', overflowX:'hidden',padding:10}}>
                  
                {carts.length!=0?carts.map(cart=>(
                 
-                <Cartel removeItem={removeItem} id={cart.id} name={cart.name} price={cart.price} size={cart.opt} comm={cart.comm}  color={cart.color} img={cart.img} qty={cart.qty} />
+                <Cartel removeItem={()=>{removeItem()}} id={cart.id} name={cart.name} price={cart.price} size={cart.opt} comm={cart.comm}  color={cart.color} img={cart.img} qty={cart.qty} />
            
                )):
                <div style={{display:'flex',color:'grey',alignItems:'center',justifyContent:'center',height:'100%',flexDirection:'column'}}>
@@ -271,36 +273,7 @@ const notify = (type,msg)=>{
 
               
                
-                   {/* <div onClick={()=>{
-                
-                 if(ls.get("cart")){
-                // ls.set("cart",JSON.stringify(carts))
-                 }else{
-                 ls.set("cart",[])
-                 }
-
-                 setCarts(ls.get("cart"))
-                
-                 
-                  
-
-                    
-                  //   setCarts(carts.data.push(
-                  //     {id:1}
-                  //  ));
-                    
-
-                  }}>resetcart</div>
-                   <div onClick={()=>{console.log(carts)}}>consolecart</div>
-                   <div onClick={()=>{ls.set("cart",[]);setCarts(ls.get("carts"))}}>Clar Cart</div>
-                   <div onClick={()=>{console.log(JSON.parse(carts))}}>JSON cart</div> */}
-                     {/* <div onClick={()=>{ls.remove("cart"); ls.set("cart",[]); setCarts(ls.get("cart"))}}>Remove with set</div>
-                     <div onClick={()=>{ls.remove("cart");  setCarts(ls.get("cart"))}}>Remove to null</div>
-                     <div onClick={()=>{console.log(carts)}}>log cart</div>
-                        */}
-
-{/* <div onClick={()=>{console.log(carts.length)}}>lenght cart</div> */}
-                     
+                   
                      
                      <ToastContainer/>
                     
@@ -312,10 +285,10 @@ const notify = (type,msg)=>{
                           
                           
                          
-                             <LoadingBtn act={()=>{handleCart()}}  text={"متابعة"} lod={lod} />
+                        
 
                     
-                        </div>                  
+                         <LoadingBtn act={()=>{handleCart()}}  text={"متابعة"} lod={lod} /></div>                  
                     {/* /End replace */}
                   </div>
                 </div>
