@@ -214,11 +214,10 @@ const notify = (type,msg)=>{
   return (
     <Transition.Root  show={props.open} as={Fragment}>
       
-      <Dialog as="div" className="fixed inset-0 overflow-hidden z-20" onClose={()=>{props.openHandler(false)}}>
+      <Dialog as="div" className="fixed inset-0 overflow-hidden z-20" onClose={()=>{props.openHandler(true)}}>
         <div className="absolute inset-0 overflow-hidden">
           <Transition.Child
             as={Fragment}
-           
             enter="ease-in-out duration-200"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -231,7 +230,6 @@ const notify = (type,msg)=>{
           <div className="fixed bottom-0 right-0 lg:top-0 max-h-1/2 text-right   max-w-md flex ">
             <Transition.Child
               as={Fragment}
-              
               enter="transform transition ease-in-out duration-200 sm:duration-300"
               enterFrom="translate-y-full lg:-translate-y-full"
               enterTo="translate-y-0 lg:-translate-y-0 "

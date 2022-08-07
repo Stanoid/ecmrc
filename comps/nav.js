@@ -29,7 +29,9 @@ setOpen(open)
  
     }
 
-  
+    const updateCart=()=>{
+     
+    }
 
     const handleOpenCart =(open)=>{
       setOpenCart(open)
@@ -51,7 +53,7 @@ setOpen(open)
       
        <Link  href={"/"}>
               <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"row",alignItems:'center',color:MAIN_STYLE.primary}}>
-              <MdSearch  style={{fontSize:29,cursor:"pointer"}} />
+              <MdSearch  onClick={()=>{}} style={{fontSize:29,cursor:"pointer"}} />
                 <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > تصفح </div>
               </div>
               </Link>
@@ -184,8 +186,8 @@ justifyContent:"center",alignItems:"center",zIndex:1
       <div style={{position:"relative",left:0,top:0,marginLeft:-30,marginBottom:-5,width:15,height:15,fontSize:10,backgroundColor:MAIN_STYLE.secondary,color:"white",borderRadius:200,display:"flex",justifyContent:"center",alignItems:"center"}}>
       <div >{ls.get("cart")&& ls.get("cart").length}</div>
         </div>  
-            <MdOutlineShoppingCart onClick={()=>{handleOpenCart(true)}} style={{fontSize:29,cursor:"pointer"}} />
-              
+            <MdOutlineShoppingCart onClick={()=>{setOpenCart(true); childCompRef.current.showAlert();}} style={{fontSize:29,cursor:"pointer"}} />
+              {/* <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > السلة </div> */}
             </div>
 </div>
 
@@ -211,7 +213,7 @@ justifyContent:"center",alignItems:"center",zIndex:1
       
        <Link  href={"/"}>
               <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
-              <MdSearch   style={{fontSize:29,cursor:"pointer"}} />
+              <MdSearch  onClick={()=>{}} style={{fontSize:29,cursor:"pointer"}} />
                 <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > تصفح </div>
               </div>
               </Link>
