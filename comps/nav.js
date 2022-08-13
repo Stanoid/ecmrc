@@ -98,17 +98,10 @@ setOpen(open)
            
          </Link>
 
-         <Link  href={"/help"}>
-            {/* <a> {user.email}</a> */}
-             
          
-            
-             {/* <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
-             <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
-             <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > المساعدة </div>
 
-             </div> */}
-
+         <Link  href={"/help"}>
+      
 <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"row",alignItems:'center',color:MAIN_STYLE.primary}}>
              <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
              <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > المساعدة </div>
@@ -172,14 +165,22 @@ justifyContent:"center",alignItems:"center",zIndex:1
       <Image src={'/nnng.svg'} width={110} height={40} />
 </div>
 
-<div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
-{/* <Link  href={"/help"}>
- <div style={{display:"flex",paddingRight:5,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
-             <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
-             <div style={{fontWeight:"bold",fontSize:10,color:MAIN_STYLE.grey}} > المساعدة </div>
+<div style={{display:"flex",justifyContent:"center",alignItems:"center",justifyContent:"space-between"}}>
 
-      </div>
-      </Link> */}
+
+{/* <Link  href={"/help"}>
+          
+
+             
+
+          <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
+                       <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
+                       <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > المساعدة </div>
+          
+                       </div>
+                        
+                     
+                   </Link> */}
 
 
       <div style={{display:"flex",paddingRight:5,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
@@ -189,6 +190,9 @@ justifyContent:"center",alignItems:"center",zIndex:1
             <MdOutlineShoppingCart onClick={()=>{setOpenCart(true); childCompRef.current.showAlert();}} style={{fontSize:29,cursor:"pointer"}} />
               {/* <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > السلة </div> */}
             </div>
+
+
+          
 </div>
 
 
@@ -259,21 +263,21 @@ justifyContent:"center",alignItems:"center",zIndex:1
          </Link>
 
 
+         {/* <Link  href={"/account"}>
+        
+<div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
+             <MdOutlineAccountCircle style={{fontSize:30,cursor:'pointer'}} />
+             <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > الحساب </div>
+
+             </div>
+              
+           
+         </Link> */}
+
+
 
          <Link  href={"/help"}>
-            {/* <a> {user.email}</a> */}
-             
-         
-            
-             {/* <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
-             <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
-             <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > المساعدة </div>
-
-             </div> */}
-
-
-             
-
+       
 <div style={{display:"flex",padding:10,justifyContent:"center",flexDirection:"column",alignItems:'center',color:MAIN_STYLE.primary}}>
              <MdOutlineSupport style={{fontSize:30,cursor:'pointer'}} />
              <div style={{fontWeight:"bold",fontSize:13,color:MAIN_STYLE.grey}} > المساعدة </div>

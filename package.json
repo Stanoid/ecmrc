@@ -8,7 +8,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.2",
+    "@chakra-ui/react": "^2.2.6",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@headlessui/react": "^1.6.6",
     "@heroicons/react": "^1.0.5",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/forms": "^0.4.0",
@@ -18,6 +21,7 @@
     "embla-carousel-react": "^6.2.0",
     "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
+    "framer-motion": "^7.0.0",
     "javascript-time-ago": "^2.5.4",
     "keen-slider": "^6.6.12",
     "local-storage": "^2.0.0",
