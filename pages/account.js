@@ -131,8 +131,8 @@ export default function Account() {
               )}
             >
               <ul>
-                {posts.map((post) => (
-                    <div>
+                {posts.map((post,id) => (
+                    <div key={id} >
                     {post.comp}
                     </div>
                
