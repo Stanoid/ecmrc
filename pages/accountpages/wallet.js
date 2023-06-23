@@ -8,7 +8,7 @@ import {BsFillClockFill,BsFillCreditCardFill,BsInfoCircleFill} from 'react-icons
 import {GiStarsStack,GiRank1} from "react-icons/gi"
 function Wallet() {
     const [modalOpen,setModalOpen] = useState(false);
-
+const ls = require("local-storage");
     const closeModal=()=>{
         setModalOpen(false);
        
@@ -21,8 +21,35 @@ function Wallet() {
         const [bname,setBname] = useState("");
         const [lod,setlod] = useState(false);
 
+
+       
+
         const handleBank = ()=>{
-            alert("bank submit")
+          
+            const requestOptions = {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": 'Bearer ' + ls.get("atkn")
+                },
+                body: JSON.stringify({
+                  "data":{
+                  }
+               })
+                
+            
+            };
+
+fetch(`${API_URL}/orders/${oid}?func=confirmOrder&&order=${oid}`, requestOptions)
+.then(response => response.json())
+.then(data =>{
+  //console.log("done",data);
+  notify("success",`Sale has been confirmed.`)
+ getData();
+   
+});
+
+
         }
 
         return(
@@ -160,6 +187,7 @@ function Wallet() {
         <span style={{color:"grey"}}>992/2000</span>
         </div> */}
     </div>
+    
     </div>
 
     <div style={{border:"1px solid"+ MAIN_STYLE.primary,borderRadius:5,padding:15}}>

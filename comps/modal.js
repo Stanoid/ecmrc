@@ -77,7 +77,7 @@ export default function Modal(props) {
                    
           <div>
          
-            <div style={{textAlign:"left"}}  className='grid grid-cols-6 gap-2'>
+            {/* <div style={{textAlign:"left"}}  className='grid grid-cols-6 gap-2'>
             {props.order&&props.order.product.image.map((product) => (
             <div style={{display:"flex",justifyContent:"flex-end",alignItems:"flex-end"}} className='col-span-1'>
               <div   style={{position:'absolute',backgroundColor:MAIN_STYLE.primary,borderRadius:"5px 0px 0px 0px",cursor:"pointer",display:'flex',justifyContent:'center',alignItems:'center',padding:7,color:"white"}} 
@@ -95,7 +95,7 @@ export default function Modal(props) {
                 </div>
            ))}
 
-            </div>
+            </div> */}
         
            <div style={{textAlign:"left"}} className='grid grid-cols-6 gap-6 mt-3'>
            <div className='col-span-6 xl:col-span-3 md:col-span-3 lg:col-span-3 '>

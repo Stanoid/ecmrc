@@ -21,7 +21,7 @@ const ls = require("local-storage")
 
 useEffect(()=>{
 
- isLogged(ls.get("atkn"))
+ //isLogged(ls.get("atkn"))
  console.log("aaaa",ls.get("atkn"))
 
 },[])

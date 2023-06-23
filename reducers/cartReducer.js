@@ -1,4 +1,10 @@
 
+
+const newfunc=()={
+
+}
+
+
 const initState = {
     items: [
         {id:1,title:'Winter body', desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ex.", price:110},
